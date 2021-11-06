@@ -1,0 +1,5 @@
+.container {
+    composes: container from "../AppHeader/appHeader.module.css";
+    justify-content: space-between;
+    margin-top: 40px;
+}

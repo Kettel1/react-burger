@@ -1,0 +1,26 @@
+.button {
+    background-color: transparent;
+    display: flex;
+    color: white;
+    border: none;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-family: "Jet Brains Mono", Arial, sans-serif;
+    padding: 10px 10px;
+    border-radius: 40px;
+}
+
+.button__primary {
+    composes: button;
+    color: white;
+}
+
+.button__secondary {
+    composes: button;
+    color: #8585AD;
+}
+
+.container {
+
+}

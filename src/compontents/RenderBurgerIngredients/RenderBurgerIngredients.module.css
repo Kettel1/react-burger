@@ -1,0 +1,42 @@
+.ingredientsContainer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+}
+
+.ingredientsBlockInner {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.ingredientsBlock {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.priceValue {
+    font-family: 'Iceland', Arial, sans-serif;
+    font-size: 28px;
+    line-height: 24px;
+    color: #F2F2F3;
+    display: flex;
+    justify-content: center;
+    margin-right: 8px;
+}
+
+.priceBlock {
+    display: flex;
+    justify-content: center;
+}
+
+.name {
+    text-align: center;
+    margin-top: 8px;
+    margin-bottom: 0px;
+}
+
+.title {
+    font-size: 36px;
+    line-height: 40px;
+}

@@ -1,0 +1,20 @@
+.container {
+    margin-top: 50px
+}
+
+.item {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.item:not(:last-child) {
+    padding-bottom: 16px;
+}
+
+.item > svg {
+    position: absolute;
+    top: 30px;
+    left: -30px;
+}
