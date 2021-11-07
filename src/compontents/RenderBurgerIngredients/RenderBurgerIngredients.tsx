@@ -15,15 +15,16 @@ const RenderBurgerIngredients = ({ data, type }) => {
         titleName += 'Соусы'
     }
 
-    const renderArticleIngredients = (item: any) => {
+    // @ts-ignore
+    const RenderArticleIngredients = (props) => {
         return (
-            <article className={BurgerIngredientsStyles.ingredientsBlockInner} key={item.id}>
-                <img src={item.image} alt={item.name}/>
+            <article className={BurgerIngredientsStyles.ingredientsBlockInner}>
+                <img src={props.item.image} alt={props.item.name}/>
                 <div className={BurgerIngredientsStyles.priceBlock}>
-                    <span className={BurgerIngredientsStyles.priceValue}>{item.price}</span>
+                    <span className={BurgerIngredientsStyles.priceValue}>{props.item.price}</span>
                     <CurrencyIcon type="primary"/>
                 </div>
-                <p className={BurgerIngredientsStyles.name}>{item.name}</p>
+                <p className={BurgerIngredientsStyles.name}>{props.item.name}</p>
             </article>
         )
     }
@@ -36,14 +37,14 @@ const RenderBurgerIngredients = ({ data, type }) => {
             <div className={BurgerIngredientsStyles.ingredientsBlock}>
                 {data.map((item: any) => {
                     if (item.type === type) {
-                        return renderArticleIngredients(item)
+                        // @ts-ignore
+                        return <RenderArticleIngredients item={item} key={item._id}/>
                     }
                 })}
             </div>
         </div>
     )
 };
-
 
 
 export default RenderBurgerIngredients;

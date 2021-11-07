@@ -4,11 +4,14 @@ import {DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerConstructorStyles from "./BurgerConstructor.module.css"
 import TotalBasketCount from "../TotalBasketCount/TotalBasketCount";
 import PropTypes from "prop-types";
+import ingredientsTypes from '../../utils/types'
+
+
 
 // @ts-ignore
-const BurgerConstructor = ({ingredients}) => {
+const BurgerConstructor = ({ ingredients }) => {
 
-
+    console.log(ingredients)
     const img = 'https://code.s3.yandex.net/react/code/bun-02-mobile.png'
     // @ts-ignore
     return (
@@ -23,11 +26,11 @@ const BurgerConstructor = ({ingredients}) => {
                         thumbnail={img}
                     />
                 </li>
-                {ingredients.map((item: any) => {
+                {ingredients.map((item:any, idx:number) => {
                     // @ts-ignore
-                    return <li className={BurgerConstructorStyles.item}>
+                    return <li key={idx} className={BurgerConstructorStyles.item} >
                         <DragIcon type={"primary"}/>
-                        <ConstructorElement key={item.id} text={item.name} price={item.price} thumbnail={item.image_mobile}/>
+                        <ConstructorElement text={item.name} price={item.price} thumbnail={item.image_mobile} />
                     </li>
                 })}
                 <li className={BurgerConstructorStyles.item}>
@@ -45,18 +48,9 @@ const BurgerConstructor = ({ingredients}) => {
     )
 };
 
+
 BurgerConstructor.propTypes = {
-    id: PropTypes.string,
-    calories: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    fat: PropTypes.number,
-    image: PropTypes.string,
-    image_large: PropTypes.string,
-    image_mobile: PropTypes.string,
-    name: PropTypes.string,
-    price: PropTypes.number,
-    proteins: PropTypes.number,
-    type: PropTypes.string
+    ingredients: PropTypes.arrayOf(ingredientsTypes.isRequired).isRequired
 }
 
 export default BurgerConstructor;

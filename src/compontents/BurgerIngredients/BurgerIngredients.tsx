@@ -4,9 +4,10 @@ import React from 'react';
 import BurgerIngredientsStyles from './BurgerIngredients.module.css'
 import RenderBurgerIngredients from '../RenderBurgerIngredients/RenderBurgerIngredients';
 import PropTypes from "prop-types";
+import ingredientsTypes from '../../utils/types'
 
 // @ts-ignore
-const BurgerIngredients = (props) => {
+const BurgerIngredients = ({ingredients}) => {
 
 
     function ingredientsTabs() {
@@ -32,26 +33,18 @@ const BurgerIngredients = (props) => {
             <h1 className={BurgerIngredientsStyles.title}>Соберите бургер</h1>
             {ingredientsTabs()}
             <div className={BurgerIngredientsStyles.scrollBar}>
-                <RenderBurgerIngredients data={props.data} type={'bun'}/>
-                <RenderBurgerIngredients data={props.data} type={'sauce'}/>
-                <RenderBurgerIngredients data={props.data} type={'main'}/>
+                <RenderBurgerIngredients data={ingredients} type={'bun'}/>
+                <RenderBurgerIngredients data={ingredients} type={'sauce'}/>
+                <RenderBurgerIngredients data={ingredients} type={'main'}/>
             </div>
         </section>
     );
 };
 
-BurgerIngredients.propType = {
-    id: PropTypes.string,
-    calories: PropTypes.number,
-    carbohydrates: PropTypes.number,
-    fat: PropTypes.number,
-    image: PropTypes.string,
-    image_large: PropTypes.string,
-    image_mobile: PropTypes.string,
-    name: PropTypes.string,
-    price: PropTypes.number,
-    proteins: PropTypes.number,
-    type: PropTypes.string
+BurgerIngredients.propTypes = {
+    ingredients: PropTypes.arrayOf(ingredientsTypes.isRequired).isRequired
 }
+
+
 
 export default BurgerIngredients;
