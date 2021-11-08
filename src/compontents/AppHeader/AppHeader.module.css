@@ -1,0 +1,17 @@
+.header {
+    background-color: #1C1C21;
+    padding: 18px 0
+}
+
+.container {
+    max-width: 1240px;
+    padding: 0 40px;
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.text {
+    padding-left: 8px;
+}
+

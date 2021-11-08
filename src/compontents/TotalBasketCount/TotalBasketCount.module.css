@@ -1,0 +1,25 @@
+.container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 40px;
+}
+
+.priceBlock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 40px;
+}
+
+.priceBlock > svg {
+    width: 50px;
+    height: 50px;
+}
+
+.priceValue {
+    font-size: 48px;
+    line-height: 36px;
+    font-family: 'Iceland', Arial, sans-serif;
+
+
+}

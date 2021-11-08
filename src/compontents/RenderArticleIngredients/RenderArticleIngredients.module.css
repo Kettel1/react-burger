@@ -1,0 +1,20 @@
+.ingredientsBlockInner {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.priceValue {
+    font-family: 'Iceland', Arial, sans-serif;
+    font-size: 28px;
+    line-height: 24px;
+    color: #F2F2F3;
+    display: flex;
+    justify-content: center;
+    margin-right: 8px;
+}
+
+.priceBlock {
+    display: flex;
+    justify-content: center;
+}

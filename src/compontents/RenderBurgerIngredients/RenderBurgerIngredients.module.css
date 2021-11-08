@@ -1,0 +1,24 @@
+.ingredientsContainer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+}
+
+
+.ingredientsBlock {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.title {
+    font-size: 36px;
+    line-height: 40px;
+}
+
+.name {
+    text-align: center;
+    margin-top: 8px;
+    margin-bottom: 0px;
+}
+

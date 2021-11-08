@@ -1,0 +1,14 @@
+.container {
+    max-width: 620px;
+}
+
+.title {
+    font-size: 36px;
+    line-height: 40px;
+    margin-bottom: 40px;
+}
+
+.scrollBar {
+    height: 670px;
+    overflow: auto;
+}
