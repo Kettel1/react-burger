@@ -1,23 +1,22 @@
 import { BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons';
 import React from 'react';
-// @ts-ignore
-import headerButtonStyles from './headerButton.module.css'
+import HeaderButtonStyles from './HeaderButton.module.css'
+import PropTypes from "prop-types";
 
 
 // @ts-ignore
-const HeaderButton = (props) => {
-    // @ts-ignore
+const HeaderButton = ({ type, icon, children }) => {
     function checkClassName() {
-        switch (props.type) {
+        switch (type) {
             case 'secondary':
-                return headerButtonStyles.button__secondary
+                return HeaderButtonStyles.button__secondary
             case 'primary':
-                return headerButtonStyles.button__primary
+                return HeaderButtonStyles.button__primary
         }
     }
 
     function checkTextColor() {
-        switch (props.type) {
+        switch (type) {
             case 'secondary':
                 return 'secondary'
             case 'primary':
@@ -26,7 +25,7 @@ const HeaderButton = (props) => {
     }
 
     function checkColorIcon() {
-        switch (props.icon) {
+        switch (icon) {
             case 'BurgerIcon':
                 // @ts-ignore
                 return <BurgerIcon type={checkTextColor()}/>
@@ -39,14 +38,20 @@ const HeaderButton = (props) => {
         }
     }
 
-
-    // @ts-ignore
     return (
         <button className={checkClassName()}>
             {checkColorIcon()}
-            {props.children}
+            {children}
         </button>
     );
 };
+
+HeaderButton.propType = {
+    type: PropTypes.string.isRequired,
+    icon: PropTypes.string.isRequired,
+    children: PropTypes.element
+}
+
+
 
 export default HeaderButton;

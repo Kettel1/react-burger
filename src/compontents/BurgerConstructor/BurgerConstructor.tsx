@@ -11,9 +11,8 @@ import ingredientsTypes from '../../utils/types'
 // @ts-ignore
 const BurgerConstructor = ({ ingredients }) => {
 
-    console.log(ingredients)
     const img = 'https://code.s3.yandex.net/react/code/bun-02-mobile.png'
-    // @ts-ignore
+
     return (
         <section className={BurgerConstructorStyles.container}>
             <ul className={BurgerConstructorStyles.list}>

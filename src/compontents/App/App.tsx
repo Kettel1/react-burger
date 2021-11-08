@@ -1,5 +1,5 @@
 import React from 'react';
-import AppHeader from "../../compontents/AppHeader/appHeader";
+import AppHeader from "../../compontents/AppHeader/AppHeader";
 import BurgerIngredients from "../../compontents/BurgerIngredients/BurgerIngredients";
 import AppStyles from "./App.module.css"
 import { data } from "../../utils/data";

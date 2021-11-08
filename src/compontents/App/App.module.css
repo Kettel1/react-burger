@@ -1,5 +1,9 @@
 .container {
-    composes: container from "../AppHeader/appHeader.module.css";
+    max-width: 1240px;
+    padding: 0 40px;
+    display: flex;
+    margin: 0 auto;
+
     justify-content: space-between;
     margin-top: 40px;
 }
