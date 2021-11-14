@@ -1,4 +1,4 @@
-import {CurrencyIcon, Tab} from '@ya.praktikum/react-developer-burger-ui-components';
+import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
 // @ts-ignore
 import BurgerIngredientsStyles from './BurgerIngredients.module.css'
@@ -6,9 +6,10 @@ import RenderBurgerIngredients from '../RenderBurgerIngredients/RenderBurgerIngr
 import PropTypes from "prop-types";
 import ingredientsTypes from '../../utils/types'
 
-// @ts-ignore
-const BurgerIngredients = ({ingredients}) => {
 
+
+// @ts-ignore
+const BurgerIngredients = ({ ingredients }) => {
 
     function ingredientsTabs() {
         // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -39,7 +40,8 @@ const BurgerIngredients = ({ingredients}) => {
             </div>
         </section>
     );
-};
+}
+
 
 BurgerIngredients.propTypes = {
     ingredients: PropTypes.arrayOf(ingredientsTypes.isRequired).isRequired

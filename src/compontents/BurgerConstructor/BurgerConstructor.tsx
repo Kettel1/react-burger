@@ -9,7 +9,7 @@ import ingredientsTypes from '../../utils/types'
 
 
 // @ts-ignore
-const BurgerConstructor = ({ ingredients }) => {
+const BurgerConstructor = ({ingredients}) => {
 
     const img = 'https://code.s3.yandex.net/react/code/bun-02-mobile.png'
 
@@ -25,13 +25,14 @@ const BurgerConstructor = ({ ingredients }) => {
                         thumbnail={img}
                     />
                 </li>
-                {ingredients.map((item:any, idx:number) => {
-                    // @ts-ignore
-                    return <li key={idx} className={BurgerConstructorStyles.item} >
-                        <DragIcon type={"primary"}/>
-                        <ConstructorElement text={item.name} price={item.price} thumbnail={item.image_mobile} />
-                    </li>
-                })}
+                    {ingredients.map((item: any, idx: number) => {
+                        return <li key={idx} className={BurgerConstructorStyles.item}>
+                            <DragIcon type={"primary"}/>
+                            <ConstructorElement text={item.name} price={item.price} thumbnail={item.image_mobile}/>
+                        </li>
+                    })
+                    }
+
                 <li className={BurgerConstructorStyles.item}>
                     <ConstructorElement
                         type="bottom"

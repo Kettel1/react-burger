@@ -1,0 +1,44 @@
+.innerContainer {
+     max-width: 520px;
+ }
+
+.closeButton {
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.list {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+.list span {
+    font-family: 'Iceland', Arial, sans-serif;
+    font-size: 28px;
+    line-height: 24px;
+    margin-top: 12px
+}
+
+.item {
+    color: #8585AD;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.name {
+    color: #F2F2F3;
+    text-align: center;
+    font-size: 24px;
+    line-height: 30px;
+    padding-bottom: 38px;
+}
+
+
+
+
