@@ -16,12 +16,16 @@ function App() {
     const getIngredients = async (url: string) => {
         setState({...state, isLoading: true, hasError: false})
         const ingredients = await fetch(url)
+        if (!ingredients.ok) {
+            throw new Error (`Непредвиденная ошибка`)
+        }
         return await ingredients.json()
     }
 
     React.useEffect(() => {
         // @ts-ignore
-        getIngredients(urlIngredients).then(data => setState({...state, data: data.data, isLoading: false}))
+        getIngredients(urlIngredients)
+            .then(data => setState({...state, data: data.data, isLoading: false}))
             .catch(e => setState({...state, isLoading: false, hasError: true, data: e}))
 
     }, [])

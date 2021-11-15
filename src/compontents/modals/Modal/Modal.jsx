@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactDOM from "react-dom";
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
-import IngredientDetails from "../IngredientsDetails/IngredientDetails";
-import OrderDetails from "../OrderDetails/OrderDetails";
-import ModalStyles from "./Modal.module.css";
+import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from "prop-types";
 
-const Modal = ({open, onClose, ingredientInfo, type}) => {
+const Modal = ({open, onClose, children}) => {
     if (!open) return null
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -25,18 +24,17 @@ const Modal = ({open, onClose, ingredientInfo, type}) => {
     }, [escFunction])
 
     return ReactDOM.createPortal(
-        <ModalOverlay onClose={onClose} >
-            <section className={type === 'ingredient' ? ModalStyles.modalContainerIngredients : ModalStyles.modalContainerOrder}>
-                <h1 className={ModalStyles.header}>{type === 'ingredient' && 'Детали ингридиента'}</h1>
-                {type === 'ingredient'
-                    ?
-                    <IngredientDetails ingredientsInfo={ingredientInfo} onClose={onClose}/>
-                    :
-                    <OrderDetails onClose={onClose}/>
-                }
-            </section>
+        <ModalOverlay onClose={onClose}>
+            <CloseIcon onClick={onClose} type="primary"/>
+            {children}
         </ModalOverlay>, document.getElementById('modals')
     );
 };
+
+Modal.propTypes = {
+    open: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
+    children: PropTypes.element
+}
 
 export default Modal;

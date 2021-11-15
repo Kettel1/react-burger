@@ -4,10 +4,11 @@ import PropTypes from "prop-types";
 import ArticleIngredients from './RenderArticleIngredients.module.css'
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from '../modals/Modal/Modal';
+import IngredientDetails from "../modals/IngredientsDetails/IngredientDetails";
 
 
 // @ts-ignore
-const RenderArticleIngredients = ({item}) => {
+const RenderArticleIngredients = ({ item }) => {
     const [isOpen, setIsOpen] = React.useState(false)
 
     const toggleModal = () => {
@@ -25,12 +26,9 @@ const RenderArticleIngredients = ({item}) => {
             </div>
             <p className={ArticleIngredients.name}>{item.name}</p>
         </article>
-        <Modal
-               open={isOpen}
-               onClose={() => setIsOpen(false)}
-               ingredientInfo={item}
-               type={'ingredient'}
-        />
+        <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+            <IngredientDetails ingredientsInfo={item}/>
+        </Modal>
     </>
 
 }

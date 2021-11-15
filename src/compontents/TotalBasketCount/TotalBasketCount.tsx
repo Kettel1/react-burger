@@ -2,6 +2,7 @@ import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-co
 import React from 'react';
 import Modal from '../modals/Modal/Modal.jsx';
 import TotalBasketCountStyles from './TotalBasketCount.module.css'
+import OrderDetails from "../modals/OrderDetails/OrderDetails";
 
 // @ts-ignore
 const TotalBasketCount = () => {
@@ -18,11 +19,10 @@ const TotalBasketCount = () => {
                 <CurrencyIcon  type="primary"/>
             </div>
             <Button type="primary" size="large" onClick={toggleModal}>Оформить заказ</Button>
-            <Modal
-                open={isOpen}
-                onClose={() => setIsOpen(false)}
-                ingredientInfo={{}}
-                type={'order'}/>
+            <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+                <OrderDetails/>
+            </Modal>
+
         </div>
     );
 };
