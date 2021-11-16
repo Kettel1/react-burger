@@ -1,5 +1,4 @@
 import React from 'react';
-
 import ModalStyles from './ModalOverlay.module.css'
 import PropTypes from "prop-types";
 
@@ -17,7 +16,7 @@ const ModalOverlay = ({children, onClose}) => {
 
 ModalOverlay.propTypes = {
     onClose: PropTypes.func.isRequired,
-    children: PropTypes.element
+    children: PropTypes.arrayOf(PropTypes.element)
 }
 
 export default ModalOverlay;
