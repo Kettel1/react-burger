@@ -7,41 +7,38 @@ import PropTypes from "prop-types";
 import ingredientsTypes from '../../utils/types'
 
 
-
 // @ts-ignore
-const BurgerConstructor = ({ ingredients }) => {
+const BurgerConstructor = ({ingredients}) => {
 
     const img = 'https://code.s3.yandex.net/react/code/bun-02-mobile.png'
 
     return (
         <section className={BurgerConstructorStyles.container}>
-            <ul className={BurgerConstructorStyles.list}>
-                <li className={BurgerConstructorStyles.item}>
-                    <ConstructorElement
-                        type="top"
-                        isLocked={true}
-                        text="Краторная булка N-200i (верх)"
-                        price={200}
-                        thumbnail={img}
-                    />
-                </li>
-                {ingredients.map((item:any, idx:number) => {
-                    // @ts-ignore
-                    return <li key={idx} className={BurgerConstructorStyles.item} >
-                        <DragIcon type={"primary"}/>
-                        <ConstructorElement text={item.name} price={item.price} thumbnail={item.image_mobile} />
-                    </li>
-                })}
-                <li className={BurgerConstructorStyles.item}>
-                    <ConstructorElement
-                        type="bottom"
-                        isLocked={true}
-                        text="Краторная булка N-200i (низ)"
-                        price={200}
-                        thumbnail={img}
-                    />
-                </li>
-            </ul>
+            <div className={BurgerConstructorStyles.innerContainer}>
+                <ConstructorElement
+                    type="top"
+                    isLocked={true}
+                    text="Краторная булка N-200i (верх)"
+                    price={200}
+                    thumbnail={img}
+                />
+                <ul className={BurgerConstructorStyles.list}>
+                    {ingredients.map((item: any, idx: number) => {
+                        return <li key={idx} className={BurgerConstructorStyles.item}>
+                                    <DragIcon type={"primary"}/>
+                                    <ConstructorElement text={item.name} price={item.price} thumbnail={item.image_mobile}/>
+                               </li>
+                    })
+                    }
+                </ul>
+                <ConstructorElement
+                    type="bottom"
+                    isLocked={true}
+                    text="Краторная булка N-200i (низ)"
+                    price={200}
+                    thumbnail={img}
+                />
+            </div>
             <TotalBasketCount/>
         </section>
     )

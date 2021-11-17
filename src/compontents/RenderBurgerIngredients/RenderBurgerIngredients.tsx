@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import RenderArticleIngredients from '../RenderArticleIngredients/RenderArticleIngredients';
 
 
+
 // @ts-ignore
 const RenderBurgerIngredients = ({ data, type }) => {
 
@@ -31,8 +32,6 @@ const RenderBurgerIngredients = ({ data, type }) => {
         </div>
     )
 };
-
-
 
 
 RenderBurgerIngredients.propTypes = {

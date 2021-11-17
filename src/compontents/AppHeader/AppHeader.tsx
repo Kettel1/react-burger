@@ -1,11 +1,11 @@
 import React from 'react';
-import ReactDOM from "react-dom";
-import {BurgerIcon, Logo} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Logo} from "@ya.praktikum/react-developer-burger-ui-components";
 import HeaderStyles from './AppHeader.module.css'
 // @ts-ignore
 import HeaderButton from "../UI/buttons/HeaderButton/HeaderButton";
 
 const AppHeader = () => {
+
     // @ts-ignore
     return (
         <header className={HeaderStyles.header}>
