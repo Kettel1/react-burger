@@ -5,6 +5,7 @@ import AppStyles from "./App.module.css"
 import { urlIngredients } from "../../utils/data";
 import BurgerConstructor from "../../compontents/BurgerConstructor/BurgerConstructor";
 import { cart } from '../../utils/cart';
+import BurgerIngredientsSkeleton from "../BurgerIngredientsSkeleton/BurgerIngredientsSkeleton";
 
 function App() {
     const [state, setState] = React.useState({
@@ -14,7 +15,7 @@ function App() {
     })
 
     const getIngredients = async (url: string) => {
-        setState({...state, isLoading: true, hasError: false})
+        // setState({...state, isLoading: true, hasError: false})
         const ingredients = await fetch(url)
         if (!ingredients.ok) {
             throw new Error (`Непредвиденная ошибка`)
@@ -23,10 +24,14 @@ function App() {
     }
 
     React.useEffect(() => {
-        // @ts-ignore
-        getIngredients(urlIngredients)
-            .then(data => setState({...state, data: data.data, isLoading: false}))
-            .catch(e => setState({...state, isLoading: false, hasError: true, data: e}))
+        setState({...state, isLoading: true, hasError: false})
+        // Искуственная задержка для отображения скелетон загрузки
+        setTimeout(() => {
+            getIngredients(urlIngredients)
+                .then(data => setState({...state, data: data.data, isLoading: false}))
+                .catch(e => setState({...state, isLoading: false, hasError: true, data: e}))
+        }, 2500)
+
 
     }, [])
 
@@ -36,7 +41,7 @@ function App() {
         <>
             <AppHeader/>
             <main className={AppStyles.container}>
-                {isLoading && 'Идет загрузка...'}
+                {isLoading && <BurgerIngredientsSkeleton/>}
                 {hasError && 'Произошла ошибка'}
                 {!isLoading &&
                  !hasError &&
