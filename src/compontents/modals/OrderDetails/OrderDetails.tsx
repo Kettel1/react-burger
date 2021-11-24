@@ -1,5 +1,5 @@
 import React from 'react';
-import OrderDetailsStyles from "./OrderDetail.module.css";
+import OrderDetailsStyles from "./OrderDetail.module.scss";
 import done from '../../../images/done.png'
 
 

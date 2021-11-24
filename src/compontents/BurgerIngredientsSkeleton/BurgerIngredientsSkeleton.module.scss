@@ -42,6 +42,8 @@
     display: flex;
 }
 
-.price > span:not(:last-child) {
-    margin-right: 9px;
+.price {
+    & > span:not(:last-child) {
+        margin-right: 9px;
+    }
 }

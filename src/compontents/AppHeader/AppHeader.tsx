@@ -1,6 +1,6 @@
 import React from 'react';
 import {Logo} from "@ya.praktikum/react-developer-burger-ui-components";
-import HeaderStyles from './AppHeader.module.css'
+import HeaderStyles from './AppHeader.module.scss'
 // @ts-ignore
 import HeaderButton from "../UI/buttons/HeaderButton/HeaderButton";
 

@@ -1,7 +1,7 @@
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
 // @ts-ignore
-import BurgerIngredientsStyles from './BurgerIngredients.module.css'
+import BurgerIngredientsStyles from './BurgerIngredients.module.scss'
 import RenderBurgerIngredients from '../RenderBurgerIngredients/RenderBurgerIngredients';
 import PropTypes from "prop-types";
 import ingredientsTypes from '../../utils/types'

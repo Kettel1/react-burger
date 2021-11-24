@@ -1,0 +1,38 @@
+.container {
+    max-width: 620px;
+}
+
+.title {
+    font-size: 36px;
+    line-height: 40px;
+    margin-bottom: 40px;
+}
+
+.scrollBar {
+    height: 670px;
+    overflow: auto;
+}
+
+.scrollBar {
+    &::-webkit-scrollbar {
+        width: 9px;
+        height: 9px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #8585AD;
+        border-radius: 0px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: #B3AFB3;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #2F2F37;
+        border-radius: 0px;
+        box-shadow: inset 0px 0px 0px 0px #F0F0F0;
+    }
+
+}
+

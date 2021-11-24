@@ -1,7 +1,7 @@
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
 import Modal from '../modals/Modal/Modal.jsx';
-import TotalBasketCountStyles from './TotalBasketCount.module.css'
+import TotalBasketCountStyles from './TotalBasketCount.module.scss'
 import OrderDetails from "../modals/OrderDetails/OrderDetails";
 
 // @ts-ignore

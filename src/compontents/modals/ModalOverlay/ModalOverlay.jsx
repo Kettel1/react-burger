@@ -1,5 +1,5 @@
 import React from 'react';
-import ModalStyles from './ModalOverlay.module.css'
+import ModalStyles from './ModalOverlay.module.scss'
 import PropTypes from "prop-types";
 
 
