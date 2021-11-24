@@ -2,7 +2,7 @@ import React from 'react';
 import AppHeader from "../../compontents/AppHeader/AppHeader";
 import BurgerIngredients from "../../compontents/BurgerIngredients/BurgerIngredients";
 import AppStyles from "./App.module.css"
-import { urlIngredients } from "../../utils/data";
+import { URL_INGREDIENTS } from "../../utils/data";
 import BurgerConstructor from "../../compontents/BurgerConstructor/BurgerConstructor";
 import { cart } from '../../utils/cart';
 import BurgerIngredientsSkeleton from "../BurgerIngredientsSkeleton/BurgerIngredientsSkeleton";
@@ -11,7 +11,7 @@ function App() {
     const [state, setState] = React.useState({
         isLoading: false,
         hasError: false,
-        data: []
+        ingredients: []
     })
 
     const getIngredients = async (url: string) => {
@@ -27,15 +27,15 @@ function App() {
         setState({...state, isLoading: true, hasError: false})
         // Искуственная задержка для отображения скелетон загрузки
         setTimeout(() => {
-            getIngredients(urlIngredients)
-                .then(data => setState({...state, data: data.data, isLoading: false}))
-                .catch(e => setState({...state, isLoading: false, hasError: true, data: e}))
+            getIngredients(URL_INGREDIENTS)
+                .then(ingredientInfo => setState({...state, ingredients: ingredientInfo.data, isLoading: false}))
+                .catch(e => setState({...state, isLoading: false, hasError: true, ingredients: e}))
         }, 2500)
 
 
     }, [])
 
-    const {hasError, isLoading, data} = state;
+    const {hasError, isLoading, ingredients} = state;
 
     return (
         <>
@@ -45,8 +45,8 @@ function App() {
                 {hasError && 'Произошла ошибка'}
                 {!isLoading &&
                  !hasError &&
-                  data.length &&
-                <BurgerIngredients ingredients={data} />
+                ingredients.length &&
+                <BurgerIngredients ingredients={ingredients} />
                 }
                 <BurgerConstructor ingredients={cart}/>
             </main>

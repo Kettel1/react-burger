@@ -1,6 +1,6 @@
 import React from 'react';
 // @ts-ignore
-import BurgerIngredientsStyles from "./RenderBurgerIngredients.module.css";
+import BurgerIngredientsStyles from "./RenderBurgerIngredients.module.scss";
 import ingredientsTypes from '../../utils/types'
 import PropTypes from "prop-types";
 import RenderArticleIngredients from '../RenderArticleIngredients/RenderArticleIngredients';

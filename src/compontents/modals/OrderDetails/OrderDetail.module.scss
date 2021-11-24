@@ -23,7 +23,7 @@
 }
 
 .closeButton {
-    composes: closeButton from '../IngredientsDetails/IngredientsDetails.module.css';
+    composes: closeButton from '../IngredientsDetails/IngredientsDetails.module.scss';
 }
 
 .text {
