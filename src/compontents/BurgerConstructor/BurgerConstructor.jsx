@@ -4,8 +4,6 @@ import {DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerConstructorStyles from "./BurgerConstructor.module.scss"
 import TotalBasketCount from "../TotalBasketCount/TotalBasketCount";
 import {CartContext} from "../../services/CartContext";
-import {TotalPriceContext} from "../../services/TotalPriceContext";
-
 
 // @ts-ignore
 const BurgerConstructor = () => {

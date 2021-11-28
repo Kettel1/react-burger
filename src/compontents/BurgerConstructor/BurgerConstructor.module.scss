@@ -31,6 +31,10 @@
         left: -30px;
         cursor: pointer;
     }
+
+    & > div {
+        width: 100%;
+    }
 }
 
 .list {
