@@ -1,5 +1,7 @@
 .container {
-    margin-top: 80px
+    margin-top: 80px;
+    position: relative;
+    width: 48%;
 }
 
 .innerContainer {
@@ -33,7 +35,7 @@
 
 .list {
     overflow: auto;
-    height: 465px;
+    max-height: 465px;
     margin: 16px 0 16px;
     padding-right: 8px;
 }
