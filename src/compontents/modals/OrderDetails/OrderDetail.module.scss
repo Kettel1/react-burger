@@ -52,3 +52,23 @@
     font-size: 16px;
     line-height: 24px;
 }
+
+.errorContainer {
+    composes: container;
+    padding: 60px;
+}
+
+.errorTitle {
+    font-size: 34px;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
+
+.errorText {
+    font-size: 24px;
+    text-align: center;
+    color: white;
+    margin-top: 35px;
+    font-weight: normal;
+}

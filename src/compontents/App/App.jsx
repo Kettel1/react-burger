@@ -5,7 +5,6 @@ import AppStyles from "./App.module.css"
 import {API_REACT} from "../../utils/data";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import BurgerIngredientsSkeleton from "../BurgerIngredientsSkeleton/BurgerIngredientsSkeleton";
-import {BurgerContext} from "../../services/BurgerConstructorContext";
 import {CartContext} from '../../services/CartContext';
 import {CreateOrderContext} from '../../services/CreateOrderContext';
 
@@ -14,9 +13,6 @@ function App() {
         isLoading: false,
         hasError: false,
         ingredients: [],
-        order: {
-            orderNumber: ""
-        },
     })
 
     const [orderState, setOrderState] = React.useState({
@@ -45,7 +41,8 @@ function App() {
         setState({...state, isLoading: true, hasError: false})
         const ingredients = await fetch(url + '/ingredients')
         if (!ingredients.ok) {
-            throw new Error(`Непредвиденная ошибка`)
+            throw new Error(`Непредвиденная ошибка`);
+            setState({...state, isLoading: false, hasError: true})
         }
         return await ingredients.json()
     }
@@ -61,6 +58,8 @@ function App() {
         })
         if (response.ok) {
             return await response.json();
+        } else {
+            setOrderState({...orderState, success: false})
         }
     }
 
@@ -72,9 +71,7 @@ function App() {
         <>
             <AppHeader/>
             <main className={AppStyles.container}>
-
                 <CartContext.Provider value={[cartState, setCartState]}>
-                    <BurgerContext.Provider value={ingredients}>
                         <CreateOrderContext.Provider value={{getOrderNumber, orderState, setOrderState}}>
                             {isLoading && <BurgerIngredientsSkeleton/>}
                             {hasError && 'Произошла ошибка'}
@@ -86,7 +83,6 @@ function App() {
 
                             <BurgerConstructor/>
                         </CreateOrderContext.Provider>
-                    </BurgerContext.Provider>
                 </CartContext.Provider>
             </main>
         </>

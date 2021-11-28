@@ -4,15 +4,50 @@ import Modal from '../modals/Modal/Modal.jsx';
 import TotalBasketCountStyles from './TotalBasketCount.module.scss'
 import OrderDetails from "../modals/OrderDetails/OrderDetails";
 import {CartContext} from "../../services/CartContext";
-import {TotalPriceContext} from "../../services/TotalPriceContext";
 import {CreateOrderContext} from "../../services/CreateOrderContext";
+
+const startState = {
+    totalSum: 0,
+    totalBun: 0
+}
+
+const TOTAL_SUM_CART = 'TOTAL_SUM_CART'
+const TOTAL_SUM_CART_BUN = 'TOTAL_SUM_CART_BUN'
+
+const reducer = (state, action) => {
+
+    switch (action.type) {
+        case TOTAL_SUM_CART_BUN:
+            return {totalBun: action.payload * 2, totalSum: state.totalSum}
+        case TOTAL_SUM_CART:
+            return {totalSum: action.payload, totalBun: state.totalBun}
+        default:
+            return state
+    }
+}
+
 
 // @ts-ignore
 const TotalBasketCount = () => {
     const [isOpen, setIsOpen] = React.useState(false)
     const [cartState] = React.useContext(CartContext)
-    const [totalPriceState] = React.useContext(TotalPriceContext)
     const {getOrderNumber, setOrderState} = React.useContext(CreateOrderContext)
+    const [totalPriceState, dispatchTotalPriceState] = React.useReducer(reducer, startState, undefined)
+    const {orderState} = React.useContext(CreateOrderContext)
+
+    React.useEffect(() => {
+        if (cartState.bun.length !== 0 && cartState.ingredients.length === 0) {
+            dispatchTotalPriceState(
+                {type: TOTAL_SUM_CART_BUN, payload: cartState.bun[0].price}
+            )
+        }
+        if (cartState.ingredients.length !== 0) {
+            const total = cartState.ingredients.reduce((prev, next) => prev + next.price, 0)
+            // console.log(total)
+            dispatchTotalPriceState({type: TOTAL_SUM_CART, payload: total})
+        }
+
+    }, [cartState])
 
     const getIngredientsAllId = cartState.ingredients.map((item) => {
         return item._id
@@ -25,7 +60,10 @@ const TotalBasketCount = () => {
     const {totalSum, totalBun} = totalPriceState
 
     const toggleModal = () => {
-        setIsOpen(true)
+        getOrderNumber([...getBunAllId, ...getIngredientsAllId]).then(orderInfo => {
+            setOrderState({...orderInfo})
+            setIsOpen(true)
+        })
     }
 
     return (
@@ -35,11 +73,7 @@ const TotalBasketCount = () => {
                 <CurrencyIcon  type="primary"/>
             </div>
             <Button type="primary" size="large"
-                    onClick={() => {
-                        toggleModal();
-                        getOrderNumber([...getBunAllId, ...getIngredientsAllId]).then(orderInfo => {
-                            setOrderState({...orderInfo})
-                        })}}>Оформить заказ</Button>
+                    onClick={toggleModal}>Оформить заказ</Button>
             <Modal open={isOpen} onClose={() => setIsOpen(false)}>
                 <OrderDetails/>
             </Modal>
