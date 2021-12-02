@@ -8,7 +8,7 @@ import IngredientDetails from "../modals/IngredientsDetails/IngredientDetails";
 
 
 // @ts-ignore
-const RenderArticleIngredients = ({ item }) => {
+const RenderArticleIngredients = ({ item, clickAddToCart }) => {
     const [isOpen, setIsOpen] = React.useState(false)
 
     const toggleModal = () => {
@@ -18,7 +18,11 @@ const RenderArticleIngredients = ({ item }) => {
 
     // @ts-ignore
     return <>
-        <article onClick={toggleModal} className={ArticleIngredients.ingredientsBlockInner}>
+        <article onClick={() => {
+            toggleModal()
+            clickAddToCart(item)
+        }
+        } className={ArticleIngredients.ingredientsBlockInner}>
             <img src={item.image} alt={item.name}/>
             <div className={ArticleIngredients.priceBlock}>
                 <span className={ArticleIngredients.priceValue}>{item.price}</span>
@@ -29,7 +33,7 @@ const RenderArticleIngredients = ({ item }) => {
         <Modal open={isOpen} onClose={() => setIsOpen(false)}>
             <IngredientDetails ingredientsInfo={item}/>
         </Modal>
-    </>
+        </>
 
 }
 
