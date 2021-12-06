@@ -1,17 +1,19 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
-// @ts-ignore
 import BurgerIngredientsStyles from './BurgerIngredients.module.scss'
 import RenderBurgerIngredients from '../RenderBurgerIngredients/RenderBurgerIngredients';
 import PropTypes from "prop-types";
 import ingredientsTypes from '../../utils/types'
+import {useDispatch, useSelector} from "react-redux";
+import {fetchIngredients} from "../../services/actions/BurgerIngredients";
 
 // @ts-ignore
-const BurgerIngredients = ({ ingredients }) => {
+const BurgerIngredients = () => {
     const [currentTab, setCurrentTab] = React.useState('one')
+    const {ingredients} = useSelector(state => state.ingredients)
+
 
     function ingredientsTabs() {
-
         return (
             <div style={{display: 'flex'}}>
                 <Tab value="one" active={currentTab === 'one'} onClick={setCurrentTab}>

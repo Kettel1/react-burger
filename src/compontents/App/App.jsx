@@ -8,12 +8,15 @@ import BurgerIngredientsSkeleton from "../BurgerIngredientsSkeleton/BurgerIngred
 import {CartContext} from '../../services/CartContext';
 import {CreateOrderContext} from '../../services/CreateOrderContext';
 
+
+import {useDispatch, useSelector} from "react-redux";
+import {fetchIngredients} from "../../services/actions/BurgerIngredients";
+
 function App() {
-    const [state, setState] = React.useState({
-        isLoading: false,
-        hasError: false,
-        ingredients: [],
-    })
+
+    const dispatch = useDispatch()
+
+    const {ingredients, ingredientsRequest, ingredientsFailed} = useSelector(state => state.ingredients)
 
     const [orderState, setOrderState] = React.useState({
         success: false,
@@ -26,26 +29,12 @@ function App() {
         ingredients: []
     })
 
+
+
     React.useEffect(() => {
-        setState({...state, isLoading: true, hasError: false})
-        getIngredients(API_REACT)
-            .then(ingredientInfo => {
-                setState({...state, ingredients: ingredientInfo.data, isLoading: false})
-            })
-            .catch(e => setState({...state, isLoading: false, hasError: true, ingredients: e}))
+        dispatch(fetchIngredients())
     }, [])
 
-
-    // @ts-ignore
-    const getIngredients = async (url) => {
-        setState({...state, isLoading: true, hasError: false})
-        const ingredients = await fetch(url + '/ingredients')
-        if (!ingredients.ok) {
-            throw new Error(`Непредвиденная ошибка`);
-            setState({...state, isLoading: false, hasError: true})
-        }
-        return await ingredients.json()
-    }
 
     // @ts-ignore
     const getOrderNumber = async (cart) => {
@@ -64,27 +53,27 @@ function App() {
     }
 
 
-    const {hasError, isLoading, ingredients} = state;
-
     // @ts-ignore
     return (
         <>
             <AppHeader/>
             <main className={AppStyles.container}>
                 <CartContext.Provider value={[cartState, setCartState]}>
-                        <CreateOrderContext.Provider value={{getOrderNumber, orderState, setOrderState}}>
-                            {isLoading && <BurgerIngredientsSkeleton/>}
-                            {hasError && 'Произошла ошибка'}
-                            {!isLoading &&
-                            !hasError &&
-                            ingredients.length &&
-                            <BurgerIngredients ingredients={ingredients}/>
-                            }
+                    <CreateOrderContext.Provider value={{getOrderNumber, orderState, setOrderState}}>
+                        {ingredientsRequest && <BurgerIngredientsSkeleton/>}
+                        {ingredientsFailed && 'Произошла ошибка'}
+                        {!ingredientsRequest &&
+                        !ingredientsFailed &&
+                        ingredients.length &&
+                        <BurgerIngredients/>
+                        }
 
-                            <BurgerConstructor/>
-                        </CreateOrderContext.Provider>
+
+                        <BurgerConstructor/>
+                    </CreateOrderContext.Provider>
                 </CartContext.Provider>
             </main>
+
         </>
     );
 }

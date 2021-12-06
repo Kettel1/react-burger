@@ -6,6 +6,9 @@ import OrderDetails from "../modals/OrderDetails/OrderDetails";
 import {CartContext} from "../../services/CartContext";
 import {CreateOrderContext} from "../../services/CreateOrderContext";
 
+import {useDispatch, useSelector} from "react-redux";
+import {getOrderNumber} from "../../services/actions/BurgerCounstructor";
+
 const startState = {
     totalSum: 0,
     totalBun: 0
@@ -31,9 +34,12 @@ const reducer = (state, action) => {
 const TotalBasketCount = () => {
     const [isOpen, setIsOpen] = React.useState(false)
     const [cartState] = React.useContext(CartContext)
-    const {getOrderNumber, setOrderState} = React.useContext(CreateOrderContext)
     const [totalPriceState, dispatchTotalPriceState] = React.useReducer(reducer, startState, undefined)
-    const {orderState} = React.useContext(CreateOrderContext)
+
+    const dispatch = useDispatch()
+
+    const {order, orderSuccess, orderName} = useSelector(state => state.constructor)
+
 
     React.useEffect(() => {
         if (cartState.bun.length !== 0 && cartState.ingredients.length === 0) {
@@ -43,7 +49,6 @@ const TotalBasketCount = () => {
         }
         if (cartState.ingredients.length !== 0) {
             const total = cartState.ingredients.reduce((prev, next) => prev + next.price, 0)
-            // console.log(total)
             dispatchTotalPriceState({type: TOTAL_SUM_CART, payload: total})
         }
 
@@ -60,10 +65,7 @@ const TotalBasketCount = () => {
     const {totalSum, totalBun} = totalPriceState
 
     const toggleModal = () => {
-        getOrderNumber([...getBunAllId, ...getIngredientsAllId]).then(orderInfo => {
-            setOrderState({...orderInfo})
-            setIsOpen(true)
-        })
+        dispatch(getOrderNumber([...getBunAllId, ...getIngredientsAllId]))
     }
 
     return (
