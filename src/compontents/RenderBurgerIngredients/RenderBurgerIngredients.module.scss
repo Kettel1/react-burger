@@ -1,7 +1,7 @@
 .ingredientsContainer {
     display: flex;
     flex-direction: column;
-    margin-top: 40px;
+    margin-top: 10px;
 }
 
 
@@ -12,13 +12,12 @@
 
 
 .title {
-    font-size: 36px;
-    line-height: 40px;
+    margin: 20px 0;
 }
 
 .name {
     text-align: center;
     margin-top: 8px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 

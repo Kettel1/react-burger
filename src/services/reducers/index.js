@@ -8,7 +8,7 @@ import {ingredientsReducer} from "./BurgerIngredients";
 
 
 const rootReducer = combineReducers({
-    constructor: constructorReducer,
+    cart: constructorReducer,
     ingredients: ingredientsReducer
 })
 

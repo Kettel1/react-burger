@@ -53,6 +53,13 @@
     padding-bottom: 38px;
 }
 
+.nameError {
+    color: #F2F2F3;
+    text-align: center;
+    font-size: 24px;
+    line-height: 30px;
+}
+
 .header {
     font-weight: bold;
     font-size: 36px;
@@ -61,4 +68,11 @@
     width: 640px;
 }
 
+.headerError {
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 40px;
+    color: #F2F2F3;
+    padding-bottom: 30px;
+}
 

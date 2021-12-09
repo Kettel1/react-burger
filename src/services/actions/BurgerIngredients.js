@@ -23,10 +23,9 @@ export const fetchIngredients = () => {
                 }
             })
             .then(ingredients => {
-
                 dispatch({
                     type: GET_ALL_INGREDIENTS_SUCCESS,
-                    ingredients: ingredients.data
+                    ingredients: ingredients.data,
                 })
             })
             .catch(err => {

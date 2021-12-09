@@ -14,7 +14,8 @@
     list-style: none;
     padding: 0;
     position: relative;
-    margin-left:30px
+    margin-left:30px;
+    cursor: move;
 }
 
 
@@ -66,3 +67,6 @@
     }
 }
 
+.test {
+    color: red;
+}

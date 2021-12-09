@@ -3,75 +3,56 @@ import React from 'react';
 import Modal from '../modals/Modal/Modal.jsx';
 import TotalBasketCountStyles from './TotalBasketCount.module.scss'
 import OrderDetails from "../modals/OrderDetails/OrderDetails";
-import {CartContext} from "../../services/CartContext";
-import {CreateOrderContext} from "../../services/CreateOrderContext";
 
 import {useDispatch, useSelector} from "react-redux";
-import {getOrderNumber} from "../../services/actions/BurgerCounstructor";
-
-const startState = {
-    totalSum: 0,
-    totalBun: 0
-}
-
-const TOTAL_SUM_CART = 'TOTAL_SUM_CART'
-const TOTAL_SUM_CART_BUN = 'TOTAL_SUM_CART_BUN'
-
-const reducer = (state, action) => {
-
-    switch (action.type) {
-        case TOTAL_SUM_CART_BUN:
-            return {totalBun: action.payload * 2, totalSum: state.totalSum}
-        case TOTAL_SUM_CART:
-            return {totalSum: action.payload, totalBun: state.totalBun}
-        default:
-            return state
-    }
-}
+import {getOrderNumber, TOTAL_SUM_BUN, TOTAL_SUM_INGREDIENTS} from "../../services/actions/BurgerCounstructor";
 
 
 // @ts-ignore
 const TotalBasketCount = () => {
     const [isOpen, setIsOpen] = React.useState(false)
-    const [cartState] = React.useContext(CartContext)
-    const [totalPriceState, dispatchTotalPriceState] = React.useReducer(reducer, startState, undefined)
 
     const dispatch = useDispatch()
-
-    const {order, orderSuccess, orderName} = useSelector(state => state.constructor)
-
+    const cartState = useSelector(state => state.cart)
 
     React.useEffect(() => {
-        if (cartState.bun.length !== 0 && cartState.ingredients.length === 0) {
-            dispatchTotalPriceState(
-                {type: TOTAL_SUM_CART_BUN, payload: cartState.bun[0].price}
+        if (cartState.cartBun.length !== 0 && cartState.cartIngredients.length === 0) {
+            dispatch(
+                {type: TOTAL_SUM_BUN, payload: cartState.cartBun.price}
             )
         }
-        if (cartState.ingredients.length !== 0) {
-            const total = cartState.ingredients.reduce((prev, next) => prev + next.price, 0)
-            dispatchTotalPriceState({type: TOTAL_SUM_CART, payload: total})
+        if (cartState.cartIngredients.length !== 0) {
+            const total = cartState.cartIngredients.reduce((prev, next) => prev + next.price, 0)
+            dispatch({type: TOTAL_SUM_INGREDIENTS, payload: total})
         }
+    }, [cartState.cartBun, cartState.cartIngredients])
 
-    }, [cartState])
+    React.useEffect(() => {
+        if(cartState.orderSuccess) {
+            setIsOpen(true)
+        }
+    }, [cartState.orderSuccess])
 
-    const getIngredientsAllId = cartState.ingredients.map((item) => {
+    const getIngredientsAllId = cartState.cartIngredients.map((item) => {
         return item._id
     })
 
-    const getBunAllId = cartState.bun.map((item) => {
-        return item._id
-    })
-
-    const {totalSum, totalBun} = totalPriceState
+    const getBunAllId = cartState.cartBun._id
 
     const toggleModal = () => {
-        dispatch(getOrderNumber([...getBunAllId, ...getIngredientsAllId]))
+        if(cartState.cartBun.length !== 0 && cartState.cartIngredients.length !== 0) {
+            dispatch(getOrderNumber([getBunAllId, ...getIngredientsAllId]))
+        } else {
+            setIsOpen(true)
+        }
     }
+
+    const {totalSumIngredients, totalSumBun} = cartState
 
     return (
         <div className={TotalBasketCountStyles.container}>
             <div className={TotalBasketCountStyles.priceBlock}>
-                <span className={TotalBasketCountStyles.priceValue}>{totalSum + totalBun}</span>
+                <span className={TotalBasketCountStyles.priceValue}>{totalSumIngredients + totalSumBun}</span>
                 <CurrencyIcon  type="primary"/>
             </div>
             <Button type="primary" size="large"
