@@ -63,9 +63,6 @@ const IngredientConstructorItem = ({id, item, idx, moveCard}) => {
         })
     })
 
-    // const opacity = isDragging ? 0 : 1
-
-
     const deleteFromCart = (id) => {
         dispatch({type: DELETE_INGREDIENTS_FROM_CART, id})
     }
@@ -73,8 +70,6 @@ const IngredientConstructorItem = ({id, item, idx, moveCard}) => {
     drag(drop(dragDropRef))
 
     return <li
-        key={id + idx}
-        draggable
         className={BurgerConstructorStyles.item}
         ref={dragDropRef}
         data-handler-id={handlerId}
