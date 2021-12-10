@@ -8,8 +8,7 @@ import {useSelector} from "react-redux";
 // @ts-ignore
 const BurgerIngredients = () => {
     const [currentTab, setCurrentTab] = React.useState('one')
-    const {ingredients} = useSelector(state => state.ingredients)
-
+    const {ingredients} = useSelector((state => state.ingredients))
     const bunRef = React.useRef(null)
     const sauceRef = React.useRef(null)
     const mainRef = React.useRef(null)

@@ -10,6 +10,9 @@ import {
 import {useDrop} from "react-dnd";
 import IngredientConstructorItem from "../IngredientConstructorItem/IngredientConstructorItem";
 import update from 'immutability-helper';
+import {v4} from 'uuid'
+import {debounce} from "../../utils/helpers";
+
 
 
 const BurgerConstructor = () => {
@@ -41,32 +44,9 @@ const BurgerConstructor = () => {
         )
     }
 
-    function debounce(func, wait, immediate) {
-        let timeout;
-
-        return function executedFunction() {
-            const context = this;
-            const args = arguments;
-
-            const later = function () {
-                timeout = null;
-                if (!immediate) func.apply(context, args);
-            };
-
-            const callNow = immediate && !timeout;
-
-            clearTimeout(timeout);
-
-            timeout = setTimeout(later, wait);
-
-            if (callNow) func.apply(context, args);
-        };
-    };
 
     const moveIngredients = React.useCallback((dragIndex, hoverIndex) => {
         const dragCard = cartState.cartIngredients[dragIndex];
-        console.log(dragCard)
-
         const updateStateIngredient = update(cartState.cartIngredients, {
             $splice: [
                 [dragIndex, 1],
@@ -80,7 +60,9 @@ const BurgerConstructor = () => {
         })
     }, [cartState.cartIngredients])
 
-    const debounceMoveIngredients = debounce(moveIngredients)
+    const debounceMoveIngredients = React.useMemo(() => debounce(moveIngredients), [moveIngredients])
+
+    const generateId = v4()
 
     return (
         <section ref={dropTarget} className={BurgerConstructorStyles.container}>
@@ -89,12 +71,12 @@ const BurgerConstructor = () => {
 
                 {cartState.cartIngredients.length === 0 && cartState.cartBun.length === 0
                     ?
-                    <h2 className={isHover && BurgerConstructorStyles.test}>Корзина пуста!</h2>
+                    <h2 className={isHover ? BurgerConstructorStyles.test : undefined}>Корзина пуста!</h2>
                     :
                     <ul className={BurgerConstructorStyles.list}>
                         {cartState.cartIngredients.map((item, idx) => {
                             return <IngredientConstructorItem
-                                key={item._id}
+                                key={item._id + idx}
                                 id={item._id}
                                 item={item}
                                 idx={idx}

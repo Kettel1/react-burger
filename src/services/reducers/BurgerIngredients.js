@@ -1,15 +1,16 @@
 import {
     GET_ALL_INGREDIENTS_SUCCESS,
     GET_ALL_INGREDIENTS_FAILED,
-    GET_ALL_INGREDIENTS_REQUEST,
+    GET_ALL_INGREDIENTS_REQUEST, SET_VIEWED_INGREDIENT, REMOVE_VIEWED_INGREDIENT,
 
 } from "../actions/BurgerIngredients";
 
 const defaultState = {
     ingredients: [],
     ingredientsRequest: false,
-    ingredientsFailed: false
+    ingredientsFailed: false,
 
+    viewedIngredient: []
 }
 
 export const ingredientsReducer = (state = defaultState, action) => {
@@ -25,8 +26,12 @@ export const ingredientsReducer = (state = defaultState, action) => {
             }
         }
         case GET_ALL_INGREDIENTS_FAILED: {
-            return {...state, ingredientsFailed: true, ingredientsRequest: false}
+            return {...state, ingredientsFailed: false, ingredientsRequest: false}
         }
+        case SET_VIEWED_INGREDIENT:
+            return {...state, viewedIngredient: action.ingredient}
+        case REMOVE_VIEWED_INGREDIENT:
+            return {...state, viewedIngredient: []}
         default:
             return state
     }

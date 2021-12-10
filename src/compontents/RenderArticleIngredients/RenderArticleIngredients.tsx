@@ -5,12 +5,14 @@ import ArticleIngredients from './RenderArticleIngredients.module.scss'
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from '../modals/Modal/Modal';
 import IngredientDetails from "../modals/IngredientsDetails/IngredientDetails";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
+import {REMOVE_VIEWED_INGREDIENT, SET_VIEWED_INGREDIENT} from "../../services/actions/BurgerIngredients";
 
 // @ts-ignore
 const RenderArticleIngredients = ({item}) => {
     const [isOpen, setIsOpen] = React.useState(false)
+    const dispatch = useDispatch()
     // @ts-ignore
     const cartState = useSelector((state) => state.cart)
 
@@ -20,7 +22,13 @@ const RenderArticleIngredients = ({item}) => {
     })
 
     const toggleModal = () => {
+        dispatch({type: SET_VIEWED_INGREDIENT, ingredient: item})
         setIsOpen(!isOpen)
+    }
+
+    const closeModal = () => {
+        dispatch({type: REMOVE_VIEWED_INGREDIENT})
+        setIsOpen(false)
     }
 
     // @ts-ignore
@@ -42,9 +50,11 @@ const RenderArticleIngredients = ({item}) => {
             </div>
             <p className={ArticleIngredients.name}>{item.name}</p>
         </article>
-        <Modal open={isOpen} onClose={() => setIsOpen(false)}>
-            <IngredientDetails ingredientsInfo={item}/>
-        </Modal>
+        {isOpen &&(
+            <Modal open={isOpen} onClose={closeModal}>
+                <IngredientDetails/>
+            </Modal>
+        )}
     </>
 }
 

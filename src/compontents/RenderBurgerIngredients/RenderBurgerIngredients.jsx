@@ -11,18 +11,22 @@ const RenderBurgerIngredients = React.forwardRef((props, ref) => {
     const {ingredients} = useSelector(state => state.ingredients)
     const {type} = props
 
-    let titleName = '';
-    if (type === 'bun') {
-        titleName += 'Булки'
-    } else if (type === 'main') {
-        titleName = 'Начинки'
-    } else {
-        titleName += 'Соусы'
+    const getTitleName = (type) => {
+        switch (type){
+            case 'bun':
+                return 'Булки'
+            case 'main':
+                return 'Начинки'
+            case 'sauce':
+                return 'Соусы'
+            default:
+                return 'Неизвестная начинка'
+        }
     }
 
     return (
         <div ref={ref} className={BurgerIngredientsStyles.ingredientsContainer}>
-            <h2 className={BurgerIngredientsStyles.title}>{titleName}</h2>
+            <h2 className={BurgerIngredientsStyles.title}>{getTitleName(type)}</h2>
             <div className={BurgerIngredientsStyles.ingredientsBlock}>
                 {ingredients.map((item) => {
                     if (item.type === type) {

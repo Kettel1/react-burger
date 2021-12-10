@@ -11,11 +11,11 @@ import {DndProvider} from "react-dnd";
 
 function App() {
     const dispatch = useDispatch()
-    const {ingredients, ingredientsRequest, ingredientsFailed} = useSelector(state => state.ingredients)
+    const {ingredients, ingredientsRequest, ingredientsFailed} = useSelector((state => state.ingredients))
 
     React.useEffect(() => {
         dispatch(fetchIngredients())
-    }, [])
+    }, [dispatch])
 
     return (
         <>

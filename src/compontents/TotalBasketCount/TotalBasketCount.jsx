@@ -5,7 +5,9 @@ import TotalBasketCountStyles from './TotalBasketCount.module.scss'
 import OrderDetails from "../modals/OrderDetails/OrderDetails";
 
 import {useDispatch, useSelector} from "react-redux";
-import {getOrderNumber, TOTAL_SUM_BUN, TOTAL_SUM_INGREDIENTS} from "../../services/actions/BurgerCounstructor";
+import {TOTAL_SUM_BUN, TOTAL_SUM_INGREDIENTS} from "../../services/actions/BurgerCounstructor";
+import {getOrderNumber} from "../../services/actions/order";
+
 
 
 // @ts-ignore
@@ -14,6 +16,8 @@ const TotalBasketCount = () => {
 
     const dispatch = useDispatch()
     const cartState = useSelector(state => state.cart)
+    const orderState = useSelector(state => state.order)
+    const totalSumIngredient = React.useMemo(() => cartState.cartIngredients.reduce((prev, next) => prev + next.price, 0), [cartState.cartIngredients])
 
     React.useEffect(() => {
         if (cartState.cartBun.length !== 0 && cartState.cartIngredients.length === 0) {
@@ -22,16 +26,13 @@ const TotalBasketCount = () => {
             )
         }
         if (cartState.cartIngredients.length !== 0) {
-            const total = cartState.cartIngredients.reduce((prev, next) => prev + next.price, 0)
-            dispatch({type: TOTAL_SUM_INGREDIENTS, payload: total})
+            dispatch({type: TOTAL_SUM_INGREDIENTS, payload: totalSumIngredient})
         }
-    }, [cartState.cartBun, cartState.cartIngredients])
+    }, [cartState.cartBun, cartState.cartIngredients, dispatch])
 
     React.useEffect(() => {
-        if(cartState.orderSuccess) {
-            setIsOpen(true)
-        }
-    }, [cartState.orderSuccess])
+        setIsOpen(!!orderState.orderSuccess)
+    }, [orderState.orderSuccess])
 
     const getIngredientsAllId = cartState.cartIngredients.map((item) => {
         return item._id
@@ -60,7 +61,6 @@ const TotalBasketCount = () => {
             <Modal open={isOpen} onClose={() => setIsOpen(false)}>
                 <OrderDetails/>
             </Modal>
-
         </div>
     );
 };
