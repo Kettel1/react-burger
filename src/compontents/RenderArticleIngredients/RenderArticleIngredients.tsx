@@ -7,7 +7,7 @@ import Modal from '../modals/Modal/Modal';
 import IngredientDetails from "../modals/IngredientsDetails/IngredientDetails";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
-import {REMOVE_VIEWED_INGREDIENT, SET_VIEWED_INGREDIENT} from "../../services/actions/BurgerIngredients";
+import {REMOVE_VIEWED_INGREDIENT, SET_VIEWED_INGREDIENT } from '../../services/actions/viewedIngredient';
 
 // @ts-ignore
 const RenderArticleIngredients = ({item}) => {
@@ -15,6 +15,8 @@ const RenderArticleIngredients = ({item}) => {
     const dispatch = useDispatch()
     // @ts-ignore
     const cartState = useSelector((state) => state.cart)
+    // @ts-ignore
+    const viewedIngredientState = useSelector((state) => state.viewedIngredient)
 
     const [, dragRef] = useDrag({
         type: 'ingredient',
@@ -51,7 +53,7 @@ const RenderArticleIngredients = ({item}) => {
             <p className={ArticleIngredients.name}>{item.name}</p>
         </article>
         {isOpen &&(
-            <Modal open={isOpen} onClose={closeModal}>
+            <Modal onClose={closeModal}>
                 <IngredientDetails/>
             </Modal>
         )}
@@ -59,9 +61,7 @@ const RenderArticleIngredients = ({item}) => {
 }
 
 RenderArticleIngredients.propTypes = {
-    item: PropTypes.shape({
-        ingredientsTypes
-    }).isRequired
+    item: ingredientsTypes.isRequired,
 }
 
 export default RenderArticleIngredients;

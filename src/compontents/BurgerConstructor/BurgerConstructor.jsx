@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {
     ADD_BUN_TO_CART,
     ADD_INGREDIENTS_TO_CART, UPDATE_INGREDIENTS_IN_CART
-} from "../../services/actions/BurgerCounstructor";
+} from "../../services/actions/burgerCounstructor";
 import {useDrop} from "react-dnd";
 import IngredientConstructorItem from "../IngredientConstructorItem/IngredientConstructorItem";
 import update from 'immutability-helper';
@@ -62,8 +62,6 @@ const BurgerConstructor = () => {
 
     const debounceMoveIngredients = React.useMemo(() => debounce(moveIngredients), [moveIngredients])
 
-    const generateId = v4()
-
     return (
         <section ref={dropTarget} className={BurgerConstructorStyles.container}>
             <div className={BurgerConstructorStyles.innerContainer}>
@@ -75,8 +73,9 @@ const BurgerConstructor = () => {
                     :
                     <ul className={BurgerConstructorStyles.list}>
                         {cartState.cartIngredients.map((item, idx) => {
+                            const generateId = v4()
                             return <IngredientConstructorItem
-                                key={item._id + idx}
+                                key={generateId}
                                 id={item._id}
                                 item={item}
                                 idx={idx}

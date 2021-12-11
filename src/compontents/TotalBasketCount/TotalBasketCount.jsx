@@ -5,8 +5,9 @@ import TotalBasketCountStyles from './TotalBasketCount.module.scss'
 import OrderDetails from "../modals/OrderDetails/OrderDetails";
 
 import {useDispatch, useSelector} from "react-redux";
-import {TOTAL_SUM_BUN, TOTAL_SUM_INGREDIENTS} from "../../services/actions/BurgerCounstructor";
+import {TOTAL_SUM_BUN, TOTAL_SUM_INGREDIENTS} from "../../services/actions/burgerCounstructor";
 import {getOrderNumber} from "../../services/actions/order";
+import {REMOVE_VIEWED_INGREDIENT} from "../../services/actions/viewedIngredient";
 
 
 
@@ -48,6 +49,10 @@ const TotalBasketCount = () => {
         }
     }
 
+    const closeModal = () => {
+        setIsOpen(false)
+    }
+
     const {totalSumIngredients, totalSumBun} = cartState
 
     return (
@@ -58,9 +63,11 @@ const TotalBasketCount = () => {
             </div>
             <Button type="primary" size="large"
                     onClick={toggleModal}>Оформить заказ</Button>
-            <Modal open={isOpen} onClose={() => setIsOpen(false)}>
-                <OrderDetails/>
-            </Modal>
+            {isOpen && (
+                <Modal onClose={closeModal}>
+                    <OrderDetails />
+                </Modal>
+            )}
         </div>
     );
 };

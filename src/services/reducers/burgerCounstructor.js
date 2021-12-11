@@ -5,7 +5,7 @@ import {
     TOTAL_SUM_BUN,
     TOTAL_SUM_INGREDIENTS,
     UPDATE_INGREDIENTS_IN_CART,
-} from "../actions/BurgerCounstructor";
+} from "../actions/burgerCounstructor";
 
 const initialState = {
     cartBun: [],                  // Выбранная булочка

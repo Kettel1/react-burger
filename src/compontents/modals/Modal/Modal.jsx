@@ -4,8 +4,7 @@ import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 
-const Modal = ({open, onClose, children}) => {
-    if (!open) return null
+const Modal = ({onClose, children}) => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const escFunction = (e) => {
@@ -32,7 +31,6 @@ const Modal = ({open, onClose, children}) => {
 };
 
 Modal.propTypes = {
-    open: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
     children: PropTypes.element
 }

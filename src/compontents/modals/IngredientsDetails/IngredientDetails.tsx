@@ -16,7 +16,7 @@ const IngredientDetails = () => {
         calories,
         fat,
         carbohydrates
-    } = useSelector((state:any) => state.ingredients.viewedIngredient)
+    } = useSelector((state:any) => state.viewedIngredient.viewedIngredient)
 
     return (
         <section className={IngredientDetailsStyles.container}>
