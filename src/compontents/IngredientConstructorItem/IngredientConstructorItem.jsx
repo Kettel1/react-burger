@@ -9,7 +9,6 @@ import PropTypes from "prop-types";
 import ingredientsTypes from '../../utils/types'
 
 const IngredientConstructorItem = ({id, item, idx, moveCard}) => {
-
     const dispatch = useDispatch()
 
     const dragDropRef = React.useRef(null)

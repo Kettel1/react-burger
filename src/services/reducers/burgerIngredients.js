@@ -9,6 +9,8 @@ const defaultState = {
     ingredients: [],
     ingredientsRequest: false,
     ingredientsFailed: false,
+
+    isDragging: false
 }
 
 export const ingredientsReducer = (state = defaultState, action) => {

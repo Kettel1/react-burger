@@ -1,6 +1,5 @@
 import React from 'react';
 import ingredientsTypes from '../../utils/types'
-import PropTypes from "prop-types";
 import ArticleIngredients from './RenderArticleIngredients.module.scss'
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from '../modals/Modal/Modal';
@@ -15,14 +14,10 @@ const RenderArticleIngredients = ({item}) => {
     const dispatch = useDispatch()
     // @ts-ignore
     const cartState = useSelector((state) => state.cart)
-    // @ts-ignore
-    const viewedIngredientState = useSelector((state) => state.viewedIngredient)
-
     const [, dragRef] = useDrag({
         type: 'ingredient',
         item: item,
     })
-
     const toggleModal = () => {
         dispatch({type: SET_VIEWED_INGREDIENT, ingredient: item})
         setIsOpen(!isOpen)

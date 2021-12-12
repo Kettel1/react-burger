@@ -14,17 +14,25 @@ import {v4} from 'uuid'
 import {debounce} from "../../utils/helpers";
 
 
-
 const BurgerConstructor = () => {
     const cartState = useSelector(state => state.cart)
+
     const dispatch = useDispatch()
     const [{isHover}, dropTarget] = useDrop({
         accept: 'ingredient',
         drop(item) {
+
             if (item.type === 'bun' && !cartState.cartBun.length) {
                 dispatch({type: ADD_BUN_TO_CART, bun: item})
             } else if (item.type !== 'bun' && cartState.cartBun.length !== 0) {
-                dispatch({type: ADD_INGREDIENTS_TO_CART, ingredients: item})
+                dispatch({
+                    type: ADD_INGREDIENTS_TO_CART,
+                    ingredients:
+                        {
+                            ...item,
+                            dragId: v4()
+                        }
+                })
             }
         },
         collect: monitor => ({
@@ -58,24 +66,28 @@ const BurgerConstructor = () => {
             type: UPDATE_INGREDIENTS_IN_CART,
             item: updateStateIngredient,
         })
-    }, [cartState.cartIngredients])
+    }, [cartState.cartIngredients, dispatch])
 
     const debounceMoveIngredients = React.useMemo(() => debounce(moveIngredients), [moveIngredients])
 
+    const ingredientsIsDragging = isHover ? BurgerConstructorStyles.draggingContainer : BurgerConstructorStyles.container
+
     return (
-        <section ref={dropTarget} className={BurgerConstructorStyles.container}>
+        <section ref={dropTarget} className={ingredientsIsDragging}>
             <div className={BurgerConstructorStyles.innerContainer}>
                 {cartState.cartBun.length !== 0 && renderBun('top')}
 
                 {cartState.cartIngredients.length === 0 && cartState.cartBun.length === 0
                     ?
-                    <h2 className={isHover ? BurgerConstructorStyles.test : undefined}>Корзина пуста!</h2>
+                    <div className={BurgerConstructorStyles.emptyCartContainer}>
+                        <h2 className={BurgerConstructorStyles.emptyCartTitle}>Корзина пуста</h2>
+                        <h3 className={BurgerConstructorStyles.emptyCartDescription}>Перетащите булочку, а затем игредиенты</h3>
+                    </div>
                     :
                     <ul className={BurgerConstructorStyles.list}>
                         {cartState.cartIngredients.map((item, idx) => {
-                            const generateId = v4()
                             return <IngredientConstructorItem
-                                key={generateId}
+                                key={item.dragId}
                                 id={item._id}
                                 item={item}
                                 idx={idx}

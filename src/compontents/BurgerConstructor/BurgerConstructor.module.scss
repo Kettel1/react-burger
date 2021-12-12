@@ -4,10 +4,61 @@
     width: 48%;
 }
 
+.draggingContainer {
+    margin-top: 80px;
+    position: relative;
+    width: 48%;
+
+    &:before {
+        position: absolute;
+        width: 101%;
+        height: 100%;
+        content: '';
+        border-radius: 7px;
+        background-image:
+                linear-gradient(90deg, #399133 50%, transparent 50%),
+                linear-gradient(90deg, #399133 50%, transparent 50%),
+                linear-gradient(0, #399133 50%, transparent 50%),
+                linear-gradient(0, #399133 50%, transparent 50%);
+        background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+        background-size: 20px 2px, 20px 2px, 2px 20px, 2px 20px;
+        animation: animateBorder 400ms infinite linear;
+    }
+}
+
+@keyframes animateBorder {
+    0% {
+        background-position: 0 0, 20px 100%, 0 20px, 100% 0;
+    }
+    100% {
+        background-position: 20px 0, 0 100%, 0 0, 100% 20px;
+    }
+}
+
 .innerContainer {
+    position: relative;
+    width: 100%;
     & > div {
         margin-left: 30px;
     }
+}
+
+.emptyCartContainer {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.emptyCartTitle {
+    margin: 30px auto 20px auto;
+
+}
+
+.emptyCartDescription {
+    margin: 0 auto;
+    font-size: 12px;
+    opacity: .3;
+    font-weight: normal;
 }
 
 .item {
