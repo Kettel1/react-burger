@@ -55,7 +55,8 @@
 
 .errorContainer {
     composes: container;
-    padding: 60px;
+    padding: 75px 65px;
+
 }
 
 .errorTitle {
@@ -63,6 +64,7 @@
     color: white;
     text-align: center;
     font-weight: bold;
+    width: 600px;
 }
 
 .errorText {
