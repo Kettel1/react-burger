@@ -1,5 +1,5 @@
 import {ConstructorElement} from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/constructor-element';
-import React from 'react';
+import React, {useCallback, useMemo} from 'react';
 import BurgerConstructorStyles from "./BurgerConstructor.module.scss"
 import TotalBasketCount from "../TotalBasketCount/TotalBasketCount";
 import {useDispatch, useSelector} from "react-redux";
@@ -53,7 +53,7 @@ const BurgerConstructor = () => {
     }
 
 
-    const moveIngredients = React.useCallback((dragIndex, hoverIndex) => {
+    const moveIngredients = useCallback((dragIndex, hoverIndex) => {
         const dragCard = cartState.cartIngredients[dragIndex];
         const updateStateIngredient = update(cartState.cartIngredients, {
             $splice: [
@@ -68,16 +68,16 @@ const BurgerConstructor = () => {
         })
     }, [cartState.cartIngredients, dispatch])
 
-    const debounceMoveIngredients = React.useMemo(() => debounce(moveIngredients), [moveIngredients])
+    const debounceMoveIngredients = useMemo(() => debounce(moveIngredients), [moveIngredients])
 
     const ingredientsIsDragging = isHover
         ? BurgerConstructorStyles.draggingContainer
         : BurgerConstructorStyles.test
 
-    const test = !isHover && cartState.cartIngredients.length === 0 && cartState.cartBun.length === 0
+    const highLightBorder = !isHover && cartState.cartIngredients.length === 0 && cartState.cartBun.length === 0
         && BurgerConstructorStyles.dashedContainer
 
-    const assign = `${ingredientsIsDragging ? ingredientsIsDragging : ''} ${test ? test : ''}`
+    const assign = `${ingredientsIsDragging ? ingredientsIsDragging : ''} ${highLightBorder ? highLightBorder : ''}`
 
     return (
         <section ref={dropTarget} className={assign}>

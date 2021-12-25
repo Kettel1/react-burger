@@ -1,14 +1,14 @@
 import {
     DELETE_AUTH, LOADING_USER, LOADING_USER_COMPLETED,
     LOGIN_FAILED,
-    LOGIN_SUCCESS,
-    REGISTER_USER_FAILED,
+    LOGIN_SUCCESS, REGISTER_USER_CLEAR_TEXT_ERROR,
+    REGISTER_USER_FAILED, REGISTER_USER_SET_TEXT_ERROR,
     REGISTER_USER_SUCCESS, RESET_PASSWORD_COMPLETED,
     RESET_PASSWORD_SUCCESS, SET_USER_INFO
 } from "../actions/auth";
 
 const initialState = {
-    isLoading: false,
+    isLoading: true,
     errorMessage: '',
     isAuth: false,
     user: {
@@ -23,11 +23,15 @@ export const authReducer = (state = initialState, action) => {
         case LOGIN_SUCCESS:
             return {...state, isAuth: true, user: {...action.payload.user}}
         case LOGIN_FAILED:
-            return {...initialState, success: false}
+            return {...initialState, success: false, isLoading: false}
         case REGISTER_USER_FAILED:
-            return {...initialState, success: false}
+            return {...initialState, success: false, isLoading: false}
         case REGISTER_USER_SUCCESS:
             return {...state, ...action.payload}
+        case REGISTER_USER_SET_TEXT_ERROR:
+            return {...state, errorMessage: action.message}
+        case REGISTER_USER_CLEAR_TEXT_ERROR:
+            return {...state, errorMessage: ''}
         case RESET_PASSWORD_SUCCESS:
             return {...state, success: true}
         case RESET_PASSWORD_COMPLETED:
@@ -35,7 +39,7 @@ export const authReducer = (state = initialState, action) => {
         case SET_USER_INFO:
             return {...state, user: {...action.payload}, isAuth: true, isLoading: false}
         case DELETE_AUTH:
-            return {...initialState}
+            return {...initialState, isLoading: false}
         case LOADING_USER:
             return {...state, isLoading: true}
         case LOADING_USER_COMPLETED:

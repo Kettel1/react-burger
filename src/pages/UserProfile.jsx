@@ -1,42 +1,42 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import UserProfileStyles from "./UserProfile.module.scss";
-import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";
 import {updateUserInfo} from "../services/actions/auth";
 
 const UserProfile = () => {
-    const [form, setForm] = React.useState({
+    const [form, setForm] = useState({
         email: '',
         password: '',
         name: '',
     })
 
-    const [textError, setTextError] = React.useState({
+    const [textError, setTextError] = useState({
         email: '',
         password: '',
         name: '',
     })
 
-    const [isError, setIsError] = React.useState({
+    const [isError, setIsError] = useState({
         name: false,
         email: false,
         password: false,
     })
 
-    const [disabled, setDisabled] = React.useState({
+    const [disabled, setDisabled] = useState({
         name: true,
         email: true,
         password: true,
     })
 
     const dispatch = useDispatch()
-    const nameRef = React.useRef(null)
-    const emailRef = React.useRef(null)
-    const passwordRef = React.useRef(null)
+    const nameRef = useRef(null)
+    const emailRef = useRef(null)
+
 
     const {user} = useSelector((state => state.auth))
 
-    React.useEffect(() => {
+    useEffect(() => {
         setForm({...user})
 
     }, [user])
@@ -72,16 +72,17 @@ const UserProfile = () => {
 
     }
 
-    const changeUserPassword = () => {
-        setDisabled({...disabled, password: !disabled.password})
-
-        setTimeout(() => {
-            passwordRef.current.focus()
-        }, 1)
-
-    }
+    // const changeUserPassword = () => {
+    //     setDisabled({...disabled, password: !disabled.password})
+    //
+    //     setTimeout(() => {
+    //         passwordRef.current.focus()
+    //     }, 1)
+    //
+    // }
 
     const onChange = (e) => {
+        e.preventDefault()
         setForm({...form, [e.target.name]: e.target.value})
     }
 
@@ -100,9 +101,9 @@ const UserProfile = () => {
 
 
     return (
-        <div className={UserProfileStyles.inputsContainer}>
+        <form onSubmit={onSubmit} className={UserProfileStyles.inputsContainer}>
             <Input
-                type={'name'}
+                type={'text'}
                 placeholder={'Имя'}
                 onChange={onChange}
                 value={form.name}
@@ -132,28 +133,16 @@ const UserProfile = () => {
 
             />
 
-            <Input
-                type={'password'}
-                placeholder={'Пароль'}
-                onChange={onChange}
-                value={form.password}
-                disabled={disabled.password}
-                name={'password'}
-                error={isError.password}
-                ref={passwordRef}
-                errorText={textError.password}
-                size={'default'}
-                icon={"EditIcon"}
-                onIconClick={changeUserPassword}
-            />
+            <PasswordInput value={form.password} name={'password'} onChange={onChange}/>
 
             <div>
                 <Button type='secondary' onClick={onCancel}>Отменить</Button>
-                <Button type='primary' onClick={onSubmit}>Сохранить</Button>
+                <Button type='primary'>Сохранить</Button>
             </div>
-        </div>
+        </form>
 
     );
 };
+
 
 export default UserProfile;

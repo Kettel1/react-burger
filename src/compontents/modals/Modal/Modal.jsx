@@ -3,8 +3,19 @@ import ReactDOM from "react-dom";
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
+import {useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {SET_INITIAL_ORDER_STATE} from "../../../services/actions/order";
 
-const Modal = ({onClose, children}) => {
+
+const Modal = ({children}) => {
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+    const onClose = () => {
+        navigate('/')
+        dispatch({type: SET_INITIAL_ORDER_STATE})
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const escFunction = (e) => {
@@ -30,7 +41,6 @@ const Modal = ({onClose, children}) => {
 };
 
 Modal.propTypes = {
-    onClose: PropTypes.func.isRequired,
     children: PropTypes.element
 }
 

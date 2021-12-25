@@ -4,7 +4,6 @@ import {composeWithDevTools} from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import {ingredientsReducer} from "./burgerIngredients";
 import {orderReducer} from "./order";
-import {viewedIngredientReducer} from "./viewedIngredient";
 import {authReducer} from "./auth";
 
 import { persistStore, persistReducer } from 'redux-persist'
@@ -14,14 +13,13 @@ const rootReducer = combineReducers({
     cart: constructorReducer,
     ingredients: ingredientsReducer,
     order: orderReducer,
-    viewedIngredient: viewedIngredientReducer,
     auth: authReducer,
 })
 
 const persistConfig = {
     key: 'root',
     storage,
-    blacklist: ['order', 'viewedIngredient', 'auth']
+    blacklist: ['order', 'auth']
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

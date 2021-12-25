@@ -1,14 +1,12 @@
 import React from 'react';
-import {useLocation, useNavigate, useParams} from "react-router-dom";
+import IngredientDetails from "../compontents/modals/IngredientsDetails/IngredientDetails";
+import IngredientsStyles from './Ingredients.module.scss'
 
 const Ingredients = () => {
-    const location = useLocation()
-    const navigate = useNavigate()
-    const id = useParams().id
 
     return (
-        <div>
-            Test
+        <div className={IngredientsStyles.container}>
+            <IngredientDetails/>
         </div>
     );
 };

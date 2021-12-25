@@ -1,13 +1,13 @@
-import React from 'react';
-import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import RegisterStyles from './Register.module.scss'
-import {Link, Navigate, useNavigate} from "react-router-dom";
+import React, {useState} from 'react';
+import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
+import ForgotPasswordStyles from './ForgotPassword.module.scss'
+import {Link, useNavigate} from "react-router-dom";
 
 import {useDispatch, useSelector} from "react-redux";
-import {forgotPassword, resetPassword} from "../services/actions/auth"
+import {forgotPassword} from "../services/actions/auth"
 
 const ForgotPassword = () => {
-    const [form, setForm] = React.useState({email: ''})
+    const [form, setForm] = useState({email: ''})
 
     const authState = useSelector((state => state.auth))
 
@@ -19,7 +19,7 @@ const ForgotPassword = () => {
         setForm({...form, [e.target.name]: e.target.value})
     }
 
-    const handler = async e => {
+    const handler = e => {
         e.preventDefault()
 
         dispatch(forgotPassword(form))
@@ -29,29 +29,30 @@ const ForgotPassword = () => {
         if(authState.success) {
             navigate('/reset-password')
         }
-    }, [authState.success])
+    }, [authState.success, navigate])
 
 
 
     return (
-        <form className={RegisterStyles.container} onSubmit={handler}>
+        <form className={ForgotPasswordStyles.container} onSubmit={handler}>
 
-            <h2 className={RegisterStyles.title}>Восстановление пароля</h2>
+            <h2 className={ForgotPasswordStyles.title}>Восстановление пароля</h2>
+
             <Input
-                type={'name'}
+                type={'email'}
                 placeholder={'Укажите e-mail'}
                 onChange={onChange}
-                value={form.name}
+                value={form.email}
                 name={'email'}
                 error={false}
                 errorText={'Ошибка'}
                 size={'default'}
             />
 
-            <Button type="primary" size="small">Восстановить</Button>
+            <Button type="primary" size="medium">Восстановить</Button>
 
-            <div className={RegisterStyles.recoveryContainer}>
-                <p>Вспомнили пароль? <Link to='/login'>Войти</Link></p>
+            <div className={ForgotPasswordStyles.recoveryContainer}>
+                <p className={ForgotPasswordStyles.recoveryDescription}>Вспомнили пароль? <Link className={ForgotPasswordStyles.recoveryLink} to='/login'>Войти</Link></p>
             </div>
         </form>
     );

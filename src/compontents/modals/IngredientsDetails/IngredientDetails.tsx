@@ -1,9 +1,18 @@
 import React from 'react';
 import IngredientDetailsStyles from "./IngredientsDetails.module.scss";
 import {useSelector} from "react-redux";
+import {useParams} from "react-router-dom";
 
 // @ts-ignore
 const IngredientDetails = () => {
+    const {id} = useParams()
+
+    // @ts-ignore
+    const {ingredients} = useSelector((state => state.ingredients))
+
+    // @ts-ignore
+    const currentIngredient = ingredients.find((ingredient) => ingredient._id === id)
+
     // @ts-ignore
     const {
         name,
@@ -12,7 +21,7 @@ const IngredientDetails = () => {
         calories,
         fat,
         carbohydrates
-    } = useSelector((state:any) => state.viewedIngredient.viewedIngredient)
+    } = currentIngredient
 
     return (
         <section className={IngredientDetailsStyles.container}>

@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import AppHeader from "../../compontents/AppHeader/AppHeader";
+import AppStyles from './App.module.css'
+import doge from '../../images/santa.png'
 
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import {Route, Routes, useLocation} from "react-router-dom";
 import Login from '../../pages/Login'
 import HomePage from "../../pages/HomePage";
 import ForgotPassword from "../../pages/ForgotPassword";
@@ -11,31 +13,40 @@ import Profile from "../../pages/Profile";
 import {getUserInfo} from "../../services/actions/auth";
 import {useDispatch, useSelector} from "react-redux";
 import UserProfile from "../../pages/UserProfile";
-import Orders from "../../pages/Orders";
 import ProtectedUnAuthRoute from "../hoc/ProtectedUnAuthRoute";
 import ProtectedAuthRoute from "../hoc/ProtectedAuthRoute";
 import Ingredients from "../../pages/Ingredients";
-
+import {fetchIngredients} from "../../services/actions/burgerIngredients";
+import IngredientDetails from "../modals/IngredientsDetails/IngredientDetails";
+import Modal from "../modals/Modal/Modal";
+import OrderDetails from "../modals/OrderDetails/OrderDetails";
 
 function App() {
+    const location = useLocation();
     const dispatch = useDispatch()
     const {isLoading} = useSelector((state => state.auth))
 
-    React.useEffect(() => {
+    const state = location.state
+
+    const [visibleSanta, setVisibleSanta] = useState(false)
+    const Surprise = () => {
+        setVisibleSanta(!visibleSanta)
+    }
+
+    useEffect(() => {
         dispatch(getUserInfo())
+        dispatch(fetchIngredients())
     }, [dispatch])
 
-    if(isLoading) return (<div>Загрузка</div>)
-
-    // Нужно закончить еще 7 пункт, проверьте пожалуйста это
-    // Я как раз исправлю замечаения и закончу 7 пункт, а то боюсь не успеть
+    if (isLoading) return (<div>Загрузка</div>)
 
     return (
-        <Router>
+        <>
             <AppHeader/>
-            <Routes>
+            <Routes location={state?.backgroundLocation || location}>
                 <Route path='/' element={<HomePage/>}/>
-                <Route path='/ingredient/:id' element={<Ingredients/>}/>
+                <Route path='/ingredients/:id' element={<Ingredients/>}/>
+                <Route path='/ingredients/:id' element={<Ingredients/>}/>
 
                 <Route path='/login' element={
                     <ProtectedAuthRoute>
@@ -61,10 +72,45 @@ function App() {
                         <Profile/>
                     </ProtectedUnAuthRoute>}>
                     <Route path='' element={<UserProfile/>}/>
-                    <Route path='orders' element={<Orders/>}/>
+                    {/*<Route path='order/' element={<Orders/>}/>*/}
+
                 </Route>
             </Routes>
-        </Router>
+
+            {state?.backgroundLocation && (
+                <Routes>
+                    <Route
+                        path='/ingredients/:id'
+                        element={
+                            <Modal>
+                                <IngredientDetails/>
+                            </Modal>
+                        }
+                    />
+                </Routes>
+            )}
+
+            {state?.backgroundLocation &&
+            (<Routes>
+                    <Route
+                        path='/order/:orderNumber'
+                        element={
+                            <Modal>
+                                <OrderDetails/>
+                            </Modal>
+                        }
+                    />
+                </Routes>
+            )}
+
+            <div className={AppStyles.santa} >
+                <img alt='santa' src={doge} className={AppStyles.img} onMouseEnter={Surprise} onMouseLeave={Surprise}/>
+                <p className={visibleSanta ? AppStyles.congratsVisible : AppStyles.congratsNone }>Поздравляю с наступающим новым годом!<br/>
+                Спасибо за ваше ревью, оно очень помогает развиваться,
+                анализировать свои ошибки и двигаться дальше</p>
+                <p className={AppStyles.clue}>Наведи на меня мышку...</p>
+            </div>
+        </>
     );
 }
 

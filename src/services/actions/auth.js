@@ -9,6 +9,8 @@ import {
 
 export const REGISTER_USER_FAILED = 'REGISTER_USER_FAILED'
 export const REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS'
+export const REGISTER_USER_SET_TEXT_ERROR = 'REGISTER_USER_SET_TEXT_ERROR'
+export const REGISTER_USER_CLEAR_TEXT_ERROR = 'REGISTER_USER_CLEAR_TEXT_ERROR'
 
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILED = 'LOGIN_FAILED'
@@ -50,19 +52,32 @@ export const registerRequest = (form) => (dispatch) => {
         .then(response => {
             if (!response.ok) {
                 dispatch({type: REGISTER_USER_FAILED})
+                return response.json()
             } else {
+                console.log('success response')
                 return response.json()
             }
         })
         .then(userInfo => {
-            console.log(userInfo.refreshToken)
-            setCookie('accessToken', userInfo.accessToken)
-            localStorage.setItem('refreshToken', userInfo.refreshToken)
-            dispatch({
-                type: REGISTER_USER_SUCCESS,
-                payload: userInfo
-            })
-        });
+            if(userInfo.success) {
+                dispatch({
+                    type: REGISTER_USER_CLEAR_TEXT_ERROR,
+                })
+                setCookie('accessToken', userInfo.accessToken)
+                localStorage.setItem('refreshToken', userInfo.refreshToken)
+                dispatch({
+                    type: REGISTER_USER_SUCCESS,
+                    payload: userInfo
+                })
+            } else  {
+                if(userInfo.message === 'User already exists') {
+                    dispatch({
+                        type: REGISTER_USER_SET_TEXT_ERROR,
+                        message: 'Пользователь с такой почтой уже зарегистрирован'
+                    })
+                }
+            }
+        })
 };
 
 export const forgotPassword = (form) => (dispatch) => {
@@ -81,35 +96,35 @@ export const forgotPassword = (form) => (dispatch) => {
                 dispatch({type: RESET_PASSWORD_SUCCESS})
             }
         })
+        .catch(e => {
+          throw new Error(e)
+        })
 }
 
 export const resetPassword = (form) => (dispatch) => {
     fetchResetPasswordRequest(form)
         .then(response => {
-
             if (response.message === 'Password successfully reset') {
                 dispatch({type: RESET_PASSWORD_COMPLETED})
             }
+        })
+        .catch(e => {
+            throw new Error(e)
         })
 }
 
 export const getUserInfo = () => (dispatch) => {
     checkAuthUser()
         .then(response => {
-
-            dispatch({type: LOADING_USER})
-
-
             if (response === undefined) {
-                console.log('undefined')
-
                 dispatch({type: LOADING_USER_COMPLETED})
             }
-
             if (response !== undefined) {
-                console.log('unundef')
                 dispatch({type: SET_USER_INFO, payload: response})
             }
+        })
+        .catch(e => {
+            throw new Error(e)
         })
 }
 
@@ -132,8 +147,8 @@ export const logOutUser = () => (dispatch) => {
                 throw new Error('Произошла ошибка при получении json fetchLogOut')
             }
         })
-        .catch(error => {
-            throw new Error(error)
+        .catch(e => {
+            throw new Error(e)
         })
 }
 
@@ -141,5 +156,8 @@ export const updateUserInfo = (form) => (dispatch) => {
     updateUser(form)
         .then(response => {
             console.log(response)
+        })
+        .catch(e => {
+            throw new Error(e)
         })
 }

@@ -1,37 +1,22 @@
 import React from 'react';
 import ProfileStyles from './Profile.module.scss'
-import {NavLink, Outlet, useNavigate} from "react-router-dom";
+import {NavLink, Outlet} from "react-router-dom";
 import {logOutUser} from "../services/actions/auth";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteCookie} from "../utils/helpers";
 
 
 const Profile = () => {
-
-    const navigate = useNavigate()
-
     const authState = useSelector((state => state.auth))
-    const activeStyle = {
-        textDecoration: 'underline'
-    }
 
     const dispatch = useDispatch()
 
     const logOut = () => {
 
         dispatch(logOutUser())
-        // console.log(authState)
+
         deleteCookie('accessToken')
     }
-
-    // React.useEffect(() => {
-    //     if(!authState.isAuth) {
-    //         console.log('должен быть редирект')
-    //         navigate('/')
-    //     }
-    //
-    // }, [authState.isAuth])
-
 
     return (authState.isLoading
             ? (<div>Загрузка</div>)

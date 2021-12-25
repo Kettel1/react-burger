@@ -16,6 +16,7 @@
 
     & > button {
         margin-top: 24px;
+        font-family: "Jet Brains Mono", Arial, sans-serif;
     }
 }
 
@@ -28,8 +29,18 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 90px !important;
 
     & > p {
         margin-bottom: 16px;
     }
+}
+
+.recoveryDescription {
+    color: #8585AD
+}
+
+.recoveryLink {
+    text-decoration: none;
+    color: #4C4CFF;
 }

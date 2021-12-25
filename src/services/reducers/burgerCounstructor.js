@@ -46,8 +46,8 @@ export const constructorReducer = (state = initialState, action) => {
         case DELETE_INGREDIENTS_FROM_CART:
             return {
                 ...state,
-                cartIngredients: [...state.cartIngredients.filter((item, i) => item._id + i !== action.id )]
-                }
+                cartIngredients: [...state.cartIngredients.filter((item, i) => item._id + i !== action.id)]
+            }
 
         case UPDATE_INGREDIENTS_IN_CART:
             return {
