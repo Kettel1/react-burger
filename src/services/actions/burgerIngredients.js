@@ -4,10 +4,6 @@ export const GET_ALL_INGREDIENTS_SUCCESS = 'GET_ALL_INGREDIENTS_SUCCESS'
 export const GET_ALL_INGREDIENTS_REQUEST = 'GET_ALL_INGREDIENTS_REQUEST'
 export const GET_ALL_INGREDIENTS_FAILED = 'GET_ALL_INGREDIENTS_FAILED'
 
-
-
-
-
 export const fetchIngredients = () => {
     return function (dispatch) {
         dispatch({

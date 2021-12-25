@@ -9,7 +9,7 @@ import {useDrag} from "react-dnd";
 import {REMOVE_VIEWED_INGREDIENT, SET_VIEWED_INGREDIENT } from '../../services/actions/viewedIngredient';
 
 // @ts-ignore
-const RenderArticleIngredients = ({item}) => {
+const RenderArticleIngredients = React.memo(({item}) => {
     const [isOpen, setIsOpen] = React.useState(false)
     const dispatch = useDispatch()
     // @ts-ignore
@@ -53,10 +53,6 @@ const RenderArticleIngredients = ({item}) => {
             </Modal>
         )}
     </>
-}
-
-RenderArticleIngredients.propTypes = {
-    item: ingredientsTypes.isRequired,
-}
+})
 
 export default RenderArticleIngredients;

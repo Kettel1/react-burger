@@ -13,7 +13,6 @@ const Modal = ({onClose, children}) => {
         }
     }
 
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     React.useEffect(() => {
         document.addEventListener("keydown", escFunction);
 

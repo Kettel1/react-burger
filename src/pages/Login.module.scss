@@ -1,0 +1,35 @@
+.marginTop {
+    margin-top: 24px;
+}
+
+.container {
+    max-width: 1240px;
+    padding: 0 40px;
+    display: flex;
+    flex-direction: column;
+    margin: 180px auto 0 auto;
+    align-items: center;
+
+    & > div {
+        margin-top: 24px;
+    }
+
+    & > button {
+        margin-top: 24px;
+    }
+}
+
+.loginFiled {
+    composes: marginTop;
+}
+
+.recoveryContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    & > p {
+        margin-bottom: 16px;
+    }
+}

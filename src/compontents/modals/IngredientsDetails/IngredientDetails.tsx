@@ -1,14 +1,10 @@
 import React from 'react';
 import IngredientDetailsStyles from "./IngredientsDetails.module.scss";
-import PropTypes from "prop-types";
-import ingredientsTypes from "../../../utils/types";
 import {useSelector} from "react-redux";
 
 // @ts-ignore
 const IngredientDetails = () => {
-
     // @ts-ignore
-
     const {
         name,
         proteins,

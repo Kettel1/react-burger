@@ -70,10 +70,17 @@ const BurgerConstructor = () => {
 
     const debounceMoveIngredients = React.useMemo(() => debounce(moveIngredients), [moveIngredients])
 
-    const ingredientsIsDragging = isHover ? BurgerConstructorStyles.draggingContainer : BurgerConstructorStyles.container
+    const ingredientsIsDragging = isHover
+        ? BurgerConstructorStyles.draggingContainer
+        : BurgerConstructorStyles.test
+
+    const test = !isHover && cartState.cartIngredients.length === 0 && cartState.cartBun.length === 0
+        && BurgerConstructorStyles.dashedContainer
+
+    const assign = `${ingredientsIsDragging ? ingredientsIsDragging : ''} ${test ? test : ''}`
 
     return (
-        <section ref={dropTarget} className={ingredientsIsDragging}>
+        <section ref={dropTarget} className={assign}>
             <div className={BurgerConstructorStyles.innerContainer}>
                 {cartState.cartBun.length !== 0 && renderBun('top')}
 
