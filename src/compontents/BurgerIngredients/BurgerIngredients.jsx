@@ -1,5 +1,5 @@
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
-import React from 'react';
+import React, {useRef} from 'react';
 import BurgerIngredientsStyles from './BurgerIngredients.module.scss'
 import RenderBurgerIngredients from '../RenderBurgerIngredients/RenderBurgerIngredients';
 import {useSelector} from "react-redux";
@@ -9,9 +9,9 @@ import {useSelector} from "react-redux";
 const BurgerIngredients = () => {
     const [currentTab, setCurrentTab] = React.useState('one')
     const {ingredients} = useSelector((state => state.ingredients))
-    const bunRef = React.useRef(null)
-    const sauceRef = React.useRef(null)
-    const mainRef = React.useRef(null)
+    const bunRef = useRef(null)
+    const sauceRef = useRef(null)
+    const mainRef = useRef(null)
 
     const scrollToRef = (ref) => {
         ref.current.scrollIntoView({

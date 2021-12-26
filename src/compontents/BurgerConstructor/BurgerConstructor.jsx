@@ -1,5 +1,5 @@
 import {ConstructorElement} from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/constructor-element';
-import React from 'react';
+import React, {useCallback, useMemo} from 'react';
 import BurgerConstructorStyles from "./BurgerConstructor.module.scss"
 import TotalBasketCount from "../TotalBasketCount/TotalBasketCount";
 import {useDispatch, useSelector} from "react-redux";
@@ -43,6 +43,7 @@ const BurgerConstructor = () => {
     const renderBun = (direction) => {
         return (
             <ConstructorElement
+                id='test'
                 type={direction === "top" ? "top" : "bottom"}
                 isLocked={true}
                 text={direction === "top" ? `${cartState.cartBun.name} (верх)` : `${cartState.cartBun.name} (низ)`}
@@ -53,7 +54,7 @@ const BurgerConstructor = () => {
     }
 
 
-    const moveIngredients = React.useCallback((dragIndex, hoverIndex) => {
+    const moveIngredients = useCallback((dragIndex, hoverIndex) => {
         const dragCard = cartState.cartIngredients[dragIndex];
         const updateStateIngredient = update(cartState.cartIngredients, {
             $splice: [
@@ -68,21 +69,28 @@ const BurgerConstructor = () => {
         })
     }, [cartState.cartIngredients, dispatch])
 
-    const debounceMoveIngredients = React.useMemo(() => debounce(moveIngredients), [moveIngredients])
+    const debounceMoveIngredients = useMemo(() => debounce(moveIngredients), [moveIngredients])
 
-    const ingredientsIsDragging = isHover ? BurgerConstructorStyles.draggingContainer : BurgerConstructorStyles.container
+    const ingredientsIsDragging = isHover
+        ? BurgerConstructorStyles.draggingContainer
+        : BurgerConstructorStyles.test
+
+    const highLightBorder = !isHover && cartState.cartIngredients.length === 0 && cartState.cartBun.length === 0
+        && BurgerConstructorStyles.dashedContainer
+
+    const assign = `${ingredientsIsDragging ? ingredientsIsDragging : ''} ${highLightBorder ? highLightBorder : ''}`
 
     return (
-        <section ref={dropTarget} className={ingredientsIsDragging}>
+        <section ref={dropTarget} className={assign}>
             <div className={BurgerConstructorStyles.innerContainer}>
                 {cartState.cartBun.length !== 0 && renderBun('top')}
 
                 {cartState.cartIngredients.length === 0 && cartState.cartBun.length === 0
                     ?
-                    <div className={BurgerConstructorStyles.emptyCartContainer}>
+                    <section className={BurgerConstructorStyles.emptyCartContainer}>
                         <h2 className={BurgerConstructorStyles.emptyCartTitle}>Корзина пуста</h2>
                         <h3 className={BurgerConstructorStyles.emptyCartDescription}>Перетащите булочку, а затем игредиенты</h3>
-                    </div>
+                    </section>
                     :
                     <ul className={BurgerConstructorStyles.list}>
                         {cartState.cartIngredients.map((item, idx) => {
@@ -100,7 +108,9 @@ const BurgerConstructor = () => {
 
                 {cartState.cartBun.length !== 0 && renderBun('bottom')}
             </div>
-            <TotalBasketCount/>
+
+            {cartState.cartBun.length !== 0 && <TotalBasketCount/> }
+
         </section>
     )
 };

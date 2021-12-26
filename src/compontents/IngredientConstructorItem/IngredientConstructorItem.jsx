@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import BurgerConstructorStyles from "../BurgerConstructor/BurgerConstructor.module.scss";
 import {DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/constructor-element";
@@ -11,7 +11,7 @@ import ingredientsTypes from '../../utils/types'
 const IngredientConstructorItem = ({id, item, idx, moveCard}) => {
     const dispatch = useDispatch()
 
-    const dragDropRef = React.useRef(null)
+    const dragDropRef = useRef(null)
 
     const [{handlerId}, drop] = useDrop({
         accept: 'item',

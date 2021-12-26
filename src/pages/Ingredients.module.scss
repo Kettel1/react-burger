@@ -1,0 +1,13 @@
+.container {
+  & > section {
+    background: none;
+    box-shadow: none;
+    margin-top: 80px;
+  }
+
+  & > section > div > h1  {
+    text-align: center;
+    width: 100%;
+
+  }
+}

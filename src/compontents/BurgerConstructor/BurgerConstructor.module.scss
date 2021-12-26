@@ -1,7 +1,30 @@
-.container {
+.dashedContainer {
     margin-top: 80px;
     position: relative;
     width: 48%;
+
+    &:before {
+        position: absolute;
+        width: 101%;
+        height: 100%;
+        content: '';
+        border-radius: 15px;
+        background-image:
+                linear-gradient(90deg, #2d2d2d 50%, transparent 50%),
+                linear-gradient(90deg, #2d2d2d 50%, transparent 50%),
+                linear-gradient(0, #2d2d2d 50%, transparent 50%),
+                linear-gradient(0, #2d2d2d 50%, transparent 50%);
+        background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+        background-size: 20px 2px, 20px 2px, 2px 20px, 2px 20px;
+        background-position: 20px 0, 0 100%, 0 0, 100% 20px;
+    }
+}
+
+.test {
+    margin-top: 80px;
+    position: relative;
+    width: 48%;
+    border-spacing: 10px 10px;
 }
 
 .draggingContainer {
@@ -38,8 +61,19 @@
 .innerContainer {
     position: relative;
     width: 100%;
+    height: 96%;
+
     & > div {
         margin-left: 30px;
+    }
+
+    & > div:first-child {
+        margin-top: 4px
+    }
+
+    & > div:last-child {
+        position: absolute;
+        bottom: 70px;
     }
 }
 
