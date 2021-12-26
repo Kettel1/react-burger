@@ -1,40 +1,45 @@
 .header {
-    background-color: #1C1C21;
-    padding: 18px 0
+  background-color: #1C1C21;
+  padding: 18px 0
 }
 
 .container {
-    max-width: 1240px;
-    padding: 0 40px;
-    display: flex;
-    margin: 0 auto;
-    justify-content: space-between;
-    position: relative;
+  max-width: 1240px;
+  padding: 0 40px;
+  display: flex;
+  margin: 0 auto;
+  justify-content: space-between;
+  position: relative;
+}
+
+.composeText {
+  padding-left: 8px;
+  text-decoration: none;
 }
 
 .text {
-    padding-left: 8px;
-    text-decoration: none;
-    color: #8585AD;
+  composes: composeText;
+  color: #8585AD;
 }
 
 .ActiveText {
-    padding-left: 8px;
-    text-decoration: none;
-    color: white
+  composes: composeText;
+  color: white;
 }
 
 .firstBtnContainer {
-    display: flex;
+  display: flex;
 }
 
 .logo {
-    position: absolute;
-    left:50%;
-    transform:translate(-50%, -50%);
-    top: 50%
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 50%
 }
 
 .loginContainer {
-    display: flex;
+  display: flex;
+  align-items: center;
+
 }

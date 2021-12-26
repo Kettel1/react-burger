@@ -5,22 +5,21 @@ import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {SET_INITIAL_ORDER_STATE} from "../../../services/actions/order";
 
 
-const Modal = ({children}) => {
+const Modal = ({children, onCloseModal}) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const onClose = () => {
-        navigate('/')
-        dispatch({type: SET_INITIAL_ORDER_STATE})
-    }
+    // const onClose = () => {
+    //     navigate('/')
+    //     dispatch({type: SET_INITIAL_ORDER_STATE})
+    // }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const escFunction = (e) => {
         if (e.keyCode === 27) {
-            onClose()
+            onCloseModal()
         }
     }
 
@@ -33,8 +32,8 @@ const Modal = ({children}) => {
     }, [escFunction])
 
     return ReactDOM.createPortal(
-        <ModalOverlay onClose={onClose}>
-            <CloseIcon onClick={onClose} type="primary"/>
+        <ModalOverlay onClose={onCloseModal}>
+            <CloseIcon onClick={onCloseModal} type="primary"/>
             {children}
         </ModalOverlay>, document.getElementById('modals')
     );

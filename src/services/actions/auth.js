@@ -128,7 +128,7 @@ export const getUserInfo = () => (dispatch) => {
         })
 }
 
-export const logOutUser = () => (dispatch) => {
+export const logOutUser = (cb) => (dispatch) => {
     fetchLogOut()
         .then(response => {
             if (response.ok) {
@@ -139,9 +139,10 @@ export const logOutUser = () => (dispatch) => {
         })
         .then(data => {
             if (data.success) {
-                console.log('data success')
+                console.log('exit success')
                 localStorage.removeItem('refreshToken')
                 deleteCookie('accessToken')
+
                 dispatch({type: DELETE_AUTH})
             } else {
                 throw new Error('Произошла ошибка при получении json fetchLogOut')

@@ -2,21 +2,23 @@ import React from 'react';
 import preLoaderStyles from './PreLoader.module.scss'
 
 const PreLoader = () => {
-    const test = preLoaderStyles.ldsDefault
+
     return (
-        <div className={test}>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+        <div className={preLoaderStyles.container}>
+            <div className={preLoaderStyles.ldsDefault}>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
         </div>
     );
 };

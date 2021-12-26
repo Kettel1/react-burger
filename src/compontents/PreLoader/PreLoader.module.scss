@@ -1,8 +1,20 @@
+.container {
+  background: rgba(45, 45, 45, 0.34);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
 .ldsDefault {
   display: inline-block;
-  position: relative;
+  position: absolute;
   width: 80px;
   height: 80px;
+  transform: translateX(-50%);
+  left: 50%;
+  top: 50%;
 }
 
 .ldsDefault div {

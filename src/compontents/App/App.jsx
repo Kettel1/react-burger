@@ -3,7 +3,7 @@ import AppHeader from "../../compontents/AppHeader/AppHeader";
 import AppStyles from './App.module.css'
 import doge from '../../images/santa.png'
 
-import {Route, Routes, useLocation} from "react-router-dom";
+import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import Login from '../../pages/Login'
 import HomePage from "../../pages/HomePage";
 import ForgotPassword from "../../pages/ForgotPassword";
@@ -20,11 +20,16 @@ import {fetchIngredients} from "../../services/actions/burgerIngredients";
 import IngredientDetails from "../modals/IngredientsDetails/IngredientDetails";
 import Modal from "../modals/Modal/Modal";
 import OrderDetails from "../modals/OrderDetails/OrderDetails";
+import PreLoader from "../PreLoader/PreLoader";
+import {SET_INITIAL_ORDER_STATE} from "../../services/actions/order";
 
 function App() {
     const location = useLocation();
     const dispatch = useDispatch()
     const {isLoading} = useSelector((state => state.auth))
+    const {ingredients} = useSelector((state => state.ingredients))
+    const navigate = useNavigate();
+
 
     const state = location.state
 
@@ -38,7 +43,7 @@ function App() {
         dispatch(fetchIngredients())
     }, [dispatch])
 
-    if (isLoading) return (<div>Загрузка</div>)
+    if (isLoading && !ingredients.ingredientsRequest) return (<PreLoader/>)
 
     return (
         <>
@@ -72,8 +77,6 @@ function App() {
                         <Profile/>
                     </ProtectedUnAuthRoute>}>
                     <Route path='' element={<UserProfile/>}/>
-                    {/*<Route path='order/' element={<Orders/>}/>*/}
-
                 </Route>
             </Routes>
 
@@ -82,7 +85,10 @@ function App() {
                     <Route
                         path='/ingredients/:id'
                         element={
-                            <Modal>
+                            <Modal onCloseModal={() => {
+                                navigate('/')
+                            }
+                            }>
                                 <IngredientDetails/>
                             </Modal>
                         }
@@ -95,7 +101,11 @@ function App() {
                     <Route
                         path='/order/:orderNumber'
                         element={
-                            <Modal>
+                            <Modal onCloseModal={() => {
+                                dispatch({type: SET_INITIAL_ORDER_STATE})
+                                navigate('/')
+                            }
+                            }>
                                 <OrderDetails/>
                             </Modal>
                         }
@@ -103,13 +113,15 @@ function App() {
                 </Routes>
             )}
 
-            <div className={AppStyles.santa} >
+            <div className={AppStyles.santa}>
                 <img alt='santa' src={doge} className={AppStyles.img} onMouseEnter={Surprise} onMouseLeave={Surprise}/>
-                <p className={visibleSanta ? AppStyles.congratsVisible : AppStyles.congratsNone }>Поздравляю с наступающим новым годом!<br/>
-                Спасибо за ваше ревью, оно очень помогает развиваться,
-                анализировать свои ошибки и двигаться дальше</p>
+                <p className={visibleSanta ? AppStyles.congratsVisible : AppStyles.congratsNone}>Поздравляю с
+                    наступающим новым годом!<br/>
+                    Спасибо за ваше ревью, оно очень помогает развиваться,
+                    анализировать свои ошибки и двигаться дальше</p>
                 <p className={AppStyles.clue}>Наведи на меня мышку...</p>
             </div>
+
         </>
     );
 }

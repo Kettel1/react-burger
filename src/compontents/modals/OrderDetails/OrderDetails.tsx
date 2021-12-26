@@ -6,10 +6,6 @@ import {Link, useParams} from 'react-router-dom';
 
 
 const OrderDetails = () => {
-        const params = useParams()
-
-        console.log(params)
-
         // @ts-ignore
         const orderState = useSelector((state => state.order))
 
@@ -19,7 +15,6 @@ const OrderDetails = () => {
         // @ts-ignore
         const {isAuth} = useSelector(state => state.auth);
 
-
         if (!isAuth) {
             return (<section className={OrderDetailsStyles.errorContainer}>
                 <p  className={OrderDetailsStyles.errorAuthTitle}>Для оформления заказа,
@@ -28,7 +23,6 @@ const OrderDetails = () => {
                 <Link className={OrderDetailsStyles.errorAuthLink} to='/login'>Войти на сайт</Link>
             </section>)
         }
-
 
         return (
             <>

@@ -43,6 +43,7 @@ const BurgerConstructor = () => {
     const renderBun = (direction) => {
         return (
             <ConstructorElement
+                id='test'
                 type={direction === "top" ? "top" : "bottom"}
                 isLocked={true}
                 text={direction === "top" ? `${cartState.cartBun.name} (верх)` : `${cartState.cartBun.name} (низ)`}
@@ -86,10 +87,10 @@ const BurgerConstructor = () => {
 
                 {cartState.cartIngredients.length === 0 && cartState.cartBun.length === 0
                     ?
-                    <div className={BurgerConstructorStyles.emptyCartContainer}>
+                    <section className={BurgerConstructorStyles.emptyCartContainer}>
                         <h2 className={BurgerConstructorStyles.emptyCartTitle}>Корзина пуста</h2>
                         <h3 className={BurgerConstructorStyles.emptyCartDescription}>Перетащите булочку, а затем игредиенты</h3>
-                    </div>
+                    </section>
                     :
                     <ul className={BurgerConstructorStyles.list}>
                         {cartState.cartIngredients.map((item, idx) => {
@@ -107,7 +108,9 @@ const BurgerConstructor = () => {
 
                 {cartState.cartBun.length !== 0 && renderBun('bottom')}
             </div>
-            <TotalBasketCount/>
+
+            {cartState.cartBun.length !== 0 && <TotalBasketCount/> }
+
         </section>
     )
 };

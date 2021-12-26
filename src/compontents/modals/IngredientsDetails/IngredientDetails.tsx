@@ -27,7 +27,7 @@ const IngredientDetails = () => {
         <section className={IngredientDetailsStyles.container}>
             <div className={IngredientDetailsStyles.innerContainer}>
                 <h1 className={IngredientDetailsStyles.header}>Детали ингредиента</h1>
-                <img src={image_large} alt={name}/>
+                <img className={IngredientDetailsStyles.image} src={image_large} alt={name}/>
                 <p className={IngredientDetailsStyles.name}>{name}</p>
                 <ul className={IngredientDetailsStyles.list}>
                     <li className={IngredientDetailsStyles.item}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import ProfileStyles from './Profile.module.scss'
-import {NavLink, Outlet} from "react-router-dom";
+import {NavLink, Outlet, useNavigate} from "react-router-dom";
 import {logOutUser} from "../services/actions/auth";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteCookie} from "../utils/helpers";
@@ -8,12 +8,17 @@ import {deleteCookie} from "../utils/helpers";
 
 const Profile = () => {
     const authState = useSelector((state => state.auth))
+    const navigate = useNavigate()
 
     const dispatch = useDispatch()
 
     const logOut = () => {
 
-        dispatch(logOutUser())
+        dispatch(logOutUser(() => {
+            navigate('/')
+        }))
+
+
 
         deleteCookie('accessToken')
     }

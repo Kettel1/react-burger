@@ -59,7 +59,7 @@ const TotalBasketCount = () => {
         if (orderState.orderSuccess) {
             navigate(`/order/${orderState.order.number}`, {state: {backgroundLocation: location}})
         }
-    }, [orderState.orderSuccess, navigate, location])
+    }, [orderState.orderSuccess])
 
     const {totalSumIngredients, totalSumBun} = cartState
 

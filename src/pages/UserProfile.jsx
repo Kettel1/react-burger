@@ -37,7 +37,7 @@ const UserProfile = () => {
     const {user} = useSelector((state => state.auth))
 
     useEffect(() => {
-        setForm({...user})
+        setForm({password: '',...user})
 
     }, [user])
 
@@ -82,7 +82,6 @@ const UserProfile = () => {
     // }
 
     const onChange = (e) => {
-        e.preventDefault()
         setForm({...form, [e.target.name]: e.target.value})
     }
 
@@ -133,7 +132,7 @@ const UserProfile = () => {
 
             />
 
-            <PasswordInput value={form.password} name={'password'} onChange={onChange}/>
+            <PasswordInput value={form.password} name={'password'} onChange={onChange} size={"default"}/>
 
             <div>
                 <Button type='secondary' onClick={onCancel}>Отменить</Button>
