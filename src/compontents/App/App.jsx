@@ -1,8 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import AppHeader from "../../compontents/AppHeader/AppHeader";
-import AppStyles from './App.module.css'
-import doge from '../../images/santa.png'
-
 import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
 import Login from '../../pages/Login'
 import HomePage from "../../pages/HomePage";
@@ -30,13 +27,7 @@ function App() {
     const {ingredients} = useSelector((state => state.ingredients))
     const navigate = useNavigate();
 
-
     const state = location.state
-
-    const [visibleSanta, setVisibleSanta] = useState(false)
-    const Surprise = () => {
-        setVisibleSanta(!visibleSanta)
-    }
 
     useEffect(() => {
         dispatch(getUserInfo())
@@ -112,16 +103,6 @@ function App() {
                     />
                 </Routes>
             )}
-
-            <div className={AppStyles.santa}>
-                <img alt='santa' src={doge} className={AppStyles.img} onMouseEnter={Surprise} onMouseLeave={Surprise}/>
-                <p className={visibleSanta ? AppStyles.congratsVisible : AppStyles.congratsNone}>Поздравляю с
-                    наступающим новым годом!<br/>
-                    Спасибо за ваше ревью, оно очень помогает развиваться,
-                    анализировать свои ошибки и двигаться дальше</p>
-                <p className={AppStyles.clue}>Наведи на меня мышку...</p>
-            </div>
-
         </>
     );
 }
