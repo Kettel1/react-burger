@@ -2,21 +2,18 @@ import React from 'react';
 import ModalStyles from './ModalOverlay.module.scss'
 import PropTypes from "prop-types";
 
-
-// @ts-ignore
-const ModalOverlay = ({children, onClose}) => {
+const ModalOverlay = ({onClose}) => {
+    const closeModal = (e) => {
+        e.stopPropagation()
+        onClose()
+    }
     return (
-        <div className={ModalStyles.fixedOverlay} onClick={onClose} >
-            <div className={ModalStyles.modal} onClick={(e) => e.stopPropagation()}>
-                {children}
-            </div>
-        </div>
+        <div className={ModalStyles.modalInner} onClick={closeModal}/>
     )
 }
 
 ModalOverlay.propTypes = {
     onClose: PropTypes.func.isRequired,
-    children: PropTypes.arrayOf(PropTypes.element)
 }
 
 export default ModalOverlay;

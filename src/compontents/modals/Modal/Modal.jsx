@@ -1,29 +1,41 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import ReactDOM from "react-dom";
-import ModalOverlay from "../ModalOverlay/ModalOverlay";
+import ModalStyles from "./Modal.module.scss";
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
-import {useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import ModalOverlay from "../ModalOverlay/ModalOverlay";
+import {CSSTransition} from "react-transition-group";
 
 
 const Modal = ({children, onCloseModal}) => {
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
+    const [containerState, setContainerState] = useState(false)
+    const [modalOverlayState, setModalOverlayState] = useState(false)
 
-    // const onClose = () => {
-    //     navigate('/')
-    //     dispatch({type: SET_INITIAL_ORDER_STATE})
-    // }
+    const closeModal = () => {
+        setContainerState(false)
+        setModalOverlayState(false)
+
+        // Таймаут для корректной работы анимации
+        setTimeout(() => {
+            onCloseModal()
+        }, 200)
+    }
+
+    useEffect(() => {
+        setContainerState(true)
+        setModalOverlayState(true)
+    }, [])
+
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const escFunction = (e) => {
-        if (e.keyCode === 27) {
-            onCloseModal()
+        const escape = 27
+        if (e.keyCode === escape) {
+            closeModal()
         }
     }
 
-    React.useEffect(() => {
+    useEffect(() => {
         document.addEventListener("keydown", escFunction);
 
         return () => {
@@ -32,10 +44,27 @@ const Modal = ({children, onCloseModal}) => {
     }, [escFunction])
 
     return ReactDOM.createPortal(
-        <ModalOverlay onClose={onCloseModal}>
-            <CloseIcon onClick={onCloseModal} type="primary"/>
-            {children}
-        </ModalOverlay>, document.getElementById('modals')
+        <>
+            <CSSTransition in={containerState} timeout={200} classNames={{
+                enterActive: ModalStyles.containerEnterActive,
+                enterDone: ModalStyles.containerEnterDone,
+                exitActive: ModalStyles.containerExitActive,
+                exitDone: ModalStyles.containerExitDone,
+            }}>
+                <div className={ModalStyles.startAnimContainer}>
+                    {children}
+                    <CloseIcon onClick={closeModal} type="primary"/>
+                </div>
+            </CSSTransition>
+            <CSSTransition in={modalOverlayState} timeout={200} classNames={{
+                enterActive: ModalStyles.modalInnerEnterActive,
+                enterDone: ModalStyles.modalInnerEnterDone,
+                exitActive: ModalStyles.modalInnerExitActive,
+                exitDone: ModalStyles.modalInnerExitDone,
+            }}>
+                <ModalOverlay onClose={closeModal}/>
+            </CSSTransition>
+        </>, document.getElementById('modals')
     );
 };
 

@@ -1,7 +1,107 @@
-.header {
-    font-weight: bold;
-    font-size: 36px;
-    line-height: 40px;
-    color: #F2F2F3;
-    width: 470px;
+.startAnimContainer {
+    position: absolute;
+    z-index: 11;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -80%);
+    opacity: 0.1;
 }
+
+
+
+
+@keyframes fromTop {
+    0% {
+        transform: translate(-50%, -80%);
+        opacity: 0
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-50%, -50%);
+    }
+}
+
+.container {
+    position: absolute;
+    z-index: 11;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    svg {
+        z-index: 2;
+        position: absolute;
+        top: 50px;
+        right: 40px;
+        cursor: pointer;
+    }
+}
+
+.containerEnterActive {
+    composes: container;
+    animation: fromTop 200ms forwards;
+    transform: translate(-50%, -80%);
+    opacity: 1;
+}
+
+.containerEnterDone {
+    composes: container;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+}
+
+.containerExitActive {
+    composes: container;
+    animation: fromTop 200ms reverse;
+    opacity: 1;
+}
+
+.containerExitDone {
+    composes: container;
+    transform: translate(-50%, -200%);
+}
+
+
+@keyframes shadow {
+    0% {
+        background-color: transparent;
+    }
+
+    100% {
+        background-color: rgba(0,0,0,0.5);
+    }
+}
+
+.modalInner {
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.modalInnerEnterActive {
+    composes: modalInner;
+    animation: shadow 200ms forwards;
+}
+
+.modalInnerEnterDone {
+    composes: modalInner;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modalInnerExitActive {
+    composes: modalInner;
+    animation: shadow 200ms reverse;
+}
+
+.modalInnerExitDone {
+    composes: modalInner;
+    background-color: rgba(0,0,0,0.5);
+}
+
