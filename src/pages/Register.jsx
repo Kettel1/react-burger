@@ -4,8 +4,12 @@ import RegisterStyles from './Register.module.scss'
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {registerRequest} from "../services/actions/auth";
+import {useForm} from "react-hook-form";
+
 
 const Register = () => {
+    const {register, handleSubmit, watch, formState: {errors}} = useForm()
+
     const [form, setForm] = useState({email: '', password: '', name: ''})
     const dispatch = useDispatch()
 
@@ -28,7 +32,7 @@ const Register = () => {
 
 
     return (
-        <form className={RegisterStyles.container} onSubmit={handler}>
+        <form className={RegisterStyles.container} onSubmit={handler} autoComplete='off'>
 
             <h2 className={RegisterStyles.title}>Регистрация</h2>
             <Input
@@ -58,7 +62,8 @@ const Register = () => {
             <Button type="primary" size="medium">Зарегистрироваться</Button>
 
             <div className={RegisterStyles.recoveryContainer}>
-                <p className={RegisterStyles.recoveryDescription}>Уже зарегистрированы? <Link className={RegisterStyles.recoveryLink} to='/login'>Войти</Link></p>
+                <p className={RegisterStyles.recoveryDescription}>Уже зарегистрированы? <Link
+                    className={RegisterStyles.recoveryLink} to='/login'>Войти</Link></p>
             </div>
 
         </form>

@@ -72,14 +72,7 @@ const UserProfile = () => {
 
     }
 
-    // const changeUserPassword = () => {
-    //     setDisabled({...disabled, password: !disabled.password})
-    //
-    //     setTimeout(() => {
-    //         passwordRef.current.focus()
-    //     }, 1)
-    //
-    // }
+
 
     const onChange = (e) => {
         setForm({...form, [e.target.name]: e.target.value})
@@ -91,12 +84,13 @@ const UserProfile = () => {
         }
     }
 
-    const onCancel = useCallback(() => {
+    const onCancel = useCallback((e) => {
+        e.preventDefault();
         setForm({...user})
         setDisabled({...disabled})
         setIsError({...isError})
         setTextError({...textError})
-    }, [user])
+    },[user])
 
 
     return (

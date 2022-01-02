@@ -26,7 +26,6 @@ function App() {
     const {isLoading} = useSelector((state => state.auth))
     const {ingredients} = useSelector((state => state.ingredients))
     const navigate = useNavigate();
-
     const state = location.state
 
     useEffect(() => {

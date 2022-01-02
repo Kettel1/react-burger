@@ -2,8 +2,32 @@
     max-width: 1240px;
     padding: 0 40px;
     display: flex;
-    margin: 0 auto;
     justify-content: space-between;
-    margin-top: 40px;
+    margin: 40px auto 0 auto;
 }
 
+
+.pageEnterActive {
+    opacity: 0;
+    transform: scale(1.1);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.pageEnterDone {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 100ms, transform 100ms;
+}
+
+.pageExitActive {
+    opacity: 0;
+    transform: scale(1);
+}
+
+.pageExitDone {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 100ms, transform 100ms;
+}

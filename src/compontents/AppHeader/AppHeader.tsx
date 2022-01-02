@@ -1,5 +1,12 @@
 import React from 'react';
-import {Logo, ProfileIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+    BurgerIcon,
+    InfoIcon,
+    ListIcon,
+    Logo,
+    MenuIcon,
+    ProfileIcon
+} from "@ya.praktikum/react-developer-burger-ui-components";
 import HeaderStyles from './AppHeader.module.scss'
 // @ts-ignore
 import HeaderButton from "../UI/buttons/HeaderButton/HeaderButton";
@@ -11,17 +18,25 @@ const AppHeader = () => {
             <nav className={HeaderStyles.container}>
 
                 <div className={HeaderStyles.firstBtnContainer}>
-                    <HeaderButton type={'primary'} icon={'BurgerIcon'}>
-                        <NavLink
-                            to='/'
-                            className={(props) => {
-                                return `${props.isActive ? HeaderStyles.ActiveText : HeaderStyles.text}`
-                            }}
-                        >Конструктор</NavLink>
-                    </HeaderButton>
-                    <HeaderButton type={'secondary'} icon={'ListIcon'}>
-                        <span className={HeaderStyles.text}>Лента заказов</span>
-                    </HeaderButton>
+
+                    <NavLink
+                        to='/'
+                        className={(props) => {
+                            return `${props.isActive ? HeaderStyles.ActiveText : HeaderStyles.text}`
+                        }}
+                    >
+                        <BurgerIcon type={'secondary'}/>
+                        <span>Конструктор</span>
+                    </NavLink>
+
+                    <NavLink to='/orders'
+                             className={(props) => {
+                                 return `${props.isActive ? HeaderStyles.ActiveText : HeaderStyles.text}`
+                             }}
+                    >
+                        <ListIcon type={'secondary'}/>
+                        <span>Лента заказов</span>
+                    </NavLink>
                 </div>
 
 
@@ -32,13 +47,14 @@ const AppHeader = () => {
                 </div>
 
                 <div className={HeaderStyles.loginContainer}>
-                    <ProfileIcon type={"secondary"}/>
+
                     <NavLink to='/profile/'
                              className={(props) => {
                                  return `${props.isActive ? HeaderStyles.ActiveText : HeaderStyles.text}`
-                             }}>
-
-                        Личный кабинет
+                             }}
+                    >
+                        <ProfileIcon type={'secondary'}/>
+                        <span>Личный кабинет</span>
                     </NavLink>
 
                 </div>

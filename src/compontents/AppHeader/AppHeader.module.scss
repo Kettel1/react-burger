@@ -13,18 +13,30 @@
 }
 
 .composeText {
-  padding-left: 8px;
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 15px 0;
+  margin-right: 16px;
 }
 
 .text {
   composes: composeText;
   color: #8585AD;
+
+  & > svg {
+    padding-right: 8px;
+  }
 }
 
 .ActiveText {
   composes: composeText;
   color: white;
+
+  & > svg {
+    fill: white;
+    padding-right: 8px;
+  }
 }
 
 .firstBtnContainer {
@@ -41,5 +53,4 @@
 .loginContainer {
   display: flex;
   align-items: center;
-
 }
