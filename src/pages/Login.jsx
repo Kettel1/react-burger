@@ -1,24 +1,30 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import LoginStyles from './Login.module.scss'
 import {Link, useLocation, useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {loginUserRequest} from "../services/actions/auth";
 
 const Login = () => {
     const [form, setForm] = useState({email: '', password: ''})
-    const emailRef = useRef(null)
+    const [error, setError] = useState('')
 
     const navigate = useNavigate()
     const location = useLocation()
     const fromPage = location.state?.from?.pathname || '/'
 
-
     const dispatch = useDispatch()
 
-    const handler = e => {
+    const {errorMessage} = useSelector((state => state.auth))
+
+    useEffect(() => {
+        setError(errorMessage)
+    }, [errorMessage])
+
+    const handler = (e) => {
         e.preventDefault()
         if (form.email && form.password) {
+            setError('')
             dispatch(loginUserRequest(form, () => {
                 navigate(fromPage, {replace: true})
             }))
@@ -26,6 +32,9 @@ const Login = () => {
     }
 
     const onChange = (e) => {
+        if(e.target.name === 'email' && e.target.value.length > 3) {
+            setError('')
+        }
         setForm({...form, [e.target.name]: e.target.value})
     }
 
@@ -37,20 +46,22 @@ const Login = () => {
                 placeholder={'E-mail'}
                 value={form.email}
                 name={'email'}
-                error={false}
                 onChange={onChange}
-                ref={emailRef}
-                errorText={'Ошибка'}
                 size={'default'}
             />
 
             <PasswordInput value={form.password} name={'password'} onChange={onChange}/>
 
+            {error && (<p className={LoginStyles.errorMessage}>{error}</p>)}
+
             <Button type="primary" size="medium">Войти</Button>
 
             <div className={LoginStyles.recoveryContainer}>
-                <p className={LoginStyles.recoveryDescription}>Вы - новый пользователь? <Link className={LoginStyles.recoveryLink} to='/register'>Зарегистрироваться</Link></p>
-                <p className={LoginStyles.recoveryDescription}>Забыли пароль? <Link className={LoginStyles.recoveryLink} to='/forgot-password'>Восстановить пароль</Link></p>
+                <p className={LoginStyles.recoveryDescription}>Вы - новый пользователь? <Link
+                    className={LoginStyles.recoveryLink} to='/register'>Зарегистрироваться</Link></p>
+                <p className={LoginStyles.recoveryDescription}>Забыли пароль? <Link className={LoginStyles.recoveryLink}
+                                                                                    to='/forgot-password'>Восстановить
+                    пароль</Link></p>
             </div>
         </form>
     );

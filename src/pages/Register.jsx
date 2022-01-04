@@ -1,35 +1,25 @@
 import React, {useState} from 'react';
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import RegisterStyles from './Register.module.scss'
-import {Link} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {Link, useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
 import {registerRequest} from "../services/actions/auth";
-import {useForm} from "react-hook-form";
-
 
 const Register = () => {
-    const {register, handleSubmit, watch, formState: {errors}} = useForm()
-
     const [form, setForm] = useState({email: '', password: '', name: ''})
     const dispatch = useDispatch()
-
-    const {errorMessage} = useSelector((state => state.auth))
-
-    React.useEffect(() => {
-        console.log(errorMessage)
-    }, [errorMessage])
-
+    const navigate = useNavigate()
 
     const onChange = (e) => {
         setForm({...form, [e.target.name]: e.target.value})
     }
 
     const handler = async e => {
-
         e.preventDefault()
-        dispatch(registerRequest(form))
+        dispatch(registerRequest(form, () => {
+            navigate('/', {replace: true})
+        }))
     }
-
 
     return (
         <form className={RegisterStyles.container} onSubmit={handler} autoComplete='off'>

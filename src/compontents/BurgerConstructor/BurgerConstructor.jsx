@@ -14,6 +14,8 @@ import {v4} from 'uuid'
 import {debounce} from "../../utils/helpers";
 
 
+
+
 const BurgerConstructor = () => {
     const cartState = useSelector(state => state.cart)
 
@@ -89,7 +91,8 @@ const BurgerConstructor = () => {
                     ?
                     <section className={BurgerConstructorStyles.emptyCartContainer}>
                         <h2 className={BurgerConstructorStyles.emptyCartTitle}>Корзина пуста</h2>
-                        <h3 className={BurgerConstructorStyles.emptyCartDescription}>Перетащите булочку, а затем игредиенты</h3>
+                        <h3 className={BurgerConstructorStyles.emptyCartDescription}>Перетащите булочку, а затем
+                            игредиенты</h3>
                     </section>
                     :
                     <ul className={BurgerConstructorStyles.list}>
@@ -109,7 +112,7 @@ const BurgerConstructor = () => {
                 {cartState.cartBun.length !== 0 && renderBun('bottom')}
             </div>
 
-            {cartState.cartBun.length !== 0 && <TotalBasketCount/> }
+            {cartState.cartBun.length !== 0 && <TotalBasketCount/>}
 
         </section>
     )

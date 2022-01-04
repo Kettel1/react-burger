@@ -1,6 +1,6 @@
 .container {
     max-width: 620px;
-    height: calc(100vh - 270px);
+
 }
 
 .title {
@@ -10,7 +10,7 @@
 }
 
 .scrollBar {
-    height: 700px;
+    height: calc(100vh - 270px);
     overflow: auto;
 }
 

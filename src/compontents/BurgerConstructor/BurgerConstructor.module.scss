@@ -25,6 +25,7 @@
     position: relative;
     width: 48%;
     border-spacing: 10px 10px;
+    max-height: 2055px;
 }
 
 .draggingContainer {
@@ -69,11 +70,6 @@
 
     & > div:first-child {
         margin-top: 4px
-    }
-
-    & > div:last-child {
-        position: absolute;
-        bottom: 70px;
     }
 }
 
@@ -125,9 +121,10 @@
 
 .list {
     overflow: auto;
-    max-height: 465px;
+    height: calc(100vh - 605px);
     margin: 16px 0 16px;
     padding-right: 8px;
+    max-height: 1700px;
 
     &::-webkit-scrollbar {
         width: 9px;

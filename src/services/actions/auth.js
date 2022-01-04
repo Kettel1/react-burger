@@ -13,6 +13,7 @@ export const REGISTER_USER_SET_TEXT_ERROR = 'REGISTER_USER_SET_TEXT_ERROR'
 export const REGISTER_USER_CLEAR_TEXT_ERROR = 'REGISTER_USER_CLEAR_TEXT_ERROR'
 
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
+export const LOGIN_OR_PASSWORD_INCORRECT = 'LOGIN_OR_PASSWORD_INCORRECT'
 export const LOGIN_FAILED = 'LOGIN_FAILED'
 
 export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS'
@@ -27,27 +28,32 @@ export const LOADING_USER = 'LOADING_USER'
 export const LOADING_USER_COMPLETED = 'LOADING_USER_COMPLETED'
 
 
-export const loginUserRequest = (form, cb) => (dispatch) => {
+export const loginUserRequest = (form, callback) => (dispatch) => {
     fetchLoginUserRequest(form)
         .then(response => {
             if (!response.ok) {
                 dispatch({type: LOGIN_FAILED})
+                return response.json()
             } else {
                 return response.json()
             }
         })
         .then(userInfo => {
-            setCookie('accessToken', userInfo.accessToken)
-            localStorage.setItem('refreshToken', userInfo.refreshToken)
-            dispatch({
-                type: LOGIN_SUCCESS,
-                payload: userInfo
-            })
-            cb()
+            if(userInfo.message === 'email or password are incorrect') {
+                dispatch({type: LOGIN_OR_PASSWORD_INCORRECT, message: 'Почта или пароль введены неверно'})
+            } else {
+                setCookie('accessToken', userInfo.accessToken)
+                localStorage.setItem('refreshToken', userInfo.refreshToken)
+                dispatch({
+                    type: LOGIN_SUCCESS,
+                    payload: userInfo
+                })
+                callback()
+            }
         });
 };
 
-export const registerRequest = (form) => (dispatch) => {
+export const registerRequest = (form,callback) => (dispatch) => {
     fetchRegisterRequest(form)
         .then(response => {
             if (!response.ok) {
@@ -69,6 +75,7 @@ export const registerRequest = (form) => (dispatch) => {
                     type: REGISTER_USER_SUCCESS,
                     payload: userInfo
                 })
+                callback()
             } else  {
                 if(userInfo.message === 'User already exists') {
                     dispatch({
@@ -128,7 +135,7 @@ export const getUserInfo = () => (dispatch) => {
         })
 }
 
-export const logOutUser = (cb) => (dispatch) => {
+export const logOutUser = (callback) => (dispatch) => {
     fetchLogOut()
         .then(response => {
             if (response.ok) {
@@ -142,7 +149,7 @@ export const logOutUser = (cb) => (dispatch) => {
                 console.log('exit success')
                 localStorage.removeItem('refreshToken')
                 deleteCookie('accessToken')
-
+                callback()
                 dispatch({type: DELETE_AUTH})
             } else {
                 throw new Error('Произошла ошибка при получении json fetchLogOut')
@@ -153,7 +160,7 @@ export const logOutUser = (cb) => (dispatch) => {
         })
 }
 
-export const updateUserInfo = (form) => (dispatch) => {
+export const updateUserInfo = (form) => () => {
     updateUser(form)
         .then(response => {
             console.log(response)

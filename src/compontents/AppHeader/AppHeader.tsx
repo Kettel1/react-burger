@@ -1,15 +1,11 @@
 import React from 'react';
 import {
     BurgerIcon,
-    InfoIcon,
     ListIcon,
     Logo,
-    MenuIcon,
     ProfileIcon
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import HeaderStyles from './AppHeader.module.scss'
-// @ts-ignore
-import HeaderButton from "../UI/buttons/HeaderButton/HeaderButton";
 import {NavLink} from "react-router-dom";
 
 const AppHeader = () => {
@@ -39,7 +35,6 @@ const AppHeader = () => {
                     </NavLink>
                 </div>
 
-
                 <div className={HeaderStyles.logo}>
                     <NavLink to='/'>
                         <Logo/>
@@ -47,7 +42,6 @@ const AppHeader = () => {
                 </div>
 
                 <div className={HeaderStyles.loginContainer}>
-
                     <NavLink to='/profile/'
                              className={(props) => {
                                  return `${props.isActive ? HeaderStyles.ActiveText : HeaderStyles.text}`
@@ -56,7 +50,6 @@ const AppHeader = () => {
                         <ProfileIcon type={'secondary'}/>
                         <span>Личный кабинет</span>
                     </NavLink>
-
                 </div>
             </nav>
         </header>
