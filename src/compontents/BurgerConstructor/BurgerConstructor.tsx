@@ -23,8 +23,6 @@ const BurgerConstructor: FC = () => {
     const [{isHover}, dropTarget] = useDrop({
         accept: 'ingredient',
         drop: (item:IIngredient) => {
-            console.log(item)
-            console.log('test')
             if (item.type === 'bun' && !cartState.cartBun.hasOwnProperty('name')) {
 
                 dispatch({type: ADD_BUN_TO_CART, bun: item})

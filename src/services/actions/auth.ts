@@ -11,7 +11,7 @@ import {
 import {
     IForgotPasswordUserTypes,
     ILoginUserTypes,
-    IRegisterUserTypes,
+    IRegisterUserTypes, IResetPasswordTypes,
     IUpdateUserTypes
 } from "../../types/ingredientTypes";
 
@@ -117,7 +117,7 @@ export const forgotPassword = (form: IForgotPasswordUserTypes) => (dispatch: any
         })
 }
 
-export const resetPassword = (form: any) => (dispatch: any): void => {
+export const resetPassword = (form: IResetPasswordTypes) => (dispatch: any): void => {
     fetchResetPasswordRequest(form)
         .then(response => {
             if (response.message === 'Password successfully reset') {
@@ -130,8 +130,8 @@ export const resetPassword = (form: any) => (dispatch: any): void => {
 }
 
 export const getUserInfo = () => (dispatch: any) => {
-    // Сделать проверку на отсутствие refreshToken
-    // При его отсутсвтии ломается приложение
+    //TODO Сделать проверку на отсутствие refreshToken
+    //TODO При его отсутсвтии ломается приложение
 
     checkAuthUser()
         .then(response => {

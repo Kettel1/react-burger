@@ -5,26 +5,27 @@ import {useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
 import {Link, useLocation} from "react-router-dom";
 import {IIngredient} from "../../types/ingredientTypes";
+import {RootState} from "../../services/reducers";
 
 interface IRenderArticleIngredientsProps {
     item: IIngredient
 }
 
-// @ts-ignore
+
 const RenderArticleIngredients = React.memo<IRenderArticleIngredientsProps>(({item}) => {
     let location = useLocation();
-    // @ts-ignore
-    const cartState = useSelector((state => state.cart))
+
+    const cartState = useSelector((state:RootState) => state.cart)
     const [, dragRef] = useDrag({
         type: 'ingredient',
         item: item,
     })
 
-    // @ts-ignore
+
     const counterIngredients = cartState.cartIngredients.filter((ing) => ing._id === item._id).length
 
-    // @ts-ignore
-    const counterBun = (item) => {
+
+    const counterBun = (item:IIngredient) => {
         return cartState.cartBun._id === item._id ? 1 : 0
      }
 

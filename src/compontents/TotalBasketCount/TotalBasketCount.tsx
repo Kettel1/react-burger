@@ -7,31 +7,27 @@ import {getOrderNumber} from "../../services/actions/order";
 import {useLocation, useNavigate} from "react-router-dom";
 import {RootState} from "../../services/reducers";
 
-
-// @ts-ignore
 const TotalBasketCount = () => {
     const navigate = useNavigate()
 
     const location = useLocation()
 
-    const authState = useSelector((state:RootState) => state.auth)
-    const cartState = useSelector((state:RootState) => state.cart)
-    const orderState = useSelector((state:RootState) => state.order)
+    const authState = useSelector((state: RootState) => state.auth)
+    const cartState = useSelector((state: RootState) => state.cart)
+    const orderState = useSelector((state: RootState) => state.order)
 
     const dispatch = useDispatch()
 
     const totalSumIngredient = useMemo(() =>
             cartState.cartIngredients.reduce((prev, next) => prev + next.price, 0)
-        ,[cartState.cartIngredients]
+        , [cartState.cartIngredients]
     )
 
     useEffect(() => {
-        if (!cartState.cartBun.hasOwnProperty('name') && cartState.cartIngredients.length === 0) {
+        if (cartState.cartIngredients.length !== 0 || cartState.cartIngredients.length === 0) {
             dispatch(
                 {type: TOTAL_SUM_BUN, payload: cartState.cartBun.price}
             )
-        }
-        if (cartState.cartIngredients.length !== 0 || cartState.cartIngredients.length === 0) {
             dispatch({type: TOTAL_SUM_INGREDIENTS, payload: totalSumIngredient})
         }
     }, [cartState.cartBun, cartState.cartIngredients, dispatch, totalSumIngredient])

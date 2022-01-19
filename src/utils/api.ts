@@ -4,7 +4,7 @@ import {
     CustomResponse,
     IForgotPasswordUserTypes,
     ILoginUserTypes,
-    IRegisterUserTypes, IUpdateUserTypes,
+    IRegisterUserTypes, IResetPasswordTypes, IResponse, IUpdateUserTypes,
 } from "../types/ingredientTypes";
 
 
@@ -78,7 +78,7 @@ export const fetchForgotPasswordRequest = async (form: IForgotPasswordUserTypes)
     })
 }
 
-export const fetchResetPasswordRequest = async (form: any): Promise<CustomResponse> => {
+export const fetchResetPasswordRequest = async (form: IResetPasswordTypes): Promise<CustomResponse> => {
     return await fetch(API_REACT + '/password-reset/reset', {
         method: 'POST',
         mode: 'cors',

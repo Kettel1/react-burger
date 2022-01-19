@@ -44,3 +44,8 @@ export interface CustomResponse extends Body {
 export interface IUpdateUserTypes extends IUserTypes{
     password?: string
 }
+
+export interface IResetPasswordTypes {
+    password: string,
+    token: string
+}
