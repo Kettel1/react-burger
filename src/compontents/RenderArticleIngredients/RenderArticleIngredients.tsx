@@ -4,9 +4,14 @@ import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-com
 import {useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
 import {Link, useLocation} from "react-router-dom";
+import {IIngredient} from "../../types/ingredientTypes";
+
+interface IRenderArticleIngredientsProps {
+    item: IIngredient
+}
 
 // @ts-ignore
-const RenderArticleIngredients = React.memo(({item}) => {
+const RenderArticleIngredients = React.memo<IRenderArticleIngredientsProps>(({item}) => {
     let location = useLocation();
     // @ts-ignore
     const cartState = useSelector((state => state.cart))

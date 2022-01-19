@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {VFC} from 'react';
 import Skeleton, {SkeletonTheme} from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css'
 import styles from "./BurgerIngredientsSkeleton.module.scss";
 
 
-const BurgerIngredientsSkeleton = () => {
+const BurgerIngredientsSkeleton:VFC = () => {
     return (
         <div className={styles.container}>
             <Skeleton
