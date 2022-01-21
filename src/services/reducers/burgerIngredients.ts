@@ -45,3 +45,22 @@ export const ingredientsReducer = (state = defaultState, action:IIngredientsActi
             return state
     }
 }
+
+export const getAllIngredientsRequest = () => {
+    return {
+        type: GET_ALL_INGREDIENTS_REQUEST
+    }
+}
+
+export const getAllIngredientsSuccess = (ingredients:IIngredient[]) => {
+    return {
+        type: GET_ALL_INGREDIENTS_SUCCESS,
+        ingredients: ingredients
+    }
+}
+
+export const getAllIngredientsFailed = () => {
+    return {
+        type: GET_ALL_INGREDIENTS_FAILED
+    }
+}

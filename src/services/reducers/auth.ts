@@ -33,7 +33,7 @@ const initialState: IAuthState = {
     success: false
 }
 
-export const authReducer = (state = initialState, action: IAuthAction):IAuthState => {
+export const authReducer = (state = initialState, action: IAuthAction): IAuthState => {
     switch (action.type) {
         case LOGIN_SUCCESS:
             return {...state, isAuth: true, user: {...action.payload.user}}
@@ -63,5 +63,88 @@ export const authReducer = (state = initialState, action: IAuthAction):IAuthStat
             return {...state, isLoading: false}
         default:
             return state
+    }
+}
+
+export const loginSuccess = (user: any) => {
+    return {
+        type: LOGIN_SUCCESS,
+        payload: user
+    }
+}
+
+export const loginFailed = () => {
+    return {
+        type: LOGIN_FAILED
+    }
+}
+
+export const loginOrPasswordIncorrect = (message: string) => {
+    return {
+        type: LOGIN_OR_PASSWORD_INCORRECT,
+        message: message
+    }
+}
+
+export const registerUserFailed = () => {
+    return {
+        type: REGISTER_USER_FAILED
+    }
+}
+
+export const registerUserSuccess = (user: any) => {
+    return {
+        type: REGISTER_USER_SUCCESS,
+        payload: user
+    }
+}
+
+export const registerUserSetTextError = (message: string) => {
+    return {
+        type: REGISTER_USER_SET_TEXT_ERROR,
+        message: message,
+    }
+}
+
+export const registerUserClearTextError = () => {
+    return {
+        type: REGISTER_USER_CLEAR_TEXT_ERROR
+    }
+}
+
+export const resetPasswordSuccess = () => {
+    return {
+        type: RESET_PASSWORD_SUCCESS
+    }
+}
+
+export const resetPasswordComplete = () => {
+    return {
+        type: RESET_PASSWORD_COMPLETED
+    }
+}
+
+export const setUserInfo = (response:any) => {
+    return {
+        type: SET_USER_INFO,
+        payload: response
+    }
+}
+
+export const deleteAuth = () => {
+    return {
+        type: DELETE_AUTH
+    }
+}
+
+export const loadingUser = () => {
+    return {
+        type: LOADING_USER
+    }
+}
+
+export const loadingUserComplete = () => {
+    return {
+        type: LOADING_USER_COMPLETED
     }
 }

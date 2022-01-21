@@ -66,3 +66,30 @@ export const orderReducer = (state = initialState, action: IOrderAction): IOrder
             return state
     }
 }
+
+export const getOrderNumberRequest = () => {
+    return {
+        type: GET_ORDER_NUMBER_REQUEST
+    }
+}
+
+export const getOrderNumberSuccess = (order:IOrderRequest, success:boolean, name:string) => {
+    return {
+        type: GET_ORDER_NUMBER_SUCCESS,
+        order: order,
+        success: success,
+        name: name
+    }
+}
+
+export const getOrderNumberFailed = () => {
+    return {
+        type: GET_ORDER_NUMBER_FAILED
+    }
+}
+
+export const setInitialOrderState = () => {
+    return {
+        type: SET_INITIAL_ORDER_STATE
+    }
+}

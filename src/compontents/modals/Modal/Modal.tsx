@@ -1,37 +1,43 @@
 import React, {FC, useEffect, useState} from 'react';
-import ReactDOM from "react-dom";
+import {createPortal} from "react-dom";
 import ModalStyles from "./Modal.module.scss";
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import {CSSTransition} from "react-transition-group";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../../services/reducers";
+import { deleteAllIngredientsFromCart } from '../../../services/reducers/burgerCounstructor';
 
 interface IModal {
     onCloseModal: () => void
 }
 
-const Modal:FC<IModal> = ({children, onCloseModal}) => {
+const Modal: FC<IModal> = ({children, onCloseModal}) => {
     const [containerState, setContainerState] = useState(false)
-    const [modalOverlayState, setModalOverlayState] = useState(false)
     const portalDiv = document.getElementById('modals')!
+    const nodeRef = React.useRef(null)
+    const orderState = useSelector((state:RootState) => state.order)
+    const dispatch = useDispatch()
 
     const closeModal = () => {
         setContainerState(false)
-        setModalOverlayState(false)
 
         // Таймаут для корректной работы анимации
         setTimeout(() => {
+            if(orderState.orderSuccess) {
+                dispatch(deleteAllIngredientsFromCart())
+            }
             onCloseModal()
         }, 200)
     }
 
     useEffect(() => {
         setContainerState(true)
-        setModalOverlayState(true)
     }, [])
 
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    const escFunction = (e:KeyboardEvent) => {
+    const escFunction = (e: KeyboardEvent) => {
         const escape = 27
         if (e.keyCode === escape) {
             closeModal()
@@ -46,27 +52,22 @@ const Modal:FC<IModal> = ({children, onCloseModal}) => {
         }
     }, [escFunction])
 
-    return ReactDOM.createPortal(
+    return createPortal(
         <>
-            <CSSTransition in={containerState} timeout={200} classNames={{
+            <CSSTransition nodeRef={nodeRef} in={containerState} timeout={200} classNames={{
                 enterActive: ModalStyles.containerEnterActive,
                 enterDone: ModalStyles.containerEnterDone,
                 exitActive: ModalStyles.containerExitActive,
                 exitDone: ModalStyles.containerExitDone,
             }}>
-                <div className={ModalStyles.startAnimContainer}>
+                <div ref={nodeRef} className={ModalStyles.startAnimContainer}>
                     {children}
                     <CloseIcon onClick={closeModal} type="primary"/>
                 </div>
             </CSSTransition>
-            <CSSTransition in={modalOverlayState} timeout={200} classNames={{
-                enterActive: ModalStyles.modalInnerEnterActive,
-                enterDone: ModalStyles.modalInnerEnterDone,
-                exitActive: ModalStyles.modalInnerExitActive,
-                exitDone: ModalStyles.modalInnerExitDone,
-            }}>
-                <ModalOverlay onClose={closeModal}/>
-            </CSSTransition>
+
+            <ModalOverlay onClose={closeModal}/>
+
         </>, portalDiv
     );
 };

@@ -3,10 +3,6 @@ import React, {FC, useCallback, useMemo} from 'react';
 import BurgerConstructorStyles from "./BurgerConstructor.module.scss"
 import TotalBasketCount from "../TotalBasketCount/TotalBasketCount";
 import {useDispatch, useSelector} from "react-redux";
-import {
-    ADD_BUN_TO_CART,
-    ADD_INGREDIENTS_TO_CART, UPDATE_INGREDIENTS_IN_CART
-} from "../../services/actions/burgerCounstructor";
 import {useDrop} from "react-dnd";
 import IngredientConstructorItem from "../IngredientConstructorItem/IngredientConstructorItem";
 import update from 'immutability-helper';
@@ -14,6 +10,7 @@ import {v4} from 'uuid'
 import {debounce} from "../../utils/helpers";
 import {RootState} from "../../services/reducers";
 import {IIngredient} from "../../types/ingredientTypes";
+import {addBunToCart, addIngredientsToCart, updateIngredientsInCart} from "../../services/reducers/burgerCounstructor";
 
 
 const BurgerConstructor: FC = () => {
@@ -24,17 +21,9 @@ const BurgerConstructor: FC = () => {
         accept: 'ingredient',
         drop: (item:IIngredient) => {
             if (item.type === 'bun' && !cartState.cartBun.hasOwnProperty('name')) {
-
-                dispatch({type: ADD_BUN_TO_CART, bun: item})
+                dispatch(addBunToCart(item))
             } else if (item.type !== 'bun' && cartState.cartBun.hasOwnProperty('name')) {
-                dispatch({
-                    type: ADD_INGREDIENTS_TO_CART,
-                    ingredients:
-                        {
-                            ...item,
-                            dragId: v4()
-                        }
-                })
+                dispatch(addIngredientsToCart(item, v4()))
             }
         },
         collect: monitor => ({
@@ -54,7 +43,6 @@ const BurgerConstructor: FC = () => {
         )
     }
 
-
     const moveIngredients = useCallback((dragIndex, hoverIndex) => {
         const dragCard = cartState.cartIngredients[dragIndex];
         const updateStateIngredient = update(cartState.cartIngredients, {
@@ -64,10 +52,8 @@ const BurgerConstructor: FC = () => {
             ],
         })
 
-        dispatch({
-            type: UPDATE_INGREDIENTS_IN_CART,
-            item: updateStateIngredient,
-        })
+        dispatch(updateIngredientsInCart(updateStateIngredient))
+
     }, [cartState.cartIngredients, dispatch])
 
     const debounceMoveIngredients = useMemo(() => debounce(moveIngredients), [moveIngredients])

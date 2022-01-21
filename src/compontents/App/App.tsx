@@ -18,8 +18,8 @@ import IngredientDetails from "../modals/IngredientsDetails/IngredientDetails";
 import Modal from "../modals/Modal/Modal";
 import OrderDetails from "../modals/OrderDetails/OrderDetails";
 import PreLoader from "../PreLoader/PreLoader";
-import {SET_INITIAL_ORDER_STATE} from "../../services/actions/order";
 import {RootState} from "../../services/reducers";
+import {setInitialOrderState} from "../../services/reducers/order";
 
 interface ILocationState {
     backgroundLocation?: string
@@ -45,7 +45,7 @@ const App: FC = () => {
         <>
             <AppHeader/>
             <Routes location={state?.backgroundLocation || location}>
-                <Route path='/' element={<HomePage/>}/>
+                <Route  path='/' element={<HomePage/>}/>
                 <Route path='/ingredients/:id' element={<Ingredients/>}/>
                 <Route path='/ingredients/:id' element={<Ingredients/>}/>
 
@@ -68,7 +68,7 @@ const App: FC = () => {
                         <ForgotPassword/>
                     </ProtectedAuthRoute>
                 }/>
-                <Route path='/profile/*' element={
+                <Route  path='/profile/*' element={
                     <ProtectedUnAuthRoute>
                         <Profile/>
                     </ProtectedUnAuthRoute>}>
@@ -98,7 +98,7 @@ const App: FC = () => {
                         path='/order/:orderNumber'
                         element={
                             <Modal onCloseModal={() => {
-                                dispatch({type: SET_INITIAL_ORDER_STATE})
+                                dispatch(setInitialOrderState())
                                 navigate('/')
                             }
                             }>

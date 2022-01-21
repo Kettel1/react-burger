@@ -3,9 +3,9 @@ import BurgerConstructorStyles from "../BurgerConstructor/BurgerConstructor.modu
 import {DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/constructor-element";
 import {useDrag, useDrop, XYCoord} from "react-dnd";
-import {DELETE_INGREDIENTS_FROM_CART} from "../../services/actions/burgerCounstructor";
 import {useDispatch} from "react-redux";
 import {IIngredient} from "../../types/ingredientTypes";
+import {deleteIngredientFromCart} from "../../services/reducers/burgerCounstructor";
 
 interface IIngredientConstructorItemProps {
     id: string,
@@ -77,7 +77,7 @@ const IngredientConstructorItem: FC<IIngredientConstructorItemProps> = ({id, ite
     })
 
     const deleteFromCart = (id: string): void => {
-        dispatch({type: DELETE_INGREDIENTS_FROM_CART, id})
+        dispatch(deleteIngredientFromCart(id))
     }
 
     drag(drop(dragDropRef))
