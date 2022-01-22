@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {
     BurgerIcon,
     ListIcon,
@@ -8,7 +8,7 @@ import {
 import HeaderStyles from './AppHeader.module.scss'
 import {NavLink} from "react-router-dom";
 
-const AppHeader = () => {
+const AppHeader: FC = () => {
     return (
         <header className={HeaderStyles.header}>
             <nav className={HeaderStyles.container}>

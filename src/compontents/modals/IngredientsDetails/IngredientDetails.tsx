@@ -1,54 +1,50 @@
-import React from 'react';
+import React, {FC} from 'react';
 import IngredientDetailsStyles from "./IngredientsDetails.module.scss";
 import {useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
+import {RootState} from "../../../services/reducers";
+import {IIngredient} from "../../../types/ingredientTypes";
 
-// @ts-ignore
-const IngredientDetails = () => {
+
+const IngredientDetails: FC = () => {
     const {id} = useParams()
+    const {ingredients} = useSelector((state: RootState) => state.ingredients)
+    const currentIngredient: IIngredient | undefined = ingredients.find((ingredient: IIngredient) => ingredient._id === id)
 
-    // @ts-ignore
-    const {ingredients} = useSelector((state => state.ingredients))
 
-    // @ts-ignore
-    const currentIngredient = ingredients.find((ingredient) => ingredient._id === id)
 
-    // @ts-ignore
-    const {
-        name,
-        proteins,
-        image_large,
-        calories,
-        fat,
-        carbohydrates
-    } = currentIngredient
 
     return (
-        <section className={IngredientDetailsStyles.container}>
-            <div className={IngredientDetailsStyles.innerContainer}>
-                <h1 className={IngredientDetailsStyles.header}>Детали ингредиента</h1>
-                <img className={IngredientDetailsStyles.image} src={image_large} alt={name}/>
-                <p className={IngredientDetailsStyles.name}>{name}</p>
-                <ul className={IngredientDetailsStyles.list}>
-                    <li className={IngredientDetailsStyles.item}>
-                        <p>Калорий, ккал</p>
-                        <span>{calories}</span>
-                    </li>
-                    <li className={IngredientDetailsStyles.item}>
-                        <p>Белки, г</p>
-                        <span>{proteins}</span>
-                    </li>
-                    <li className={IngredientDetailsStyles.item}>
-                        <p>Жиры, г</p>
-                        <span>{fat}</span>
-                    </li>
-                    <li className={IngredientDetailsStyles.item}>
-                        <p>Углеводы, г</p>
-                        <span>{carbohydrates}</span>
-                    </li>
-                </ul>
-            </div>
-        </section>
+        currentIngredient
+            ?
+            <section className={IngredientDetailsStyles.container}>
+                <div className={IngredientDetailsStyles.innerContainer}>
+                    <h1 className={IngredientDetailsStyles.header}>Детали ингредиента</h1>
+                    <img className={IngredientDetailsStyles.image} src={currentIngredient.image_large}
+                         alt={currentIngredient.name}/>
+                    <p className={IngredientDetailsStyles.name}>{currentIngredient.name}</p>
+                    <ul className={IngredientDetailsStyles.list}>
+                        <li className={IngredientDetailsStyles.item}>
+                            <p>Калорий, ккал</p>
+                            <span>{currentIngredient.calories}</span>
+                        </li>
+                        <li className={IngredientDetailsStyles.item}>
+                            <p>Белки, г</p>
+                            <span>{currentIngredient.proteins}</span>
+                        </li>
+                        <li className={IngredientDetailsStyles.item}>
+                            <p>Жиры, г</p>
+                            <span>{currentIngredient.fat}</span>
+                        </li>
+                        <li className={IngredientDetailsStyles.item}>
+                            <p>Углеводы, г</p>
+                            <span>{currentIngredient.carbohydrates}</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            :
+            <p>Произошла ошибка</p>
     )
 };
 
