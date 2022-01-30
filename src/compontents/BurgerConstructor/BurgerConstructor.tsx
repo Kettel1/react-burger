@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
 import IngredientConstructorItem from "../IngredientConstructorItem/IngredientConstructorItem";
 import update from 'immutability-helper';
-import {v4} from 'uuid'
+import {v4 as uuid} from 'uuid'
 import {debounce} from "../../utils/helpers";
 import {IIngredient} from "../../types/ingredientTypes";
 import {addBunToCart, addIngredientsToCart, updateIngredientsInCart} from "../../services/reducers/burgerCounstructor";
@@ -23,7 +23,8 @@ const BurgerConstructor: FC = () => {
             if (item.type === 'bun' && !cartState.cartBun.hasOwnProperty('name')) {
                 dispatch(addBunToCart(item))
             } else if (item.type !== 'bun' && cartState.cartBun.hasOwnProperty('name')) {
-                dispatch(addIngredientsToCart(item, v4()))
+                const uniqueId: string = uuid()
+                dispatch(addIngredientsToCart(item, uniqueId))
             }
         },
         collect: monitor => ({
