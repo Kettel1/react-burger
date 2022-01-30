@@ -6,21 +6,26 @@ import {
     REGISTER_USER_SUCCESS, RESET_PASSWORD_COMPLETED,
     RESET_PASSWORD_SUCCESS, SET_USER_INFO
 } from "../actions/auth";
+
 import {IUserTypes} from "../../types/ingredientTypes";
 
-interface IAuthState {
-    isLoading: boolean,
-    errorMessage: string | undefined,
-    isAuth: boolean,
-    user: IUserTypes,
-    success: boolean
-}
-
-interface IAuthAction {
-    type: string,
-    payload?: any,
-    message?: string
-}
+import {
+    IAuthActions,
+    IAuthState,
+    IDeleteAuth,
+    ILoadingUser,
+    ILoadingUserComplete,
+    ILoginFailed,
+    ILoginOrPasswordIncorrect,
+    ILoginSuccess,
+    IRegisterUserClearTextError,
+    IRegisterUserFailed,
+    IRegisterUserSetTextError,
+    IRegisterUserSuccess,
+    IResetPasswordComplete,
+    IResetPasswordSuccess,
+    ISetUserInfo
+} from "../../types/authTypes";
 
 const initialState: IAuthState = {
     isLoading: true,
@@ -33,10 +38,10 @@ const initialState: IAuthState = {
     success: false
 }
 
-export const authReducer = (state = initialState, action: IAuthAction): IAuthState => {
+export const authReducer = (state = initialState, action: IAuthActions): IAuthState => {
     switch (action.type) {
         case LOGIN_SUCCESS:
-            return {...state, isAuth: true, user: {...action.payload.user}}
+            return {...state, isAuth: true, user: {...action.user}}
         case LOGIN_FAILED:
             return {...initialState, success: false, isLoading: false}
         case LOGIN_OR_PASSWORD_INCORRECT:
@@ -66,85 +71,59 @@ export const authReducer = (state = initialState, action: IAuthAction): IAuthSta
     }
 }
 
-export const loginSuccess = (user: any) => {
-    return {
-        type: LOGIN_SUCCESS,
-        payload: user
-    }
-}
+export const loginSuccess = (user: IUserTypes): ILoginSuccess => ({
+    type: LOGIN_SUCCESS,
+    user: user
+})
 
-export const loginFailed = () => {
-    return {
-        type: LOGIN_FAILED
-    }
-}
+export const loginFailed = (): ILoginFailed=> ({
+    type: LOGIN_FAILED
+});
 
-export const loginOrPasswordIncorrect = (message: string) => {
-    return {
-        type: LOGIN_OR_PASSWORD_INCORRECT,
-        message: message
-    }
-}
+export const loginOrPasswordIncorrect = (message: string): ILoginOrPasswordIncorrect => ({
+    type: LOGIN_OR_PASSWORD_INCORRECT,
+    message: message
+})
 
-export const registerUserFailed = () => {
-    return {
-        type: REGISTER_USER_FAILED
-    }
-}
+export const registerUserFailed = (): IRegisterUserFailed => ({
+    type: REGISTER_USER_FAILED
+})
 
-export const registerUserSuccess = (user: any) => {
-    return {
-        type: REGISTER_USER_SUCCESS,
-        payload: user
-    }
-}
+export const registerUserSuccess = (user: IUserTypes): IRegisterUserSuccess => ({
+    type: REGISTER_USER_SUCCESS,
+    payload: user
+})
 
-export const registerUserSetTextError = (message: string) => {
-    return {
-        type: REGISTER_USER_SET_TEXT_ERROR,
-        message: message,
-    }
-}
+export const registerUserSetTextError = (message: string): IRegisterUserSetTextError => ({
+    type: REGISTER_USER_SET_TEXT_ERROR,
+    message: message,
+})
 
-export const registerUserClearTextError = () => {
-    return {
-        type: REGISTER_USER_CLEAR_TEXT_ERROR
-    }
-}
+export const registerUserClearTextError = (): IRegisterUserClearTextError => ({
+    type: REGISTER_USER_CLEAR_TEXT_ERROR
+})
 
-export const resetPasswordSuccess = () => {
-    return {
-        type: RESET_PASSWORD_SUCCESS
-    }
-}
+export const resetPasswordSuccess = (): IResetPasswordSuccess => ({
+    type: RESET_PASSWORD_SUCCESS
+})
 
-export const resetPasswordComplete = () => {
-    return {
-        type: RESET_PASSWORD_COMPLETED
-    }
-}
+export const resetPasswordComplete = (): IResetPasswordComplete=> ({
+    type: RESET_PASSWORD_COMPLETED
+})
 
-export const setUserInfo = (response:any) => {
-    return {
-        type: SET_USER_INFO,
-        payload: response
-    }
-}
+export const setUserInfo = (userInfo: IUserTypes): ISetUserInfo => ({
+    type: SET_USER_INFO,
+    payload: userInfo
+})
 
-export const deleteAuth = () => {
-    return {
-        type: DELETE_AUTH
-    }
-}
+export const deleteAuth = (): IDeleteAuth => ({
+    type: DELETE_AUTH
+})
 
-export const loadingUser = () => {
-    return {
-        type: LOADING_USER
-    }
-}
+export const loadingUser = (): ILoadingUser => ({
+    type: LOADING_USER
+})
 
-export const loadingUserComplete = () => {
-    return {
-        type: LOADING_USER_COMPLETED
-    }
-}
+export const loadingUserComplete = (): ILoadingUserComplete => ({
+    type: LOADING_USER_COMPLETED
+})

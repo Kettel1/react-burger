@@ -4,20 +4,17 @@ import {
     GET_ALL_INGREDIENTS_REQUEST,
 
 } from "../actions/burgerIngredients";
+
 import {IIngredient} from "../../types/ingredientTypes";
 
-interface IIngredientsState {
-    ingredients: IIngredient[],
-    ingredientsRequest: boolean,
-    ingredientsFailed: boolean,
-    isDragging: boolean
-}
+import {
+    IGetAllIngredientsFailed,
+    IGetAllIngredientsRequest, IGetAllIngredientsSuccess,
+    IIngredientsState,
+    TBurgerIngredientsActions
+} from "../../types/burgerIngredientsTypes";
 
-interface IIngredientsAction {
-    type: string,
-    payload?: any,
-    ingredients: IIngredient[]
-}
+
 
 const defaultState: IIngredientsState = {
     ingredients: [],
@@ -26,7 +23,7 @@ const defaultState: IIngredientsState = {
     isDragging: false
 }
 
-export const ingredientsReducer = (state = defaultState, action:IIngredientsAction): IIngredientsState => {
+export const ingredientsReducer = (state = defaultState, action: TBurgerIngredientsActions): IIngredientsState => {
     switch (action.type) {
         case GET_ALL_INGREDIENTS_REQUEST: {
             return {...state, ingredientsRequest: true, ingredientsFailed: false}
@@ -46,21 +43,15 @@ export const ingredientsReducer = (state = defaultState, action:IIngredientsActi
     }
 }
 
-export const getAllIngredientsRequest = () => {
-    return {
-        type: GET_ALL_INGREDIENTS_REQUEST
-    }
-}
+export const getAllIngredientsRequest = (): IGetAllIngredientsRequest => ({
+    type: GET_ALL_INGREDIENTS_REQUEST
+})
 
-export const getAllIngredientsSuccess = (ingredients:IIngredient[]) => {
-    return {
-        type: GET_ALL_INGREDIENTS_SUCCESS,
-        ingredients: ingredients
-    }
-}
+export const getAllIngredientsSuccess = (ingredients: IIngredient[]): IGetAllIngredientsSuccess => ({
+    type: GET_ALL_INGREDIENTS_SUCCESS,
+    ingredients: ingredients
+})
 
-export const getAllIngredientsFailed = () => {
-    return {
-        type: GET_ALL_INGREDIENTS_FAILED
-    }
-}
+export const getAllIngredientsFailed = (): IGetAllIngredientsFailed => ({
+    type: GET_ALL_INGREDIENTS_FAILED
+})

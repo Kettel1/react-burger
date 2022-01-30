@@ -8,9 +8,9 @@ import IngredientConstructorItem from "../IngredientConstructorItem/IngredientCo
 import update from 'immutability-helper';
 import {v4} from 'uuid'
 import {debounce} from "../../utils/helpers";
-import {RootState} from "../../services/reducers";
 import {IIngredient} from "../../types/ingredientTypes";
 import {addBunToCart, addIngredientsToCart, updateIngredientsInCart} from "../../services/reducers/burgerCounstructor";
+import { RootState } from '../../types';
 
 
 const BurgerConstructor: FC = () => {

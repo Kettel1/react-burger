@@ -5,11 +5,11 @@ import {
     getAllIngredientsSuccess
 } from "../reducers/burgerIngredients";
 
-export const GET_ALL_INGREDIENTS_SUCCESS = 'GET_ALL_INGREDIENTS_SUCCESS'
-export const GET_ALL_INGREDIENTS_REQUEST = 'GET_ALL_INGREDIENTS_REQUEST'
-export const GET_ALL_INGREDIENTS_FAILED = 'GET_ALL_INGREDIENTS_FAILED'
+export const GET_ALL_INGREDIENTS_SUCCESS: 'GET_ALL_INGREDIENTS_SUCCESS' = 'GET_ALL_INGREDIENTS_SUCCESS'
+export const GET_ALL_INGREDIENTS_REQUEST: 'GET_ALL_INGREDIENTS_REQUEST' = 'GET_ALL_INGREDIENTS_REQUEST'
+export const GET_ALL_INGREDIENTS_FAILED: 'GET_ALL_INGREDIENTS_FAILED' = 'GET_ALL_INGREDIENTS_FAILED'
 
-export const fetchIngredients = () => (dispatch:any) => {
+export const fetchIngredients = () => (dispatch: any) => {
     dispatch(getAllIngredientsRequest())
 
     fetch(API_REACT + '/ingredients')
@@ -27,6 +27,5 @@ export const fetchIngredients = () => (dispatch:any) => {
             console.log(err)
             dispatch(getAllIngredientsFailed())
         })
-
 }
 

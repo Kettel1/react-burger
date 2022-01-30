@@ -31,7 +31,9 @@ export interface ILoginUserTypes {
     password: string
 }
 
-export interface IRegisterUserTypes extends ILoginUserTypes {}
+export interface IRegisterUserTypes extends ILoginUserTypes {
+    name?: string
+}
 
 export interface IForgotPasswordUserTypes {
     email: string

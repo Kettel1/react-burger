@@ -1,4 +1,5 @@
 import {deleteCookie, setCookie} from "../../utils/helpers";
+
 import {
     fetchRegisterRequest,
     fetchLoginUserRequest,
@@ -8,12 +9,14 @@ import {
     fetchForgotPasswordRequest,
     fetchUpdateUser
 } from "../../utils/api";
+
 import {
     IForgotPasswordUserTypes,
     ILoginUserTypes,
     IRegisterUserTypes, IResetPasswordTypes,
     IUpdateUserTypes
 } from "../../types/ingredientTypes";
+
 import {
     deleteAuth, loadingUserComplete,
     loginFailed,
@@ -22,30 +25,30 @@ import {
     registerUserFailed, registerUserSetTextError,
     registerUserSuccess, resetPasswordComplete, resetPasswordSuccess, setUserInfo
 } from "../reducers/auth";
+import {AppDispatch, AppThunk} from "../../types";
 
 
-export const REGISTER_USER_FAILED = 'REGISTER_USER_FAILED'
-export const REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS'
-export const REGISTER_USER_SET_TEXT_ERROR = 'REGISTER_USER_SET_TEXT_ERROR'
-export const REGISTER_USER_CLEAR_TEXT_ERROR = 'REGISTER_USER_CLEAR_TEXT_ERROR'
+export const REGISTER_USER_FAILED: 'REGISTER_USER_FAILED' = 'REGISTER_USER_FAILED'
+export const REGISTER_USER_SUCCESS: 'REGISTER_USER_SUCCESS' = 'REGISTER_USER_SUCCESS'
+export const REGISTER_USER_SET_TEXT_ERROR: 'REGISTER_USER_SET_TEXT_ERROR' = 'REGISTER_USER_SET_TEXT_ERROR'
+export const REGISTER_USER_CLEAR_TEXT_ERROR: 'REGISTER_USER_CLEAR_TEXT_ERROR' = 'REGISTER_USER_CLEAR_TEXT_ERROR'
 
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
-export const LOGIN_OR_PASSWORD_INCORRECT = 'LOGIN_OR_PASSWORD_INCORRECT'
-export const LOGIN_FAILED = 'LOGIN_FAILED'
+export const LOGIN_SUCCESS: 'LOGIN_SUCCESS' = 'LOGIN_SUCCESS'
+export const LOGIN_OR_PASSWORD_INCORRECT: 'LOGIN_OR_PASSWORD_INCORRECT' = 'LOGIN_OR_PASSWORD_INCORRECT'
+export const LOGIN_FAILED: 'LOGIN_FAILED' = 'LOGIN_FAILED'
 
-export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS'
-export const RESET_PASSWORD_FAILED = 'RESET_PASSWORD_FAILED'
-export const RESET_PASSWORD_COMPLETED = 'RESET_PASSWORD_COMPLETED'
+export const RESET_PASSWORD_SUCCESS: 'RESET_PASSWORD_SUCCESS' = 'RESET_PASSWORD_SUCCESS'
+export const RESET_PASSWORD_FAILED: 'RESET_PASSWORD_FAILED' = 'RESET_PASSWORD_FAILED'
+export const RESET_PASSWORD_COMPLETED: 'RESET_PASSWORD_COMPLETED' = 'RESET_PASSWORD_COMPLETED'
 
-export const SET_USER_INFO = 'SET_USER_INFO'
+export const SET_USER_INFO: 'SET_USER_INFO' = 'SET_USER_INFO'
 
-export const DELETE_AUTH = 'DELETE_AUTH'
+export const DELETE_AUTH: 'DELETE_AUTH' = 'DELETE_AUTH'
 
-export const LOADING_USER = 'LOADING_USER'
-export const LOADING_USER_COMPLETED = 'LOADING_USER_COMPLETED'
+export const LOADING_USER: 'LOADING_USER' = 'LOADING_USER'
+export const LOADING_USER_COMPLETED: 'LOADING_USER_COMPLETED' = 'LOADING_USER_COMPLETED'
 
-// Подскажите, как можно типизировать диспатч
-export const loginUserRequest = (form: ILoginUserTypes, callback: () => void) => (dispatch: any): void => {
+export const loginUserRequest: AppThunk = (form: ILoginUserTypes, callback: () => void) => (dispatch: AppDispatch) => {
     fetchLoginUserRequest(form)
         .then(response => {
             if (!response.ok) {
@@ -67,7 +70,7 @@ export const loginUserRequest = (form: ILoginUserTypes, callback: () => void) =>
         });
 };
 
-export const registerRequest = (form: IRegisterUserTypes, callback: () => void) => (dispatch: any): void => {
+export const registerRequest: AppThunk = (form: IRegisterUserTypes, callback: () => void) => (dispatch: AppDispatch) => {
     fetchRegisterRequest(form)
         .then(response => {
             if (!response.ok) {
