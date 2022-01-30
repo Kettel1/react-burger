@@ -7,25 +7,7 @@ import {
     RESET_PASSWORD_SUCCESS, SET_USER_INFO
 } from "../actions/auth";
 
-import {IUserTypes} from "../../types/ingredientTypes";
-
-import {
-    IAuthActions,
-    IAuthState,
-    IDeleteAuth,
-    ILoadingUser,
-    ILoadingUserComplete,
-    ILoginFailed,
-    ILoginOrPasswordIncorrect,
-    ILoginSuccess,
-    IRegisterUserClearTextError,
-    IRegisterUserFailed,
-    IRegisterUserSetTextError,
-    IRegisterUserSuccess,
-    IResetPasswordComplete,
-    IResetPasswordSuccess,
-    ISetUserInfo
-} from "../../types/authTypes";
+import {TAuthActions, IAuthState} from "../../types/authTypes";
 
 const initialState: IAuthState = {
     isLoading: true,
@@ -38,7 +20,7 @@ const initialState: IAuthState = {
     success: false
 }
 
-export const authReducer = (state = initialState, action: IAuthActions): IAuthState => {
+export const authReducer = (state = initialState, action: TAuthActions): IAuthState => {
     switch (action.type) {
         case LOGIN_SUCCESS:
             return {...state, isAuth: true, user: {...action.user}}
@@ -70,60 +52,3 @@ export const authReducer = (state = initialState, action: IAuthActions): IAuthSt
             return state
     }
 }
-
-export const loginSuccess = (user: IUserTypes): ILoginSuccess => ({
-    type: LOGIN_SUCCESS,
-    user: user
-})
-
-export const loginFailed = (): ILoginFailed=> ({
-    type: LOGIN_FAILED
-});
-
-export const loginOrPasswordIncorrect = (message: string): ILoginOrPasswordIncorrect => ({
-    type: LOGIN_OR_PASSWORD_INCORRECT,
-    message: message
-})
-
-export const registerUserFailed = (): IRegisterUserFailed => ({
-    type: REGISTER_USER_FAILED
-})
-
-export const registerUserSuccess = (user: IUserTypes): IRegisterUserSuccess => ({
-    type: REGISTER_USER_SUCCESS,
-    payload: user
-})
-
-export const registerUserSetTextError = (message: string): IRegisterUserSetTextError => ({
-    type: REGISTER_USER_SET_TEXT_ERROR,
-    message: message,
-})
-
-export const registerUserClearTextError = (): IRegisterUserClearTextError => ({
-    type: REGISTER_USER_CLEAR_TEXT_ERROR
-})
-
-export const resetPasswordSuccess = (): IResetPasswordSuccess => ({
-    type: RESET_PASSWORD_SUCCESS
-})
-
-export const resetPasswordComplete = (): IResetPasswordComplete=> ({
-    type: RESET_PASSWORD_COMPLETED
-})
-
-export const setUserInfo = (userInfo: IUserTypes): ISetUserInfo => ({
-    type: SET_USER_INFO,
-    payload: userInfo
-})
-
-export const deleteAuth = (): IDeleteAuth => ({
-    type: DELETE_AUTH
-})
-
-export const loadingUser = (): ILoadingUser => ({
-    type: LOADING_USER
-})
-
-export const loadingUserComplete = (): ILoadingUserComplete => ({
-    type: LOADING_USER_COMPLETED
-})

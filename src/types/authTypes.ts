@@ -74,7 +74,7 @@ export interface IDeleteAuth {
     readonly type: typeof DELETE_AUTH
 }
 
-export type IAuthActions =
+export type TAuthActions =
     | ILoginSuccess
     | ILoginFailed
     | ILoginOrPasswordIncorrect

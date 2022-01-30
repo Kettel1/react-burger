@@ -1,15 +1,15 @@
 import {getCookie, setCookie} from "./helpers";
-import {API_REACT} from "./data";
+import {API_REACT} from "./url";
 import {
     CustomResponse,
     IForgotPasswordUserTypes,
     ILoginUserTypes,
-    IRegisterUserTypes, IResetPasswordTypes, IResponse, IUpdateUserTypes,
+    IRegisterUserTypes, IResetPasswordTypes, IUpdateUserTypes,
 } from "../types/ingredientTypes";
 
 
 // Подскажите как здесь можно типизировать ответ
-export const checkAuthUser = async ():Promise<any>=> {
+export const checkAuthUser = async ():Promise<any> => {
     const accessToken = getCookie('accessToken')
     if (accessToken) {
         const responseFromServer = await fetch(API_REACT + '/auth/user', {
@@ -31,7 +31,6 @@ export const checkAuthUser = async ():Promise<any>=> {
         }
 
         if (responseData.message === 'jwt expired') {
-            console.log('no ok')
             await updateAccessToken()
             return await checkAuthUser()
         }

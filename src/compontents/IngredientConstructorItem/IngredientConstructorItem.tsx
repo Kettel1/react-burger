@@ -3,9 +3,10 @@ import BurgerConstructorStyles from "../BurgerConstructor/BurgerConstructor.modu
 import {DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/constructor-element";
 import {useDrag, useDrop, XYCoord} from "react-dnd";
-import {useDispatch} from "react-redux";
+
 import {IIngredient} from "../../types/ingredientTypes";
-import {deleteIngredientFromCart} from "../../services/reducers/burgerCounstructor";
+import {deleteIngredientFromCart} from "../../services/actions/burgerCounstructor";
+import {useDispatch} from "../../services/hooks";
 
 interface IIngredientConstructorItemProps {
     id: string,

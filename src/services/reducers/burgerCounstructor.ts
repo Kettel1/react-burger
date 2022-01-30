@@ -10,12 +10,7 @@ import {
 
 import {IIngredient} from "../../types/ingredientTypes";
 
-import {
-    IAddBunToCart,
-    IAddIngredientsToCart, IDeleteAllIngredientsFromCart, IDeleteIngredientFromCart,
-    IIngredientsState, ITotalSumBunsInCart, ITotalSumIngredientsInCart, IUpdateIngredientsInCart,
-    TBurgerConstructorActions
-} from "../../types/burgerConstructorTypes";
+import {IIngredientsState, TBurgerConstructorActions} from "../../types/burgerConstructorTypes";
 
 const initialState: IIngredientsState = {
     cartBun: {} as IIngredient, // Выбранная булочка
@@ -75,39 +70,3 @@ export const constructorReducer = (state = initialState, action: TBurgerConstruc
     }
 }
 
-export const addBunToCart = (bun: IIngredient): IAddBunToCart => ({
-    type: ADD_BUN_TO_CART,
-    bun
-})
-
-export const addIngredientsToCart = (ingredient: IIngredient, id: string): IAddIngredientsToCart => ({
-    type: ADD_INGREDIENTS_TO_CART,
-    ingredients: {
-        ...ingredient,
-        dragId: id
-    }
-})
-
-export const totalSumBunsInCart = (price: number): ITotalSumBunsInCart => ({
-    type: TOTAL_SUM_BUN,
-    payload: price
-})
-
-export const totalSumIngredientsInCart = (price: number): ITotalSumIngredientsInCart => ({
-    type: TOTAL_SUM_INGREDIENTS,
-    payload: price
-})
-
-export const deleteIngredientFromCart = (id: string): IDeleteIngredientFromCart => ({
-    type: DELETE_INGREDIENTS_FROM_CART,
-    id
-})
-
-export const updateIngredientsInCart = (item: IIngredient[]): IUpdateIngredientsInCart => ({
-    type: UPDATE_INGREDIENTS_IN_CART,
-    item: item
-})
-
-export const deleteAllIngredientsFromCart = (): IDeleteAllIngredientsFromCart => ({
-    type: DELETE_ALL_INGREDIENTS_FROM_CART
-})

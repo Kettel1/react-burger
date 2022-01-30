@@ -2,7 +2,7 @@ import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import React, {FC, useCallback, useRef, useState} from 'react';
 import BurgerIngredientsStyles from './BurgerIngredients.module.scss'
 import RenderBurgerIngredients from '../RenderBurgerIngredients/RenderBurgerIngredients';
-import {debounce} from "../../utils/helpers";
+import {debounce} from "../../services/helpers";
 
 const BurgerIngredients: FC = () => {
     const [currentTab, setCurrentTab] = useState<'one' | 'two' | 'three'>('one')

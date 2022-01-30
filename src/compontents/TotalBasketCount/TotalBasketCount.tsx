@@ -1,28 +1,28 @@
 import {Button, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import React, {useEffect, useMemo} from 'react';
 import TotalBasketCountStyles from './TotalBasketCount.module.scss'
-import {useDispatch, useSelector} from "react-redux";
 import {getOrderNumber} from "../../services/actions/order";
 import {useLocation, useNavigate} from "react-router-dom";
-import {RootState} from "../../services/reducers";
 import {
     totalSumBunsInCart,
     totalSumIngredientsInCart,
-} from "../../services/reducers/burgerCounstructor";
+} from "../../services/actions/burgerCounstructor";
+import {useDispatch, useSelector} from "../../services/hooks";
+import {IIngredient} from "../../types/ingredientTypes";
 
 const TotalBasketCount = () => {
     const navigate = useNavigate()
 
     const location = useLocation()
 
-    const authState = useSelector((state: RootState) => state.auth)
-    const cartState = useSelector((state: RootState) => state.cart)
-    const orderState = useSelector((state: RootState) => state.order)
+    const authState = useSelector(state => state.auth)
+    const cartState = useSelector(state => state.cart)
+    const orderState = useSelector(state => state.order)
 
     const dispatch = useDispatch()
 
     const totalSumIngredient = useMemo(() =>
-            cartState.cartIngredients.reduce((prev, next) => prev + next.price, 0)
+            cartState.cartIngredients.reduce((prev: number, next: IIngredient) => prev + next.price, 0)
         , [cartState.cartIngredients]
     )
 
@@ -44,7 +44,7 @@ const TotalBasketCount = () => {
 
     }, [orderState.orderSuccess])
 
-    const getAllIdIngredientsInCart = cartState.cartIngredients.map((item) => {
+    const getAllIdIngredientsInCart = cartState.cartIngredients.map((item: IIngredient) => {
         return item._id
     })
 

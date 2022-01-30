@@ -1,9 +1,8 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import UserProfileStyles from "./UserProfile.module.scss";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useDispatch, useSelector} from "react-redux";
 import {updateUserInfo} from "../services/actions/auth";
-import {RootState} from "../services/reducers";
+import {useDispatch, useSelector} from "../services/hooks";
 
 const UserProfile = () => {
     const [form, setForm] = useState({
@@ -36,7 +35,7 @@ const UserProfile = () => {
     const emailRef = useRef<HTMLInputElement>(null!)
 
 
-    const {user} = useSelector((state:RootState) => state.auth)
+    const {user} = useSelector(state => state.auth)
 
     useEffect(() => {
         setForm({...user})
@@ -93,6 +92,7 @@ const UserProfile = () => {
         setDisabled({...disabled})
         setIsError({...isError})
         setTextError({...textError})
+        //react-hooks/exhaustive-deps
     },[user])
 
 

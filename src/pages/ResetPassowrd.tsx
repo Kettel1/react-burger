@@ -1,15 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import ForgotPasswordStyles from './ResetPassword.module.scss'
 import {useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
 import {resetPassword} from "../services/actions/auth";
-import {RootState} from "../services/reducers";
+import {useDispatch, useSelector} from "../services/hooks";
 
-const ResetPassword = () => {
+const ResetPassword: FC = () => {
     const [form, setForm] = useState({password: '', token: ''})
 
-    const authState = useSelector((state:RootState) => state.auth)
+    const authState = useSelector(state => state.auth)
 
     const dispatch = useDispatch()
 
@@ -21,7 +20,6 @@ const ResetPassword = () => {
 
     const handler = (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault()
-
         dispatch(resetPassword(form))
     }
 

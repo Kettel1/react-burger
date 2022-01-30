@@ -2,23 +2,27 @@ import React, {FC, useEffect, useState} from 'react';
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import LoginStyles from './Login.module.scss'
 import {Link, useLocation, useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
 import {loginUserRequest} from "../services/actions/auth";
-import {RootState} from "../services/reducers";
+import {useDispatch, useSelector} from "../services/hooks";
 
+type TLocation = {
+    state?: {
+        from: Location,
+        backgroundLocation: Location
+    }
+}
 
 const Login: FC = () => {
     const [form, setForm] = useState({email: '', password: ''})
     const [error, setError] = useState('')
 
     const navigate = useNavigate()
-    const location: any = useLocation()
-    //Подскажите как можно типизировать это
+    const location = useLocation() as TLocation
     const fromPage = location.state?.from?.pathname || '/'
 
     const dispatch = useDispatch()
 
-    const {errorMessage} = useSelector((state: RootState) => state.auth)
+    const {errorMessage} = useSelector(state => state.auth)
 
     useEffect(() => {
         if (errorMessage) {

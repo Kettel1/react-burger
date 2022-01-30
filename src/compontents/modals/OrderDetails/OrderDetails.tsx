@@ -1,15 +1,15 @@
 import React from 'react';
 import OrderDetailsStyles from "./OrderDetail.module.scss";
 import done from '../../../images/done.gif'
-import {useSelector} from "react-redux";
 import {Link} from 'react-router-dom';
-import {RootState} from "../../../services/reducers";
+import {useSelector} from "../../../services/hooks";
+
 
 
 const OrderDetails = () => {
-        const orderState = useSelector((state:RootState) => state.order)
-        const cartState = useSelector((state:RootState) => state.cart)
-        const {isAuth} = useSelector((state:RootState) => state.auth);
+        const orderState = useSelector(state => state.order)
+        const cartState = useSelector(state => state.cart)
+        const {isAuth} = useSelector(state => state.auth);
 
         if (!isAuth) {
             return (<section className={OrderDetailsStyles.errorContainer}>

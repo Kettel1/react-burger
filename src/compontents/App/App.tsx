@@ -1,35 +1,35 @@
 import React, {useEffect, FC} from 'react';
-import AppHeader from "../../compontents/AppHeader/AppHeader";
 import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "../../services/hooks";
+import {getUserInfo} from "../../services/actions/auth";
+import {fetchIngredients} from "../../services/actions/burgerIngredients";
+import {setInitialOrderState} from "../../services/actions/order";
+
+import AppHeader from "../../compontents/AppHeader/AppHeader";
 import Login from '../../pages/Login'
 import HomePage from "../../pages/HomePage";
 import ForgotPassword from "../../pages/ForgotPassword";
 import Register from "../../pages/Register";
 import ResetPassword from "../../pages/ResetPassowrd";
 import Profile from "../../pages/Profile";
-import {getUserInfo} from "../../services/actions/auth";
-import {useDispatch, useSelector} from "react-redux";
 import UserProfile from "../../pages/UserProfile";
 import ProtectedUnAuthRoute from "../hoc/ProtectedUnAuthRoute";
 import ProtectedAuthRoute from "../hoc/ProtectedAuthRoute";
 import Ingredients from "../../pages/Ingredients";
-import {fetchIngredients} from "../../services/actions/burgerIngredients";
 import IngredientDetails from "../modals/IngredientsDetails/IngredientDetails";
 import Modal from "../modals/Modal/Modal";
 import OrderDetails from "../modals/OrderDetails/OrderDetails";
 import PreLoader from "../PreLoader/PreLoader";
-import {RootState} from "../../services/reducers";
-import {setInitialOrderState} from "../../services/reducers/order";
+import Feed from "../../pages/Feed";
 
 interface ILocationState {
     backgroundLocation?: string
 }
 
-
 const App: FC = () => {
     const location = useLocation();
     const dispatch = useDispatch()
-    const {isLoading} = useSelector((state:RootState) => state.auth)
+    const {isLoading} = useSelector(state => state.auth)
     const navigate = useNavigate();
     const state = location.state as ILocationState
 
@@ -45,30 +45,39 @@ const App: FC = () => {
         <>
             <AppHeader/>
             <Routes location={state?.backgroundLocation || location}>
-                <Route  path='/' element={<HomePage/>}/>
+                <Route path='/' element={<HomePage/>}/>
                 <Route path='/ingredients/:id' element={<Ingredients/>}/>
                 <Route path='/ingredients/:id' element={<Ingredients/>}/>
 
                 <Route path='/login' element={
                     <ProtectedAuthRoute>
                         <Login/>
-                    </ProtectedAuthRoute>}/>
+                    </ProtectedAuthRoute>}
+                />
+
                 <Route path='/reset-password' element={
                     <ProtectedAuthRoute>
                         <ResetPassword/>
                     </ProtectedAuthRoute>
                 }/>
+
+                <Route path='/feed' element={
+                    <Feed/>
+                }/>
+
                 <Route path='/register' element={
                     <ProtectedAuthRoute>
                         <Register/>
                     </ProtectedAuthRoute>
                 }/>
+
                 <Route path='/forgot-password' element={
                     <ProtectedAuthRoute>
                         <ForgotPassword/>
                     </ProtectedAuthRoute>
                 }/>
-                <Route  path='/profile/*' element={
+
+                <Route path='/profile/*' element={
                     <ProtectedUnAuthRoute>
                         <Profile/>
                     </ProtectedUnAuthRoute>}>

@@ -3,14 +3,7 @@ import {
     GET_ORDER_NUMBER_REQUEST,
     GET_ORDER_NUMBER_SUCCESS, SET_INITIAL_ORDER_STATE
 } from "../actions/order";
-import {
-    IGetOrderNumberFailed,
-    IGetOrderNumberRequest,
-    IGetOrderNumberSuccess,
-    IOrderRequest,
-    IOrderState, ISetInitialOrderState,
-    TOrderActions
-} from "../../types/ordersTypes";
+import {IOrderRequest, IOrderState, TOrderActions} from "../../types/ordersTypes";
 
 
 const initialState: IOrderState = {
@@ -50,25 +43,3 @@ export const orderReducer = (state = initialState, action: TOrderActions): IOrde
             return state
     }
 }
-
-export const getOrderNumberRequest = (): IGetOrderNumberRequest => ({
-    type: GET_ORDER_NUMBER_REQUEST
-})
-
-export const getOrderNumberSuccess =
-    (order: IOrderRequest,
-    success: boolean,
-    name: string): IGetOrderNumberSuccess => ({
-    type: GET_ORDER_NUMBER_SUCCESS,
-    order: order,
-    success: success,
-    name: name
-})
-
-export const getOrderNumberFailed = (): IGetOrderNumberFailed => ({
-    type: GET_ORDER_NUMBER_FAILED
-})
-
-export const setInitialOrderState = (): ISetInitialOrderState => ({
-    type: SET_INITIAL_ORDER_STATE
-})

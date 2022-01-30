@@ -1,14 +1,13 @@
 import React, {FC} from 'react';
 import IngredientDetailsStyles from "./IngredientsDetails.module.scss";
-import {useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
-import {RootState} from "../../../services/reducers";
 import {IIngredient} from "../../../types/ingredientTypes";
+import {useSelector} from "../../../services/hooks";
 
 
 const IngredientDetails: FC = () => {
     const {id} = useParams()
-    const {ingredients} = useSelector((state: RootState) => state.ingredients)
+    const {ingredients} = useSelector(state => state.ingredients)
     const currentIngredient: IIngredient | undefined = ingredients.find((ingredient: IIngredient) => ingredient._id === id)
 
 

@@ -1,20 +1,10 @@
-import {applyMiddleware, combineReducers, createStore} from "redux";
-import { constructorReducer } from "./burgerCounstructor";
 import {composeWithDevTools} from "redux-devtools-extension";
 import thunk from "redux-thunk";
-import {ingredientsReducer} from "./burgerIngredients";
-import {orderReducer} from "./order";
-import {authReducer} from "./auth";
-
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
-const rootReducer = combineReducers({
-    cart: constructorReducer,
-    ingredients: ingredientsReducer,
-    order: orderReducer,
-    auth: authReducer,
-})
+import {applyMiddleware, createStore} from "redux";
+import {rootReducer} from "./reducers";
 
 const persistConfig = {
     key: 'root',
@@ -24,11 +14,9 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
-export type RootState = ReturnType<typeof rootReducer>
-
+// eslint-disable-next-line import/no-anonymous-default-export
 export default () => {
     let store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(thunk)))
     let persistor = persistStore(store)
     return {store, persistor}
 }
-

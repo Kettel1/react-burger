@@ -25,7 +25,7 @@ const AppHeader: FC = () => {
                         <span>Конструктор</span>
                     </NavLink>
 
-                    <NavLink to='/orders'
+                    <NavLink to='/feed'
                              className={(props) => {
                                  return `${props.isActive ? HeaderStyles.ActiveText : HeaderStyles.text}`
                              }}

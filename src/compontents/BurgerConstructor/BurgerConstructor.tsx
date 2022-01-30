@@ -2,19 +2,18 @@ import {ConstructorElement} from '@ya.praktikum/react-developer-burger-ui-compon
 import React, {FC, useCallback, useMemo} from 'react';
 import BurgerConstructorStyles from "./BurgerConstructor.module.scss"
 import TotalBasketCount from "../TotalBasketCount/TotalBasketCount";
-import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
 import IngredientConstructorItem from "../IngredientConstructorItem/IngredientConstructorItem";
 import update from 'immutability-helper';
 import {v4 as uuid} from 'uuid'
-import {debounce} from "../../utils/helpers";
+import {debounce} from "../../services/helpers";
 import {IIngredient} from "../../types/ingredientTypes";
-import {addBunToCart, addIngredientsToCart, updateIngredientsInCart} from "../../services/reducers/burgerCounstructor";
-import { RootState } from '../../types';
+import {addBunToCart, addIngredientsToCart, updateIngredientsInCart} from "../../services/actions/burgerCounstructor";
+import {useDispatch, useSelector} from "../../services/hooks";
 
 
 const BurgerConstructor: FC = () => {
-    const cartState = useSelector((state:RootState) => state.cart)
+    const cartState = useSelector(state => state.cart)
 
     const dispatch = useDispatch()
     const [{isHover}, dropTarget] = useDrop({
@@ -82,7 +81,7 @@ const BurgerConstructor: FC = () => {
                     </section>
                     :
                     <ul className={BurgerConstructorStyles.list}>
-                        {cartState.cartIngredients.map((item, idx) => {
+                        {cartState.cartIngredients.map((item:IIngredient, idx: number) => {
                             return <IngredientConstructorItem
                                 key={item.dragId}
                                 id={item._id}

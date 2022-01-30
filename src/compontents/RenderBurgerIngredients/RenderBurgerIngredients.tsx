@@ -1,17 +1,15 @@
 import React, {forwardRef} from 'react';
 import BurgerIngredientsStyles from "./RenderBurgerIngredients.module.scss";
 import RenderArticleIngredients from '../RenderArticleIngredients/RenderArticleIngredients';
-import {useSelector} from "react-redux";
 import {IIngredient} from "../../types/ingredientTypes";
-import {RootState} from "../../services/reducers";
+import {useSelector} from "../../services/hooks";
 
 interface IRenderBurgerIngredientsProps {
     type: 'bun' | 'main' | 'sauce'
 }
 
 const RenderBurgerIngredients = forwardRef<HTMLDivElement, IRenderBurgerIngredientsProps>((props, ref) => {
-    const {ingredients} = useSelector((state:RootState) => state.ingredients)
-
+    const {ingredients} = useSelector(state => state.ingredients)
 
     const getTitleName = (propType:string):string => {
         switch (propType){

@@ -1,11 +1,10 @@
 import React from 'react';
 import ArticleIngredients from './RenderArticleIngredients.module.scss'
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useSelector} from "react-redux";
 import {useDrag} from "react-dnd";
 import {Link, useLocation} from "react-router-dom";
 import {IIngredient} from "../../types/ingredientTypes";
-import {RootState} from "../../services/reducers";
+import {useSelector} from "../../services/hooks";
 
 interface IRenderArticleIngredientsProps {
     item: IIngredient
@@ -15,14 +14,14 @@ interface IRenderArticleIngredientsProps {
 const RenderArticleIngredients = React.memo<IRenderArticleIngredientsProps>(({item}) => {
     let location = useLocation();
 
-    const cartState = useSelector((state:RootState) => state.cart)
+    const cartState = useSelector(state => state.cart)
     const [, dragRef] = useDrag({
         type: 'ingredient',
         item: item,
     })
 
 
-    const counterIngredients = cartState.cartIngredients.filter((ing) => ing._id === item._id).length
+    const counterIngredients = cartState.cartIngredients.filter((ing:IIngredient) => ing._id === item._id).length
 
 
     const counterBun = (item:IIngredient) => {

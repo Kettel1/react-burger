@@ -2,25 +2,19 @@ import React, {FC} from 'react';
 import ProfileStyles from './Profile.module.scss'
 import {NavLink, Outlet, useNavigate} from "react-router-dom";
 import {logOutUser} from "../services/actions/auth";
-import {useDispatch, useSelector} from "react-redux";
-import {deleteCookie} from "../utils/helpers";
-import {RootState} from "../services/reducers";
-
+import {deleteCookie} from "../services/helpers";
+import {useDispatch, useSelector} from "../services/hooks";
 
 const Profile:FC = () => {
-    const authState = useSelector((state:RootState) => state.auth)
+    const authState = useSelector(state => state.auth)
     const navigate = useNavigate()
 
     const dispatch = useDispatch()
 
     const logOut = () => {
-
         dispatch(logOutUser(() => {
             navigate('/')
         }))
-
-
-
         deleteCookie('accessToken')
     }
 

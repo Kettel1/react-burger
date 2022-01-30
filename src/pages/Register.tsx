@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import RegisterStyles from './Register.module.scss'
 import {Link, useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
 import {registerRequest} from "../services/actions/auth";
+import {useDispatch} from "../services/hooks";
 
 const Register = () => {
     const [form, setForm] = useState({email: '', password: '', name: ''})

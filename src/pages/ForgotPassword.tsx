@@ -2,15 +2,14 @@ import React, {FC, useState} from 'react';
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import ForgotPasswordStyles from './ForgotPassword.module.scss'
 import {Link, useNavigate} from "react-router-dom";
-
-import {useDispatch, useSelector} from "react-redux";
 import {forgotPassword} from "../services/actions/auth"
-import {RootState} from "../services/reducers";
+import {useDispatch, useSelector} from "../services/hooks";
+
 
 const ForgotPassword:FC = () => {
     const [form, setForm] = useState({email: ''})
 
-    const authState = useSelector((state:RootState) => state.auth)
+    const authState = useSelector(state => state.auth)
 
     const dispatch = useDispatch()
 
