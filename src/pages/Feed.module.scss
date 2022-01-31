@@ -1,0 +1,51 @@
+.container {
+    max-width: 1240px;
+    padding: 0 40px;
+    display: flex;
+    margin: 40px auto 0 auto;
+}
+
+.ordersFeed {
+    width: 50%;
+}
+.ordersStatus {
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.title {
+    font-size: 36px;
+    line-height: 40px;
+}
+
+.ordersStatusDone {
+    width: 280px;
+}
+
+.ordersStatusTitle {
+    margin-bottom: 24px;
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: bold;
+}
+
+.ordersStatusDoneList {
+    list-style: none;
+    max-height: 180px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.orderStatusDoneItem {
+    color: #00CCCC;
+    font-family: Iceland;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 24px;
+    margin-bottom: 8px;
+
+}

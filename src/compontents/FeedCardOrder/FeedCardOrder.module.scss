@@ -1,0 +1,62 @@
+.container {
+    width: 100%;
+    background: #1C1C21;
+    box-shadow: 0 4px 8px
+        rgba(0, 0, 0, 0.04), 0 0 2px
+        rgba(0, 0, 0, 0.06), 0 0 1px
+        rgba(0, 0, 0, 0.04);
+    border-radius: 40px;
+    padding: 24px;
+    margin-top: 16px;
+}
+
+.id {
+    font-family: Iceland;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 24px;
+}
+
+.time {
+    color: #8585AD;
+}
+
+.firstFloor {
+    display: flex;
+    justify-content: space-between;
+}
+
+.name {
+    margin-top: 24px;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 30px;
+}
+
+.lastFloor {
+    display: flex;
+    justify-content: space-between;
+}
+
+.list {
+    list-style: none;
+    display: flex;
+    margin-top: 24px;
+}
+
+.item:not(:first-child) {
+    margin-left: -20px;
+}
+
+.price {
+    font-family: Iceland;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 24px;
+}
+
+.status {
+    margin-top: 24px;
+}
