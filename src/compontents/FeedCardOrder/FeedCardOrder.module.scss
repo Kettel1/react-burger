@@ -43,10 +43,24 @@
     list-style: none;
     display: flex;
     margin-top: 24px;
+    position: relative;
 }
+
 
 .item:not(:first-child) {
     margin-left: -20px;
+}
+
+.item {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: center;
+    height: 64px;
+    width: 64px;
+    border-radius: 100%;
+    border: 2px solid #6831D6;
+    background: black;
 }
 
 .price {
@@ -59,4 +73,10 @@
 
 .status {
     margin-top: 24px;
+}
+
+.image {
+    border-radius: 100%;
+    position: relative;
+    height: 55px;
 }

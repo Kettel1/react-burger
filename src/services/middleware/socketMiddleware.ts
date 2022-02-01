@@ -33,6 +33,7 @@ export const socketMiddleware = (wsUrl:string, wsActions:any) => {
                     dispatch({ type: onOrders, payload: parsedData });
                 };
 
+                console.log(type)
                 if(type === onClose) {
                     socket.close(1000, 'UnmountComponent')
                 }

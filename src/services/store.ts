@@ -17,7 +17,7 @@ import {
 const persistConfig = {
     key: 'root',
     storage,
-    blacklist: ['order', 'auth', 'ingredients', 'feed']
+    blacklist: ['order', 'auth', 'ingredients', 'allFeed']
 }
 
 const wsActions = {

@@ -2,16 +2,19 @@
     max-width: 1240px;
     padding: 0 40px;
     display: flex;
+    justify-content: space-between;
     margin: 40px auto 0 auto;
 }
 
 .ordersFeed {
-    width: 50%;
+    width: 47%;
 }
 .ordersStatus {
-    width: 50%;
+    width: 47%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    height: 100%;
 }
 
 .title {
@@ -47,5 +50,25 @@
     font-size: 28px;
     line-height: 24px;
     margin-bottom: 8px;
+}
 
+.orderTotalTitle {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 30px;
+}
+
+.orderTotalQty {
+    font-family: Iceland;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 144px;
+    line-height: 120px;
+    color: #F2F2F3;
+    text-shadow: 0 0 16px rgba(51, 51, 255, 0.25), 0 0 8px rgba(51, 51, 255, 0.25), 0 4px 32px rgba(51, 51, 255, 0.5);
+}
+
+.orderTotalContainer {
+    margin-top: 60px;
 }

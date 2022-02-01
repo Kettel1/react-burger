@@ -8,8 +8,7 @@ import {
 } from "../types/ingredientTypes";
 
 
-// Подскажите как здесь можно типизировать ответ
-export const checkAuthUser = async ():Promise<any> => {
+export const checkAuthUser = async ():Promise<void> => {
     const accessToken = getCookie('accessToken')
     if (accessToken) {
         const responseFromServer = await fetch(API_REACT + '/auth/user', {
