@@ -3,8 +3,11 @@ import UserProfileStyles from "./UserProfile.module.scss";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {updateUserInfo} from "../services/actions/auth";
 import {useDispatch, useSelector} from "../services/hooks";
+import {useLocation} from "react-router-dom";
 
 const UserProfile = () => {
+    const location = useLocation()
+
     const [form, setForm] = useState({
         email: '',
         name: '',
@@ -40,6 +43,10 @@ const UserProfile = () => {
     useEffect(() => {
         setForm({...user})
     }, [user])
+
+    useEffect(()=> {
+        dispatch({type: 'WS_CONNECTION_FEED_USER_START'})
+    }, [])
 
 
     const changeUserName = () => {

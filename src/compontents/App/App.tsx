@@ -21,6 +21,8 @@ import Modal from "../modals/Modal/Modal";
 import OrderDetails from "../modals/OrderDetails/OrderDetails";
 import PreLoader from "../PreLoader/PreLoader";
 import Feed from "../../pages/Feed";
+import FeedDetails from "../modals/FeedDetails/FeedDetails";
+import FeedOrder from "../../pages/FeedOrder";
 
 interface ILocationState {
     backgroundLocation?: string
@@ -47,7 +49,7 @@ const App: FC = () => {
             <Routes location={state?.backgroundLocation || location}>
                 <Route path='/' element={<HomePage/>}/>
                 <Route path='/ingredients/:id' element={<Ingredients/>}/>
-                <Route path='/ingredients/:id' element={<Ingredients/>}/>
+                <Route path='/feed/:id' element={<FeedOrder/>}/>
 
                 <Route path='/login' element={
                     <ProtectedAuthRoute>
@@ -95,6 +97,22 @@ const App: FC = () => {
                             }
                             }>
                                 <IngredientDetails/>
+                            </Modal>
+                        }
+                    />
+                </Routes>
+            )}
+
+            {state?.backgroundLocation && (
+                <Routes>
+                    <Route
+                        path='/feed/:id'
+                        element={
+                            <Modal onCloseModal={() => {
+                                navigate('/feed')
+                            }
+                            }>
+                                <FeedDetails/>
                             </Modal>
                         }
                     />

@@ -7,11 +7,10 @@ import {useSelector} from "../../../services/hooks";
 
 const IngredientDetails: FC = () => {
     const {id} = useParams()
+
     const {ingredients} = useSelector(state => state.ingredients)
+
     const currentIngredient: IIngredient | undefined = ingredients.find((ingredient: IIngredient) => ingredient._id === id)
-
-
-
 
     return (
         currentIngredient

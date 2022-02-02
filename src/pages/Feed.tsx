@@ -2,8 +2,7 @@ import React, {FC, useEffect} from 'react';
 import FeedStyles from './Feed.module.scss'
 import FeedCardOrder from "../compontents/FeedCardOrder/FeedCardOrder";
 import {useDispatch, useSelector} from "../services/hooks";
-import {getIngredientsById} from "../services/selectors/ingredientsSelectors";
-
+import {WsConnectionFeedClosed, WsConnectionFeedStart} from "../services/actions/feed";
 
 type TOrderStatus = 'done' | 'inProcess'
 
@@ -11,15 +10,13 @@ const Feed: FC = () => {
 
     const dispatch = useDispatch()
 
-    const id = useSelector(state => getIngredientsById(state, '60d3b41abdacab0026a733c6'))
-
     const {totalToday, total, orders, success} = useSelector(state => state.allFeed)
 
     useEffect(() => {
-        dispatch({type: 'WS_CONNECTION_START'})
-        console.log(id);
+        dispatch(WsConnectionFeedStart())
+
         return () => {
-            dispatch({type: 'WS_CONNECTION_CLOSED'})
+            dispatch(WsConnectionFeedClosed())
         }
     }, [])
 
@@ -39,15 +36,18 @@ const Feed: FC = () => {
         <section className={FeedStyles.container}>
             <div className={FeedStyles.ordersFeed}>
                 <h1 className={FeedStyles.title}>Лента заказов</h1>
-                {orders.map((item:any) =>
-                    <FeedCardOrder
-                        key={item._id}
-                        time={item.createdAt}
-                        name={item.name}
-                        orderNumber={item.number}
-                        ingredients={item.ingredients}/>
-                )}
-
+                <div className={FeedStyles.ordersFeedScroll}>
+                    {orders.length && orders.map((item: any) =>
+                        <FeedCardOrder
+                            key={item._id}
+                            id={item._id}
+                            time={item.createdAt}
+                            name={item.name}
+                            orderNumber={item.number}
+                            ingredients={item.ingredients}
+                        />
+                    )}
+                </div>
             </div>
 
             <div className={FeedStyles.ordersStatus}>

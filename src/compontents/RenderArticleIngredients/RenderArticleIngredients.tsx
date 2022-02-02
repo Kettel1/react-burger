@@ -20,14 +20,11 @@ const RenderArticleIngredients = React.memo<IRenderArticleIngredientsProps>(({it
         item: item,
     })
 
-
     const counterIngredients = cartState.cartIngredients.filter((ing:IIngredient) => ing._id === item._id).length
-
 
     const counterBun = (item:IIngredient) => {
         return cartState.cartBun._id === item._id ? 1 : 0
      }
-
 
     return<>
         <Link
@@ -38,7 +35,6 @@ const RenderArticleIngredients = React.memo<IRenderArticleIngredientsProps>(({it
         >
             {counterIngredients !== 0 && <Counter count={counterIngredients} size='default'/>}
             {counterBun(item) !== 0 && <Counter count={counterBun(item)} size='default'/>}
-
 
             <img src={item.image} alt={item.name}/>
             <div className={ArticleIngredients.priceBlock}>

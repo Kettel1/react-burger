@@ -1,34 +1,35 @@
 import {
-    WS_CONNECTION_SUCCESS,
-    WS_CONNECTION_ERROR,
-    WS_CONNECTION_CLOSED,
-    WS_GET_ORDERS
-
+    WS_CONNECTION_FEED_CLOSED,
+    WS_CONNECTION_FEED_SUCCESS,
+    WS_GET_FEED_ORDERS,
 } from '../actions/feed';
 
-const initialState = {
+import {
+    IFeedState,
+    TFeedActions,
+} from "../../types/feedTypes";
+
+
+const initialState:IFeedState = {
     wsConnected: false,
     success: false,
     total: 0,
     totalToday: 0,
-    orders: []
+    orders: [],
 };
 
-//TODO Типизировать хранилище
-
-export const feedReducer = (state = initialState, action:any) => {
+export const feedReducer = (state = initialState, action:TFeedActions): IFeedState => {
     switch (action.type) {
-        case WS_CONNECTION_SUCCESS:
+        case WS_CONNECTION_FEED_SUCCESS:
             return {
                 ...state,
                 wsConnected: true,
             };
-        case WS_CONNECTION_CLOSED:
+        case WS_CONNECTION_FEED_CLOSED:
             return {
-                ...state,
-                wsConnected: false,
+                ...initialState,
             };
-        case WS_GET_ORDERS:
+        case WS_GET_FEED_ORDERS:
             return {
                 ...state,
                 ...action.payload
