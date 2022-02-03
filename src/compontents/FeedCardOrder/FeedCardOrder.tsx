@@ -83,7 +83,7 @@ const FeedCardOrder: FC<IFeedCardOrder> = ({time, name, ingredients, orderNumber
                 <Link
                     className={FeedCardStyles.link}
                     to={`/feed/${id}`}
-                    state={{backgroundLocation: location}}
+                    state={{backgroundLocation: location.pathname}}
                 >
                     <span className={FeedCardStyles.id}>{'#03' + orderNumber}</span>
                 </Link>

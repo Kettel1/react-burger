@@ -23,6 +23,7 @@ import PreLoader from "../PreLoader/PreLoader";
 import Feed from "../../pages/Feed";
 import FeedDetails from "../modals/FeedDetails/FeedDetails";
 import FeedOrder from "../../pages/FeedOrder";
+import UserOrders from "../../pages/UserOrders";
 
 interface ILocationState {
     backgroundLocation?: string
@@ -84,6 +85,7 @@ const App: FC = () => {
                         <Profile/>
                     </ProtectedUnAuthRoute>}>
                     <Route path='' element={<UserProfile/>}/>
+                    <Route path='orders' element={<UserOrders/>}/>
                 </Route>
             </Routes>
 

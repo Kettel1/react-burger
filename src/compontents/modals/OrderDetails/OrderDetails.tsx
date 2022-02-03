@@ -4,8 +4,6 @@ import done from '../../../images/done.gif'
 import {Link} from 'react-router-dom';
 import {useSelector} from "../../../services/hooks";
 
-
-
 const OrderDetails = () => {
         const orderState = useSelector(state => state.order)
         const cartState = useSelector(state => state.cart)
@@ -13,7 +11,7 @@ const OrderDetails = () => {
 
         if (!isAuth) {
             return (<section className={OrderDetailsStyles.errorContainer}>
-                <p  className={OrderDetailsStyles.errorAuthTitle}>Для оформления заказа,
+                <p className={OrderDetailsStyles.errorAuthTitle}>Для оформления заказа,
                     необходимо авторизоваться на сайте
                 </p>
                 <Link className={OrderDetailsStyles.errorAuthLink} to='/login'>Войти на сайт</Link>

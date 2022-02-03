@@ -11,6 +11,7 @@ const Profile:FC = () => {
 
     const dispatch = useDispatch()
 
+
     const logOut = () => {
         dispatch(logOutUser(() => {
             navigate('/')

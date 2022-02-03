@@ -4,6 +4,7 @@ import LoginStyles from './Login.module.scss'
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {loginUserRequest} from "../services/actions/auth";
 import {useDispatch, useSelector} from "../services/hooks";
+import {useHistory} from "react-router";
 
 type TLocation = {
     state?: {
@@ -15,6 +16,8 @@ type TLocation = {
 const Login: FC = () => {
     const [form, setForm] = useState({email: '', password: ''})
     const [error, setError] = useState('')
+
+
 
     const navigate = useNavigate()
     const location = useLocation() as TLocation
@@ -35,7 +38,7 @@ const Login: FC = () => {
         if (form.email && form.password) {
             setError('')
             dispatch(loginUserRequest(form, () => {
-                navigate(fromPage, {replace: true})
+                navigate(0)
             }))
         }
     }

@@ -19,20 +19,16 @@ const persistConfig = {
     blacklist: ['order', 'auth', 'ingredients', 'allFeed']
 }
 
-const wsFeedActions = {
+export const wsFeedActions = {
     wsFeedStart: WS_CONNECTION_FEED_START,
     onFeedSuccess: WS_CONNECTION_FEED_SUCCESS,
     onFeedClose: WS_CONNECTION_FEED_ERROR,
     onFeedError: WS_CONNECTION_FEED_CLOSED,
     onFeedOrders: WS_GET_FEED_ORDERS,
+    wsFeedUserStart: WS_CONNECTION_FEED_USER_START
 };
 
-const wsFeedUserActions = {
-    wsFeedUserStart: WS_CONNECTION_FEED_USER_START
-}
-
 const wsUrl = 'wss://norma.nomoreparties.space/orders/all'
-
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
@@ -40,8 +36,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 export default () => {
     let store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(
         thunk,
-        socketMiddleware(wsUrl, wsFeedActions, false),
-        socketMiddleware(wsUrl, wsFeedUserActions, true)
+        socketMiddleware(wsUrl, wsFeedActions),
     )))
     let persistor = persistStore(store)
     return {store, persistor}

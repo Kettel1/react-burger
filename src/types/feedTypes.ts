@@ -1,4 +1,5 @@
 import {
+    GET_ORDER_BY_ID,
     WS_CONNECTION_FEED_CLOSED,
     WS_CONNECTION_FEED_START,
     WS_CONNECTION_FEED_SUCCESS, WS_GET_FEED_ORDERS
@@ -9,6 +10,7 @@ export interface IWebsocketOrders {
     ingredients: string[],
     status: 'done' | 'inProcess',
     name: 'string',
+    number: number
     createAt: string,
     updateAt: string,
 }
@@ -33,9 +35,14 @@ export interface IWsConnectionFeedClosed {
     readonly type: typeof WS_CONNECTION_FEED_CLOSED
 }
 
+export interface IGetOrderById {
+    readonly type: typeof GET_ORDER_BY_ID
+    readonly payload: IWebsocketOrders[]
+}
+
 export interface IWsGetFeedOrders{
     readonly type: typeof WS_GET_FEED_ORDERS
-    readonly payload: Omit<IFeedState, 'wsConnected'>
+    readonly payload: Pick<IFeedState, 'orders'>
 }
 
 export type TFeedActions =
@@ -43,4 +50,5 @@ export type TFeedActions =
     | IWsConnectionFeedStart
     | IWsConnectionFeedClosed
     | IWsGetFeedOrders
+    | IGetOrderById
 

@@ -42,11 +42,7 @@ const UserProfile = () => {
 
     useEffect(() => {
         setForm({...user})
-    }, [user])
-
-    useEffect(()=> {
-        dispatch({type: 'WS_CONNECTION_FEED_USER_START'})
-    }, [])
+    }, [user, location])
 
 
     const changeUserName = () => {

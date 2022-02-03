@@ -1,11 +1,10 @@
-import {AnyAction, MiddlewareAPI} from "redux";
+import {AnyAction, Middleware, MiddlewareAPI} from "redux";
 import {
     WsConnectionFeedClosed,
     WsConnectionFeedSuccess,
     WsGetFeedMessage,
 } from "../actions/feed";
-
-export const socketMiddleware = (wsUrl:string, wsActions:any, auth:boolean) => {
+export const socketMiddleware = (wsUrl:string, wsActions:any):Middleware => {
     return (store: MiddlewareAPI) => {
         let socket: WebSocket | null = null;
 
@@ -14,10 +13,11 @@ export const socketMiddleware = (wsUrl:string, wsActions:any, auth:boolean) => {
             const { type, payload } = action;
             const { wsFeedStart, wsFeedUserStart, onFeedClose, onFeedError } = wsActions;
 
-            if (type === wsFeedStart && !auth) {
+            if (type === wsFeedStart) {
                 console.log('Без токена')
                 socket = new WebSocket(wsUrl);
-            } else if (type === wsFeedUserStart && auth) {
+            } else if (type === wsFeedUserStart) {
+                socket = new WebSocket(wsUrl);
                 console.log('С токеном')
             }
 
@@ -46,6 +46,7 @@ export const socketMiddleware = (wsUrl:string, wsActions:any, auth:boolean) => {
 
                 socket.onclose = event => {
                     console.log('close')
+                    socket = null
                     dispatch(WsConnectionFeedClosed());
                 };
 

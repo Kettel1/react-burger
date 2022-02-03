@@ -19,9 +19,9 @@ export const fetchIngredients: AppThunk = () => (dispatch: AppDispatch) => {
         .then(response => {
             if (!response.ok) {
                 dispatch(getAllIngredientsFailed())
-            } else {
-                return response.json()
             }
+            return response.json()
+
         })
         .then(ingredients => {
             dispatch(getAllIngredientsSuccess(ingredients.data))

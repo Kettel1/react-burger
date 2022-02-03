@@ -1,20 +1,41 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC} from 'react';
 import {useParams} from "react-router-dom";
 import {useSelector} from "../../../services/hooks";
 import {getOrdersById} from "../../../services/selectors/ingredientsSelectors";
 
+import FeedDetailsStyles from './FeedDetails.module.scss'
 
-const IngredientDetails: FC = () => {
+//TODO Типизировать
+const IngredientDetails: FC<{orders?:any}> = ({orders}) => {
     const {id} = useParams()
 
-    const currentOrder = useSelector(state => getOrdersById(state.allFeed.orders, id))
+    //TODO Типизация
+    const feedState = useSelector(state => state.allFeed.orders);
 
-    useEffect(() => {
-        console.log(currentOrder);
-    }, [])
+    let currentIngredient
+
+    if(orders) {
+        currentIngredient = getOrdersById(orders, id)
+    } else {
+        currentIngredient = getOrdersById(feedState, id)
+    }
+
+    if (!currentIngredient?._id.length) {
+        return <div>Загрузка...</div>
+    }
+
+    const {number, name, status, ingredients, price, createdAt} = currentIngredient
 
     return (
-        <div>Test {id}</div>
+        <section className={FeedDetailsStyles.container}>
+            <div className={FeedDetailsStyles.innerContainer}>
+                <p className={FeedDetailsStyles.id}>{'#03'+ number}</p>
+
+                <p className={FeedDetailsStyles.name}>{name}</p>
+
+                <p className={FeedDetailsStyles.status}>{status === 'done' ? 'Выполнен': 'В процессе'}</p>
+            </div>
+        </section>
     )
 };
 

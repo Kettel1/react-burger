@@ -1,4 +1,5 @@
 import {
+    GET_ORDER_BY_ID,
     WS_CONNECTION_FEED_CLOSED,
     WS_CONNECTION_FEED_SUCCESS,
     WS_GET_FEED_ORDERS,
@@ -33,6 +34,12 @@ export const feedReducer = (state = initialState, action:TFeedActions): IFeedSta
             return {
                 ...state,
                 ...action.payload
+            };
+
+        case GET_ORDER_BY_ID:
+            return {
+                ...state,
+                orders: [...action.payload]
             };
 
         default:
