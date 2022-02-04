@@ -20,7 +20,6 @@ const Feed: FC = () => {
         }
     }, [])
 
-
     const getOrdersNumbersByStatus = (orders: any, orderStatus: TOrderStatus): Array<string> => {
         const sortedOrders = orders.filter((item: any) => item.status === orderStatus)
         // По тз должно быть не больше 10 значений
@@ -38,8 +37,9 @@ const Feed: FC = () => {
                 <h1 className={FeedStyles.title}>Лента заказов</h1>
                 <div className={FeedStyles.ordersFeedScroll}>
                     {orders.length && orders.map((item: any) =>
+
                         <FeedCardOrder
-                            key={item._id}
+                            key={item.number}
                             id={item._id}
                             time={item.createdAt}
                             name={item.name}

@@ -25,8 +25,13 @@ export const checkAuthUser = async ():Promise<void> => {
         })
         const responseData = await responseFromServer.json()
 
+        console.log(responseData)
+
         if (responseFromServer.ok) {
+            console.log('Токен ок')
             return responseData.user
+        } else {
+            console.log('Токен стух')
         }
 
         if (responseData.message === 'jwt expired') {
@@ -39,8 +44,11 @@ export const checkAuthUser = async ():Promise<void> => {
 
 export const updateAccessToken = async () => {
     const refreshToken = localStorage.getItem('refreshToken')
+    console.log('Попытка обновления токена')
 
     if (refreshToken) {
+        console.log('refreshToken Есть')
+
         const responseFromServer = await fetch(API_REACT + '/auth/token', {
             method: 'post',
             headers: {
@@ -52,7 +60,10 @@ export const updateAccessToken = async () => {
         })
 
         if (responseFromServer.ok) {
+            console.log('updateAccessToken ok')
             const responseData = await responseFromServer.json()
+
+            console.log(responseData)
 
             if (responseData.success) {
                 setCookie('accessToken', responseData.accessToken)
@@ -60,6 +71,9 @@ export const updateAccessToken = async () => {
             } else {
                 console.log('updateAccessToken error')
             }
+        } else {
+            console.log(responseFromServer.json());
+            console.log('updateAccessToken error2')
         }
     }
 }

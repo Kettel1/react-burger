@@ -9,7 +9,6 @@
     border-radius: 40px;
     position: relative;
     min-width: 720px;
-
 }
 
 .innerContainer {
@@ -37,6 +36,114 @@
 
 .status {
     color: #00CCCC;
-    margin: 12px 0 12px;
+    margin: 12px 0 50px;
 }
+
+.composition {
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 30px;
+}
+
+.ingredientsList {
+    margin-top: 30px;
+    max-height: calc(100vh - 785px);
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+        width: 9px;
+        height: 9px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #8585AD;
+        border-radius: 0;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: #B3AFB3;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #2F2F37;
+        border-radius: 0;
+        box-shadow: inset 0 0 0 0 #F0F0F0;
+    }
+}
+
+.ingredientsItem {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.ingredientsImageContainer {
+    border-radius: 100%;
+    border: 4px solid #6831D6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 64px;
+    width: 64px;
+    background: black;
+    margin-right: 24px;
+
+    & > img {
+        border-radius: 100%;
+        position: relative;
+        height: 55px;
+    }
+}
+
+.ingredientsName {
+    max-width: 400px;
+}
+
+
+.ingredientsPriceContainer {
+    font-family: Iceland;
+    font-size: 28px;
+    line-height: 24px;
+    font-style: normal;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 20px;
+
+     & > p {
+         margin-right: 10px;
+     }
+}
+.footer {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 24px;
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.time {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: #8585AD;
+}
+
+.priceContainer {
+    font-family: Iceland;
+    font-size: 28px;
+    line-height: 24px;
+    font-style: normal;
+    display: flex;
+
+    align-items: center;
+    & > p {
+        margin-right: 10px;
+    }
+}
+
 

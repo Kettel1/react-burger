@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export function debounce(func: any, wait?:number, immediate?:string) {
     let timeout:any;
 
@@ -54,3 +56,21 @@ export function getCookie(name:string) {
 export function deleteCookie(name:string): void {
     setCookie(name, null, { expires: -1 });
 }
+
+
+export const getTimeFromTimestamp = (orderTimeISO: string): string => {
+
+    const orderDay = moment(orderTimeISO).format('DD')
+    const orderTime = moment(orderTimeISO).format('HH:mm')
+    const todayDay = moment().format('DD')
+
+    const yesterdayMessageFromOrder = moment(orderTimeISO).fromNow();
+
+    if (orderDay === todayDay) {
+        return `сегодня, ${orderTime}`
+    } else if (yesterdayMessageFromOrder === 'день назад') {
+        return `вчера, ${orderTime}`;
+    } else {
+        return `${yesterdayMessageFromOrder}, ${orderTime}`
+    }
+};

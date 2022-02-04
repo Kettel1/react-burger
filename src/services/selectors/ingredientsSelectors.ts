@@ -5,22 +5,30 @@ export const getIngredientsById = (state: RootState, id: string | null):IIngredi
     return state.ingredients.ingredients.filter(item => item._id === id)[0]
 }
 
+export const getPriceById = (state: RootState, id: string | null):number => {
+    return state.ingredients.ingredients.filter(item => item._id === id)[0].price
+}
+
+// Типизировать
+
+
 export const getMobileImagesById = (state: RootState, ingredients: string[]): string[] => {
     let images: string[] = []
-    state.ingredients.ingredients.forEach((item) => {
-        if (ingredients.includes(item._id)) {
-            images.push(item.image_mobile)
-        }
+    ingredients.forEach((item: string) => {
+        const ingredientImage = getIngredientsById(state, item).image_mobile
+        images.push(ingredientImage)
     })
     return images
 }
 
-export const getPriceIngredientsById = (state: RootState, ingredients: string[]): IIngredient[] => {
-    return state.ingredients.ingredients.filter((item) => {
-        if(ingredients.includes(item._id)) {
-            return item
-        }
+//TODO Типизировать
+export const getArrayIngredientsById = (state: RootState, ingredients: string[]): IIngredient[] => {
+    let ingredient: any = []
+    ingredients.forEach((item: string) => {
+        const ingredientImage = getIngredientsById(state, item)
+        ingredient.push(ingredientImage)
     })
+    return ingredient
 }
 
 export const getTotalSumIngredients = (ingredients: IIngredient[]): number => {
@@ -35,3 +43,24 @@ export const getAllIdIngredientsInCart = (cart: IIngredient[]): string[] => {
 export const getOrdersById = (orders:any, id:string | undefined):any => {
     return orders.find((item:any) => item._id === id)
 }
+
+export const getAmountByIngredientsId = (state: RootState, ingredients: string []): number => {
+    let amount = 0
+    ingredients.forEach((item) => {
+        amount = amount + getPriceById(state, item)
+    })
+    return amount
+}
+
+// export const testFunc = (array:IIngredient[]) => {
+//     array.forEach(item => {
+//         for(let i = 0; i <= array.length - 1; i++) {
+//             if(array[i]._id === item._id) {
+//                 console.log(item)
+//             } else {
+//
+//             }
+//         }
+//     })
+// }
+

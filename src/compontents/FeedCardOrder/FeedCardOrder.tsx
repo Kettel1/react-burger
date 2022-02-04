@@ -5,11 +5,12 @@ import "moment/locale/ru"
 import {useSelector} from "../../services/hooks";
 import {
     getMobileImagesById,
-    getPriceIngredientsById,
+    getArrayIngredientsById,
     getTotalSumIngredients
 } from "../../services/selectors/ingredientsSelectors";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useLocation} from "react-router-dom";
+import {getTimeFromTimestamp} from "../../services/helpers";
 
 interface IFeedCardOrder {
     readonly time: string,
@@ -53,29 +54,11 @@ const FeedCardImages: FC<IFeedCardImages> = ({images}) => {
 }
 
 const FeedCardOrder: FC<IFeedCardOrder> = ({time, name, ingredients, orderNumber, id, status = null}) => {
-
     let location = useLocation();
 
     const getMobileImages = useSelector(state => getMobileImagesById(state, ingredients))
 
-    const getPriceIngredient = useSelector(state => getPriceIngredientsById(state, ingredients))
-
-    const getTimeFromTimestamp = (orderTimeISO: string): string => {
-
-        const orderDay = moment(orderTimeISO).format('DD')
-        const orderTime = moment(orderTimeISO).format('HH:mm')
-        const todayDay = moment().format('DD')
-
-        const yesterdayMessageFromOrder = moment(orderTimeISO).fromNow();
-
-        if (orderDay === todayDay) {
-            return `сегодня, ${orderTime}`
-        } else if (yesterdayMessageFromOrder === 'день назад') {
-            return `вчера, ${orderTime}`;
-        } else {
-            return `${yesterdayMessageFromOrder}, ${orderTime}`
-        }
-    };
+    const getArrayIngredients = useSelector(state => getArrayIngredientsById(state, ingredients))
 
     return (
         <article className={FeedCardStyles.container}>
@@ -90,16 +73,15 @@ const FeedCardOrder: FC<IFeedCardOrder> = ({time, name, ingredients, orderNumber
                 <time dateTime={time} className={FeedCardStyles.time}>{getTimeFromTimestamp(time)}</time>
             </div>
             <h2 className={FeedCardStyles.name}>{name}</h2>
-            {
-                status && <p className={FeedCardStyles.status}>Создан</p>
-            }
+
+            {status && <p className={FeedCardStyles.status}>Создан</p>}
 
             <div className={FeedCardStyles.lastFloor}>
                 <ul className={FeedCardStyles.list}>
                     <FeedCardImages images={getMobileImages}/>
                 </ul>
                 <p className={FeedCardStyles.price}>
-                    <span>{getTotalSumIngredients(getPriceIngredient)}</span>
+                    <span>{getTotalSumIngredients(getArrayIngredients)}</span>
                     <span><CurrencyIcon type="primary"/></span>
                 </p>
             </div>
