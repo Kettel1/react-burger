@@ -3,31 +3,30 @@ import FeedStyles from './Feed.module.scss'
 import FeedCardOrder from "../compontents/FeedCardOrder/FeedCardOrder";
 import {useDispatch, useSelector} from "../services/hooks";
 import {WsConnectionFeedClosed, WsConnectionFeedStart} from "../services/actions/feed";
+import {IWebsocketOrders} from "../types/feedTypes";
 
-type TOrderStatus = 'done' | 'inProcess'
+type TStatus = 'done' | 'pending' | 'created';
 
 const Feed: FC = () => {
-
     const dispatch = useDispatch()
 
-    const {totalToday, total, orders, success} = useSelector(state => state.allFeed)
+    const {totalToday, total, orders} = useSelector(state => state.allFeed)
 
     useEffect(() => {
         dispatch(WsConnectionFeedStart())
-
         return () => {
             dispatch(WsConnectionFeedClosed())
         }
     }, [])
 
-    const getOrdersNumbersByStatus = (orders: any, orderStatus: TOrderStatus): Array<string> => {
-        const sortedOrders = orders.filter((item: any) => item.status === orderStatus)
+    const getOrdersNumbersByStatus = (orders: IWebsocketOrders[], orderStatus: TStatus): number[] => {
+        const sortedOrders = orders.filter((item) => item.status === orderStatus)
         // По тз должно быть не больше 10 значений
-        return sortedOrders.map((item: any) => '03' + item.number).slice(0, 10)
+        return sortedOrders.map((item) => item.number).slice(0, 10)
     }
 
     //TODO Сделать красивый прелодер
-    if (!success) {
+    if (!orders.length) {
         return <div>Загрузка</div>
     }
 
@@ -36,15 +35,15 @@ const Feed: FC = () => {
             <div className={FeedStyles.ordersFeed}>
                 <h1 className={FeedStyles.title}>Лента заказов</h1>
                 <div className={FeedStyles.ordersFeedScroll}>
-                    {orders.length && orders.map((item: any) =>
-
+                    {orders.length && orders.map((item: IWebsocketOrders) =>
                         <FeedCardOrder
-                            key={item.number}
+                            key={item._id}
                             id={item._id}
                             time={item.createdAt}
                             name={item.name}
                             orderNumber={item.number}
                             ingredients={item.ingredients}
+                            pageName={'feed'}
                         />
                     )}
                 </div>
@@ -66,8 +65,8 @@ const Feed: FC = () => {
                 <div className={FeedStyles.ordersStatusDone}>
                     <p className={FeedStyles.ordersStatusTitle}>В работе:</p>
                     <ul className={FeedStyles.ordersStatusDoneList}>
-                        {getOrdersNumbersByStatus(orders, 'inProcess').length
-                            ? getOrdersNumbersByStatus(orders, 'inProcess').map((item) =>
+                        {getOrdersNumbersByStatus(orders, 'pending').length >= 1
+                            ? getOrdersNumbersByStatus(orders, 'pending').map((item) =>
                                 <li key={item} className={FeedStyles.orderStatusDoneItem}>{item}</li>)
                             : <div>Здесь пусто...</div>
                         }

@@ -58,7 +58,7 @@ export function deleteCookie(name:string): void {
 }
 
 
-export const getTimeFromTimestamp = (orderTimeISO: string): string => {
+export const getTimeFromTimestamp = (orderTimeISO: string | undefined): string => {
 
     const orderDay = moment(orderTimeISO).format('DD')
     const orderTime = moment(orderTimeISO).format('HH:mm')

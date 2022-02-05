@@ -1,4 +1,4 @@
-import {getCookie, setCookie} from "./helpers";
+import {deleteCookie, getCookie, setCookie} from "./helpers";
 import {API_REACT} from "./url";
 import {
     CustomResponse,
@@ -47,8 +47,6 @@ export const updateAccessToken = async () => {
     console.log('Попытка обновления токена')
 
     if (refreshToken) {
-        console.log('refreshToken Есть')
-
         const responseFromServer = await fetch(API_REACT + '/auth/token', {
             method: 'post',
             headers: {
@@ -58,6 +56,7 @@ export const updateAccessToken = async () => {
                 token: refreshToken
             })
         })
+        console.log('refreshToken Есть')
 
         if (responseFromServer.ok) {
             console.log('updateAccessToken ok')
@@ -66,6 +65,11 @@ export const updateAccessToken = async () => {
             console.log(responseData)
 
             if (responseData.success) {
+                deleteCookie('accessToken')
+                localStorage.removeItem('refreshToken')
+
+                console.log(responseData)
+
                 setCookie('accessToken', responseData.accessToken)
                 localStorage.setItem('refreshToken', responseData.refreshToken)
             } else {
@@ -75,6 +79,8 @@ export const updateAccessToken = async () => {
             console.log(responseFromServer.json());
             console.log('updateAccessToken error2')
         }
+    } else {
+        console.log('refreshToken отсутствует')
     }
 }
 

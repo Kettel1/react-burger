@@ -18,7 +18,6 @@ const Login: FC = () => {
     const [error, setError] = useState('')
 
 
-
     const navigate = useNavigate()
     const location = useLocation() as TLocation
     const fromPage = location.state?.from?.pathname || '/'
@@ -53,17 +52,20 @@ const Login: FC = () => {
     return (
         <form onSubmit={handler} className={LoginStyles.container}>
             <h2 className={LoginStyles.title}>Вход</h2>
-            <Input
-                type={'text'}
-                placeholder={'E-mail'}
-                value={form.email}
-                name={'email'}
-                onChange={onChange}
-                size={'default'}
-            />
 
-            <PasswordInput value={form.password} name={'password'} onChange={onChange}/>
+            <div className={LoginStyles.loginFiled}>
+                <Input
+                    type={'text'}
+                    placeholder={'E-mail'}
+                    value={form.email}
+                    name={'email'}
+                    onChange={onChange}
+                    size={'default'}
+                />
 
+                <PasswordInput value={form.password} name={'password'} onChange={onChange}/>
+
+            </div>
             {error && (<p className={LoginStyles.errorMessage}>{error}</p>)}
 
             <Button type="primary" size="medium">Войти</Button>

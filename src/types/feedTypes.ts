@@ -8,11 +8,11 @@ import {
 export interface IWebsocketOrders {
     _id: string;
     ingredients: string[],
-    status: 'done' | 'inProcess',
+    status: 'done' | 'pending' | 'created',
     name: 'string',
     number: number
-    createAt: string,
-    updateAt: string,
+    createdAt?: string,
+    updateAt?: string,
 }
 
 export interface IFeedState {
@@ -30,6 +30,7 @@ export interface IWsConnectionFeedSuccess {
 export interface IWsConnectionFeedStart {
     readonly type: typeof WS_CONNECTION_FEED_START
 }
+
 
 export interface IWsConnectionFeedClosed {
     readonly type: typeof WS_CONNECTION_FEED_CLOSED
@@ -51,4 +52,3 @@ export type TFeedActions =
     | IWsConnectionFeedClosed
     | IWsGetFeedOrders
     | IGetOrderById
-

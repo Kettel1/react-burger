@@ -1,6 +1,5 @@
 import React, {FC} from 'react';
 import FeedCardStyles from './FeedCardOrder.module.scss'
-import moment from 'moment';
 import "moment/locale/ru"
 import {useSelector} from "../../services/hooks";
 import {
@@ -13,12 +12,13 @@ import {Link, useLocation} from "react-router-dom";
 import {getTimeFromTimestamp} from "../../services/helpers";
 
 interface IFeedCardOrder {
-    readonly time: string,
+    readonly time: string | undefined,
     readonly name: string,
     readonly ingredients: Array<string>
     readonly orderNumber: number
     readonly status?: string | null,
     readonly id: string
+    readonly pageName: string | undefined
 }
 
 interface IFeedCardImages {
@@ -30,7 +30,7 @@ const FeedCardImages: FC<IFeedCardImages> = ({images}) => {
         <>
             {images.slice(0, 6).map((item, index) => {
                 if (index < 5) {
-                    return <li key={item} style={{zIndex: images.length - index}} className={FeedCardStyles.item}>
+                    return <li key={index} style={{zIndex: images.length - index}} className={FeedCardStyles.item}>
                         <img className={FeedCardStyles.image}
                              style={{zIndex: images.length - index}}
                              src={item}
@@ -53,28 +53,44 @@ const FeedCardImages: FC<IFeedCardImages> = ({images}) => {
     )
 }
 
-const FeedCardOrder: FC<IFeedCardOrder> = ({time, name, ingredients, orderNumber, id, status = null}) => {
+const FeedCardOrder: FC<IFeedCardOrder> = ({time, name, ingredients, orderNumber, id, status = null, pageName}) => {
     let location = useLocation();
 
     const getMobileImages = useSelector(state => getMobileImagesById(state, ingredients))
 
     const getArrayIngredients = useSelector(state => getArrayIngredientsById(state, ingredients))
 
+    let statusElem: string | undefined;
+    switch (status) {
+        case 'done':
+            statusElem = 'Выполнен'
+            break
+        case 'created':
+            statusElem = 'Создан'
+            break
+        case 'pending':
+            statusElem = 'Готовится'
+            break
+        default:
+            statusElem = 'Статус заказа неизвестен...'
+    }
+
+
     return (
         <article className={FeedCardStyles.container}>
             <div className={FeedCardStyles.firstFloor}>
                 <Link
                     className={FeedCardStyles.link}
-                    to={`/feed/${id}`}
+                    to={`/${pageName}/${id}`}
                     state={{backgroundLocation: location.pathname}}
                 >
-                    <span className={FeedCardStyles.id}>{'#03' + orderNumber}</span>
+                    <span className={FeedCardStyles.id}>{'#' + orderNumber}</span>
                 </Link>
                 <time dateTime={time} className={FeedCardStyles.time}>{getTimeFromTimestamp(time)}</time>
             </div>
             <h2 className={FeedCardStyles.name}>{name}</h2>
 
-            {status && <p className={FeedCardStyles.status}>Создан</p>}
+            {status && <p className={FeedCardStyles.status} datatype={status}>{statusElem}</p>}
 
             <div className={FeedCardStyles.lastFloor}>
                 <ul className={FeedCardStyles.list}>

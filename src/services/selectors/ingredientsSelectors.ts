@@ -1,5 +1,6 @@
 import {RootState} from "../../types";
 import {IIngredient} from "../../types/ingredientTypes";
+import {IWebsocketOrders} from "../../types/feedTypes";
 
 export const getIngredientsById = (state: RootState, id: string | null):IIngredient => {
     return state.ingredients.ingredients.filter(item => item._id === id)[0]
@@ -21,9 +22,8 @@ export const getMobileImagesById = (state: RootState, ingredients: string[]): st
     return images
 }
 
-//TODO Типизировать
 export const getArrayIngredientsById = (state: RootState, ingredients: string[]): IIngredient[] => {
-    let ingredient: any = []
+    let ingredient: IIngredient[] = []
     ingredients.forEach((item: string) => {
         const ingredientImage = getIngredientsById(state, item)
         ingredient.push(ingredientImage)
@@ -39,9 +39,8 @@ export const getAllIdIngredientsInCart = (cart: IIngredient[]): string[] => {
     return cart.map((item) => item._id)
 }
 
-//TODO Типизация
-export const getOrdersById = (orders:any, id:string | undefined):any => {
-    return orders.find((item:any) => item._id === id)
+export const getOrdersById = (orders:IWebsocketOrders[], id:string | undefined):IWebsocketOrders | undefined => {
+    return orders.find((item) => item._id === id)
 }
 
 export const getAmountByIngredientsId = (state: RootState, ingredients: string []): number => {
@@ -51,16 +50,3 @@ export const getAmountByIngredientsId = (state: RootState, ingredients: string [
     })
     return amount
 }
-
-// export const testFunc = (array:IIngredient[]) => {
-//     array.forEach(item => {
-//         for(let i = 0; i <= array.length - 1; i++) {
-//             if(array[i]._id === item._id) {
-//                 console.log(item)
-//             } else {
-//
-//             }
-//         }
-//     })
-// }
-

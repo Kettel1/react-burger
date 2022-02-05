@@ -10,9 +10,7 @@
     margin: 180px auto 0 auto;
     align-items: center;
 
-    & > div {
-        margin-top: 24px;
-    }
+
 
     & > button {
         margin-top: 24px;
@@ -21,7 +19,14 @@
 }
 
 .loginFiled {
-    composes: marginTop;
+    & > div {
+        margin-top: 24px;
+        width: 100%;
+
+        & > div {
+            width: 480px;
+        }
+    }
 }
 
 .recoveryContainer {

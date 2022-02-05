@@ -134,7 +134,7 @@ const UserProfile = () => {
 
             <PasswordInput value={password} name={'password'} onChange={onChangePassword} size={"default"}/>
 
-            <div>
+            <div className={UserProfileStyles.buttonsContainer}>
                 <Button type='secondary' onClick={onCancel}>Отменить</Button>
                 <Button type='primary'>Сохранить</Button>
             </div>

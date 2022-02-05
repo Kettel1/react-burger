@@ -18,10 +18,10 @@ const TotalBasketCount = () => {
 
     const {isAuth} = useSelector(state => state.auth)
     const {totalSumIngredients, totalSumBun, cartIngredients, cartBun} = useSelector(state => state.cart)
-    const {order, orderSuccess} = useSelector(state => state.order)
+    const {order, orderSuccess, orderRequest} = useSelector(state => state.order)
     const dispatch = useDispatch()
 
-    const MemoTotalSumIngredient = useMemo(() => getTotalSumIngredients(cartIngredients),[cartIngredients])
+    const MemoTotalSumIngredient = useMemo(() => getTotalSumIngredients(cartIngredients), [cartIngredients])
 
     useEffect(() => {
         if (orderSuccess) {
@@ -37,14 +37,11 @@ const TotalBasketCount = () => {
         }
     }, [cartBun, cartBun, dispatch, MemoTotalSumIngredient])
 
-    const checkOrderRequest = () => {
-        if (cartBun.hasOwnProperty('name') && cartIngredients.length !== 0) {
-            if (isAuth) {
-                const getIdBunInCart = cartBun._id
-                dispatch(getOrderNumber([getIdBunInCart, ...getAllIdIngredientsInCart(cartIngredients)]))
-            } else {
-                navigate('/order/error', {state: {backgroundLocation: location}})
-            }
+    const getOrderRequest = () => {
+        if (cartBun.hasOwnProperty('name') && cartIngredients.length !== 0 && isAuth) {
+            const getIdBunInCart = cartBun._id
+            dispatch(getOrderNumber([getIdBunInCart, ...getAllIdIngredientsInCart(cartIngredients)]))
+
         } else {
             navigate('/order/error', {state: {backgroundLocation: location}})
         }
@@ -56,7 +53,7 @@ const TotalBasketCount = () => {
                 <span className={TotalBasketCountStyles.priceValue}>{totalSumIngredients + totalSumBun}</span>
                 <CurrencyIcon type="primary"/>
             </div>
-            <Button type="primary" size="large" onClick={checkOrderRequest}>Оформить заказ</Button>
+            <Button type="primary" size="large" disabled={orderRequest} onClick={getOrderRequest}>{orderRequest ? 'Заказ оформляется...' : 'Оформить заказ'}</Button>
         </div>
     );
 };

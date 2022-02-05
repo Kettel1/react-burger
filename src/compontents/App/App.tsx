@@ -86,6 +86,7 @@ const App: FC = () => {
                     </ProtectedUnAuthRoute>}>
                     <Route path='' element={<UserProfile/>}/>
                     <Route path='orders' element={<UserOrders/>}/>
+                    <Route path='orders/:id' element={<FeedDetails/>}/>
                 </Route>
             </Routes>
 
@@ -112,6 +113,22 @@ const App: FC = () => {
                         element={
                             <Modal onCloseModal={() => {
                                 navigate('/feed')
+                            }
+                            }>
+                                <FeedDetails/>
+                            </Modal>
+                        }
+                    />
+                </Routes>
+            )}
+
+            {state?.backgroundLocation && (
+                <Routes>
+                    <Route
+                        path='/profile/orders/:id'
+                        element={
+                            <Modal onCloseModal={() => {
+                                navigate('/profile/orders')
                             }
                             }>
                                 <FeedDetails/>

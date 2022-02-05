@@ -1,24 +1,36 @@
 import {AnyAction, Middleware, MiddlewareAPI} from "redux";
 import {
-    WsConnectionFeedClosed,
     WsConnectionFeedSuccess,
     WsGetFeedMessage,
+    WsConnectionFeedStart,
 } from "../actions/feed";
+import {getCookie} from "../helpers";
+import {checkAuthUser} from "../api";
 export const socketMiddleware = (wsUrl:string, wsActions:any):Middleware => {
     return (store: MiddlewareAPI) => {
+        let isConnected: boolean = false;
         let socket: WebSocket | null = null;
+        let url: string | undefined = ''
+        let token: string | undefined = undefined;
+        return (next: any) => async (action: AnyAction) => {
 
-        return (next: any) => (action: AnyAction) => {
-            const { dispatch, getState } = store;
-            const { type, payload } = action;
+            const { dispatch } = store;
+            const { type } = action;
             const { wsFeedStart, wsFeedUserStart, onFeedClose, onFeedError } = wsActions;
 
             if (type === wsFeedStart) {
-                console.log('Без токена')
-                socket = new WebSocket(wsUrl);
+                url = wsUrl + '/all'
+                socket = new WebSocket(wsUrl + '/all');
             } else if (type === wsFeedUserStart) {
-                socket = new WebSocket(wsUrl);
-                console.log('С токеном')
+
+                token = getCookie('accessToken')
+                if(token) {
+                    await checkAuthUser()
+                    socket = new WebSocket(`${wsUrl}?token=${token.split(' ')[1]}`);
+                } else {
+                    console.log('токена нет')
+                }
+
             }
 
             if (socket) {
@@ -37,7 +49,6 @@ export const socketMiddleware = (wsUrl:string, wsActions:any):Middleware => {
                     console.log('onmessage')
                     const { data } = event;
                     const parsedData = JSON.parse(data);
-                    console.log(parsedData)
                     dispatch(WsGetFeedMessage(parsedData));
                 };
 
@@ -47,8 +58,9 @@ export const socketMiddleware = (wsUrl:string, wsActions:any):Middleware => {
 
                 socket.onclose = event => {
                     console.log('close')
-                    socket = null
-                    dispatch(WsConnectionFeedClosed());
+                    if(event.code !== 1000) {
+                        console.log(event.code)
+                    }
                 };
 
             }

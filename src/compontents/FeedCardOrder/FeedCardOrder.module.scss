@@ -11,7 +11,7 @@
 }
 
 .id {
-    font-family: Iceland;
+    font-family: 'Iceland', Arial, sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 28px;
@@ -71,7 +71,7 @@
 }
 
 .price {
-    font-family: Iceland;
+    font-family: 'Iceland', Arial, sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 28px;
@@ -86,6 +86,11 @@
 
 .status {
     margin-top: 24px;
+
+    &[datatype = done] {
+        color: #00CCCC;
+    }
+
 }
 
 .image {

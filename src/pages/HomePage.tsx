@@ -10,6 +10,7 @@ import BurgerConstructor from "../compontents/BurgerConstructor/BurgerConstructo
 
 const HomePage:FC = () => {
     const {ingredients, ingredientsRequest, ingredientsFailed} = useSelector(state => state.ingredients)
+    const {orderRequest} = useSelector(state => state.order)
 
     return (
         <main className={AppStyles.container}>
@@ -21,6 +22,7 @@ const HomePage:FC = () => {
                 ingredients.length &&
                 <BurgerIngredients/>}
                 <BurgerConstructor/>
+                {orderRequest && <div className={AppStyles.loader}/>}
             </DndProvider>
         </main>
     )

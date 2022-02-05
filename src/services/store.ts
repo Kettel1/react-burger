@@ -2,7 +2,6 @@ import {composeWithDevTools} from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import {persistStore, persistReducer} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-
 import {applyMiddleware, createStore} from "redux";
 import {rootReducer} from "./reducers";
 import {socketMiddleware} from "./middleware/socketMiddleware";
@@ -28,7 +27,7 @@ export const wsFeedActions = {
     wsFeedUserStart: WS_CONNECTION_FEED_USER_START
 };
 
-const wsUrl = 'wss://norma.nomoreparties.space/orders/all'
+const wsUrl = 'wss://norma.nomoreparties.space/orders'
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 

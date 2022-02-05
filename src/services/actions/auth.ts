@@ -130,11 +130,9 @@ export const resetPassword: AppThunk = (form: IResetPasswordTypes) => (dispatch:
 }
 
 export const getUserInfo: AppThunk = () => (dispatch: AppDispatch) => {
-    //TODO Сделать проверку на отсутствие refreshToken
-    //TODO При его отсутсвтии ломается приложение
-
     checkAuthUser()
         .then(response => {
+            console.log(response);
             if (response === undefined) {
                 dispatch(loadingUserComplete())
             }

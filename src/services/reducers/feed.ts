@@ -2,13 +2,10 @@ import {
     GET_ORDER_BY_ID,
     WS_CONNECTION_FEED_CLOSED,
     WS_CONNECTION_FEED_SUCCESS,
-    WS_GET_FEED_ORDERS,
+    WS_GET_FEED_ORDERS
 } from '../actions/feed';
 
-import {
-    IFeedState,
-    TFeedActions,
-} from "../../types/feedTypes";
+import {IFeedState, TFeedActions,} from "../../types/feedTypes";
 
 
 const initialState:IFeedState = {
