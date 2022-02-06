@@ -1,58 +1,66 @@
-import React, {FC} from 'react';
-import ProfileStyles from './Profile.module.scss'
-import {NavLink, Outlet, useNavigate} from "react-router-dom";
-import {logOutUser} from "../services/actions/auth";
-import {useDispatch, useSelector} from "react-redux";
-import {deleteCookie} from "../utils/helpers";
-import {RootState} from "../services/reducers";
+import React, { FC } from 'react';
+import ProfileStyles from './Profile.module.scss';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { logOutUser } from '../services/actions/auth';
+import { deleteCookie } from '../services/helpers';
+import { useDispatch, useSelector } from '../services/hooks';
 
+const Profile: FC = () => {
+    const authState = useSelector((state) => state.auth);
+    const navigate = useNavigate();
 
-const Profile:FC = () => {
-    const authState = useSelector((state:RootState) => state.auth)
-    const navigate = useNavigate()
-
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     const logOut = () => {
+        dispatch(
+            logOutUser(() => {
+                navigate('/');
+            })
+        );
+        deleteCookie('accessToken');
+    };
 
-        dispatch(logOutUser(() => {
-            navigate('/')
-        }))
+    return authState.isLoading ? (
+        <div>Загрузка</div>
+    ) : (
+        <section className={ProfileStyles.container}>
+            <div className={ProfileStyles.innerContainer}>
+                <ul className={ProfileStyles.list}>
+                    <li className={ProfileStyles.item}>
+                        <NavLink
+                            className={({ isActive }) => {
+                                return `${isActive ? ProfileStyles.activeLink : ProfileStyles.link}`;
+                            }}
+                            to="/profile/"
+                        >
+                            Профиль
+                        </NavLink>
+                    </li>
+                    <li className={ProfileStyles.item}>
+                        <NavLink
+                            className={({ isActive }) => (isActive ? ProfileStyles.activeLink : ProfileStyles.link)}
+                            to="/profile/orders"
+                        >
+                            История заказов
+                        </NavLink>
+                    </li>
+                    <li className={ProfileStyles.item}>
+                        <button onClick={logOut} className={ProfileStyles.logOutBtn}>
+                            Выход
+                        </button>
+                    </li>
+                </ul>
 
+                <p className={ProfileStyles.description}>
+                    В этом разделе вы можете
+                    <br />
+                    изменить свои персональные данные
+                </p>
+            </div>
 
-
-        deleteCookie('accessToken')
-    }
-
-    return (authState.isLoading
-            ? (<div>Загрузка</div>)
-            : (<section className={ProfileStyles.container}>
-                <div className={ProfileStyles.innerContainer}>
-                    <ul className={ProfileStyles.list}>
-                        <li className={ProfileStyles.item}>
-                            <NavLink className={({isActive}) => {
-                                return `${isActive ? ProfileStyles.activeLink : ProfileStyles.link}`
-                            }} to='/profile/'>Профиль</NavLink>
-                        </li>
-                        <li className={ProfileStyles.item}>
-                            <NavLink
-                                className={({isActive}) => isActive ? ProfileStyles.activeLink : ProfileStyles.link}
-                                to='/profile/orders'>История заказов</NavLink>
-                        </li>
-                        <li className={ProfileStyles.item}>
-                            <button onClick={logOut} className={ProfileStyles.logOutBtn}>Выход</button>
-                        </li>
-                    </ul>
-
-                    <p className={ProfileStyles.description}>В этом разделе вы можете<br/>изменить свои персональные
-                        данные</p>
-                </div>
-
-                <Outlet/>
-
-            </section>)
-    )
-}
-
+            <Outlet />
+        </section>
+    );
+};
 
 export default Profile;

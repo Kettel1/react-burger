@@ -1,0 +1,100 @@
+.container {
+    max-width: 1240px;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    margin: 40px auto 0 auto;
+}
+
+.ordersFeed {
+    width: 48%;
+}
+
+.ordersFeedScroll {
+    height: calc(100vh - 185px);
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+        width: 9px;
+        height: 9px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #8585ad;
+        border-radius: 0;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: #b3afb3;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #2f2f37;
+        border-radius: 0;
+        box-shadow: inset 0 0 0 0 #f0f0f0;
+    }
+}
+.ordersStatus {
+    width: 48%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    height: 100%;
+}
+
+.title {
+    font-size: 36px;
+    line-height: 40px;
+    margin-bottom: 12px;
+}
+
+.ordersStatusDone {
+    width: 280px;
+}
+
+.ordersStatusTitle {
+    margin-bottom: 24px;
+    font-size: 24px;
+    line-height: 30px;
+    font-weight: bold;
+}
+
+.ordersStatusDoneList {
+    list-style: none;
+    max-height: 180px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.orderStatusDoneItem {
+    color: #00cccc;
+    font-family: Iceland;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 24px;
+    margin-bottom: 8px;
+}
+
+.orderTotalTitle {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 30px;
+}
+
+.orderTotalQty {
+    font-family: Iceland;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 144px;
+    line-height: 120px;
+    color: #f2f2f3;
+    text-shadow: 0 0 16px rgba(51, 51, 255, 0.25), 0 0 8px rgba(51, 51, 255, 0.25), 0 4px 32px rgba(51, 51, 255, 0.5);
+}
+
+.orderTotalContainer {
+    margin-top: 60px;
+}

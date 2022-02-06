@@ -3,18 +3,18 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    background: #1C1C21;
+    background: #1c1c21;
     color: #000;
-    box-shadow: 0 24px 32px rgba(0, 0, 0, 0.04), 0 16px 24px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 24px 32px rgba(0, 0, 0, 0.04), 0 16px 24px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04),
+        0 0 1px rgba(0, 0, 0, 0.04);
     border-radius: 40px;
     position: relative;
 }
 
-
 .id {
     font-size: 144px;
     line-height: 120px;
-    color: #F2F2F3;
+    color: #f2f2f3;
     font-style: normal;
     font-weight: normal;
     font-family: Iceland, Arial, sans-serif;
@@ -31,7 +31,7 @@
     font-style: normal;
     font-size: 24px;
     line-height: 30px;
-    color: #F2F2F3;
+    color: #f2f2f3;
 }
 
 .image {
@@ -45,12 +45,12 @@
 }
 
 .orderMessagePrimary {
-    color: #F2F2F3;
+    color: #f2f2f3;
     margin-bottom: 8px;
 }
 
 .orderMessageSecondary {
-    color: #8585AD;
+    color: #8585ad;
     font-size: 16px;
     line-height: 24px;
 }
@@ -58,7 +58,6 @@
 .errorContainer {
     composes: container;
     padding: 75px 65px;
-
 }
 
 .errorTitle {
@@ -79,14 +78,13 @@
 
 .errorAuthTitle {
     font-size: 24px;
-    color: #8585AD;
+    color: #8585ad;
     text-align: center;
     margin-bottom: 24px;
 }
 
 .errorAuthLink {
     font-size: 18px;
-    color: #4C4CFF;
+    color: #4c4cff;
     text-decoration: none;
-
 }

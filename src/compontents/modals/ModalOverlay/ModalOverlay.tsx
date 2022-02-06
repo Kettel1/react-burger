@@ -1,20 +1,16 @@
-import React, {FC, SyntheticEvent} from 'react';
-import ModalStyles from './ModalOverlay.module.scss'
+import React, { FC, SyntheticEvent } from 'react';
+import ModalStyles from './ModalOverlay.module.scss';
 
 interface IModalOverlay {
-    onClose: () => void
+    onClose: () => void;
 }
 
-const ModalOverlay:FC<IModalOverlay> = ({onClose}) => {
-    const closeModal = (e:SyntheticEvent) => {
-        e.stopPropagation()
-        onClose()
-    }
-    return (
-        <div className={ModalStyles.modalInner} onClick={closeModal}/>
-    )
-}
+const ModalOverlay: FC<IModalOverlay> = ({ onClose }) => {
+    const closeModal = (e: SyntheticEvent) => {
+        e.stopPropagation();
+        onClose();
+    };
+    return <div className={ModalStyles.modalInner} onClick={closeModal} />;
+};
 
 export default ModalOverlay;
-
-

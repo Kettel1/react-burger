@@ -6,108 +6,68 @@ import {
     TOTAL_SUM_BUN,
     TOTAL_SUM_INGREDIENTS,
     UPDATE_INGREDIENTS_IN_CART,
-} from "../actions/burgerCounstructor";
+} from '../actions/burgerCounstructor';
 
-import {IIngredient} from "../../types/ingredientTypes";
+import { IIngredient } from '../../types/ingredientTypes';
 
-import {
-    IAddBunToCart,
-    IAddIngredientsToCart, IDeleteAllIngredientsFromCart, IDeleteIngredientFromCart,
-    IIngredientsState, ITotalSumBunsInCart, ITotalSumIngredientsInCart, IUpdateIngredientsInCart,
-    TBurgerConstructorActions
-} from "../../types/burgerConstructorTypes";
+import { IIngredientsState, TBurgerConstructorActions } from '../../types/burgerConstructorTypes';
 
 const initialState: IIngredientsState = {
     cartBun: {} as IIngredient, // Выбранная булочка
-    cartIngredients: [],          // Выбранные ингредиенты
+    cartIngredients: [], // Выбранные ингредиенты
 
-    totalSumIngredients: 0,       // Общая сумма игредиентов
-    totalSumBun: 0,               // Общая сумма булочки
-}
+    totalSumIngredients: 0, // Общая сумма игредиентов
+    totalSumBun: 0, // Общая сумма булочки
+};
 
 export const constructorReducer = (state = initialState, action: TBurgerConstructorActions): IIngredientsState => {
     switch (action.type) {
         case ADD_BUN_TO_CART:
             return {
                 ...state,
-                cartBun: action.bun
-            }
+                cartBun: action.bun,
+            };
 
         case ADD_INGREDIENTS_TO_CART:
             return {
                 ...state,
-                cartIngredients: [...state.cartIngredients, action.ingredients]
-            }
+                cartIngredients: [...state.cartIngredients, action.ingredients],
+            };
 
         case TOTAL_SUM_BUN:
             return {
                 ...state,
-                totalSumBun: action.payload * 2
-            }
+                totalSumBun: action.payload * 2,
+            };
 
         case TOTAL_SUM_INGREDIENTS:
             return {
                 ...state,
-                totalSumIngredients: action.payload
-            }
+                totalSumIngredients: action.payload,
+            };
 
         case DELETE_INGREDIENTS_FROM_CART:
             return {
                 ...state,
-                cartIngredients: [...state.cartIngredients.filter((item: IIngredient, i) => item._id + i !== action.id)]
-            }
+                cartIngredients: [
+                    ...state.cartIngredients.filter((item: IIngredient, i) => item._id + i !== action.id),
+                ],
+            };
 
         case UPDATE_INGREDIENTS_IN_CART:
             return {
                 ...state,
-                cartIngredients: [...action.item]
-            }
+                cartIngredients: [...action.item],
+            };
 
         case DELETE_ALL_INGREDIENTS_FROM_CART:
             return {
                 ...state,
                 cartIngredients: [],
-                cartBun: {} as IIngredient
-            }
+                cartBun: {} as IIngredient,
+            };
 
         default:
-            return state
+            return state;
     }
-}
-
-export const addBunToCart = (bun: IIngredient): IAddBunToCart => ({
-    type: ADD_BUN_TO_CART,
-    bun
-})
-
-export const addIngredientsToCart = (ingredient: IIngredient, id: string): IAddIngredientsToCart => ({
-    type: ADD_INGREDIENTS_TO_CART,
-    ingredients: {
-        ...ingredient,
-        dragId: id
-    }
-})
-
-export const totalSumBunsInCart = (price: number): ITotalSumBunsInCart => ({
-    type: TOTAL_SUM_BUN,
-    payload: price
-})
-
-export const totalSumIngredientsInCart = (price: number): ITotalSumIngredientsInCart => ({
-    type: TOTAL_SUM_INGREDIENTS,
-    payload: price
-})
-
-export const deleteIngredientFromCart = (id: string): IDeleteIngredientFromCart => ({
-    type: DELETE_INGREDIENTS_FROM_CART,
-    id
-})
-
-export const updateIngredientsInCart = (item: IIngredient[]): IUpdateIngredientsInCart => ({
-    type: UPDATE_INGREDIENTS_IN_CART,
-    item: item
-})
-
-export const deleteAllIngredientsFromCart = (): IDeleteAllIngredientsFromCart => ({
-    type: DELETE_ALL_INGREDIENTS_FROM_CART
-})
+};

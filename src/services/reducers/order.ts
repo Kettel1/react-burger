@@ -1,17 +1,10 @@
 import {
     GET_ORDER_NUMBER_FAILED,
     GET_ORDER_NUMBER_REQUEST,
-    GET_ORDER_NUMBER_SUCCESS, SET_INITIAL_ORDER_STATE
-} from "../actions/order";
-import {
-    IGetOrderNumberFailed,
-    IGetOrderNumberRequest,
-    IGetOrderNumberSuccess,
-    IOrderRequest,
-    IOrderState, ISetInitialOrderState,
-    TOrderActions
-} from "../../types/ordersTypes";
-
+    GET_ORDER_NUMBER_SUCCESS,
+    SET_INITIAL_ORDER_STATE,
+} from '../actions/order';
+import { IOrderRequest, IOrderState, TOrderActions } from '../../types/ordersTypes';
 
 const initialState: IOrderState = {
     orderSuccess: false,
@@ -19,16 +12,16 @@ const initialState: IOrderState = {
     orderFailed: false,
 
     orderName: '',
-    order: {} as IOrderRequest
-}
+    order: {} as IOrderRequest,
+};
 
 export const orderReducer = (state = initialState, action: TOrderActions): IOrderState => {
     switch (action.type) {
         case GET_ORDER_NUMBER_REQUEST:
             return {
                 ...state,
-                orderRequest: true
-            }
+                orderRequest: true,
+            };
 
         case GET_ORDER_NUMBER_SUCCESS:
             return {
@@ -36,39 +29,18 @@ export const orderReducer = (state = initialState, action: TOrderActions): IOrde
                 orderRequest: false,
                 order: action.order,
                 orderSuccess: action.success,
-                orderName: action.name
-            }
+                orderName: action.name,
+            };
 
         case GET_ORDER_NUMBER_FAILED:
             return {
                 ...initialState,
-                orderFailed: true, orderRequest: false
-            }
+                orderFailed: true,
+                orderRequest: false,
+            };
         case SET_INITIAL_ORDER_STATE:
-            return {...initialState}
+            return { ...initialState };
         default:
-            return state
+            return state;
     }
-}
-
-export const getOrderNumberRequest = (): IGetOrderNumberRequest => ({
-    type: GET_ORDER_NUMBER_REQUEST
-})
-
-export const getOrderNumberSuccess =
-    (order: IOrderRequest,
-    success: boolean,
-    name: string): IGetOrderNumberSuccess => ({
-    type: GET_ORDER_NUMBER_SUCCESS,
-    order: order,
-    success: success,
-    name: name
-})
-
-export const getOrderNumberFailed = (): IGetOrderNumberFailed => ({
-    type: GET_ORDER_NUMBER_FAILED
-})
-
-export const setInitialOrderState = (): ISetInitialOrderState => ({
-    type: SET_INITIAL_ORDER_STATE
-})
+};

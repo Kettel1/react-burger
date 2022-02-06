@@ -1,0 +1,103 @@
+.container {
+    background: #1c1c21;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04), 0 0 2px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.04);
+    border-radius: 40px;
+    padding: 24px;
+    margin-top: 16px;
+    margin-right: 8px;
+}
+
+.id {
+    font-family: 'Iceland', Arial, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 24px;
+}
+
+.time {
+    color: #8585ad;
+}
+
+.firstFloor {
+    display: flex;
+    justify-content: space-between;
+}
+
+.name {
+    margin-top: 24px;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 30px;
+}
+
+.lastFloor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+}
+
+.list {
+    list-style: none;
+    display: flex;
+    position: relative;
+}
+
+.item {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: center;
+    height: 64px;
+    width: 64px;
+    border-radius: 100%;
+    border: 4px solid #6831d6;
+    background: black;
+
+    &:not(:first-child) {
+        margin-left: -20px;
+    }
+
+    p {
+        position: absolute;
+        z-index: 20;
+        font-weight: bold;
+    }
+}
+
+.price {
+    font-family: 'Iceland', Arial, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 24px;
+    display: flex;
+
+    & > span {
+        margin-right: 8px;
+    }
+}
+
+.status {
+    margin-top: 24px;
+
+    &[datatype='done'] {
+        color: #00cccc;
+    }
+}
+
+.image {
+    border-radius: 100%;
+    position: relative;
+    height: 55px;
+}
+
+.link {
+    text-decoration: none;
+    color: white;
+
+    &:hover span.id {
+        text-decoration: underline;
+    }
+}

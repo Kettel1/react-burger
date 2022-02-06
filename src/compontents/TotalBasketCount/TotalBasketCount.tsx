@@ -1,77 +1,56 @@
-import {Button, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import React, {useEffect, useMemo} from 'react';
-import TotalBasketCountStyles from './TotalBasketCount.module.scss'
-import {useDispatch, useSelector} from "react-redux";
-import {getOrderNumber} from "../../services/actions/order";
-import {useLocation, useNavigate} from "react-router-dom";
-import {RootState} from "../../services/reducers";
-import {
-    totalSumBunsInCart,
-    totalSumIngredientsInCart,
-} from "../../services/reducers/burgerCounstructor";
+import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import React, { useEffect, useMemo } from 'react';
+import TotalBasketCountStyles from './TotalBasketCount.module.scss';
+import { getOrderNumber } from '../../services/actions/order';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { totalSumBunsInCart, totalSumIngredientsInCart } from '../../services/actions/burgerCounstructor';
+import { useDispatch, useSelector } from '../../services/hooks';
+import { getTotalSumIngredients, getAllIdIngredientsInCart } from '../../services/selectors/ingredientsSelectors';
 
 const TotalBasketCount = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
-    const location = useLocation()
+    const location = useLocation();
 
-    const authState = useSelector((state: RootState) => state.auth)
-    const cartState = useSelector((state: RootState) => state.cart)
-    const orderState = useSelector((state: RootState) => state.order)
+    const { isAuth } = useSelector((state) => state.auth);
+    const { totalSumIngredients, totalSumBun, cartIngredients, cartBun } = useSelector((state) => state.cart);
+    const { order, orderSuccess, orderRequest } = useSelector((state) => state.order);
+    const dispatch = useDispatch();
 
-    const dispatch = useDispatch()
-
-    const totalSumIngredient = useMemo(() =>
-            cartState.cartIngredients.reduce((prev, next) => prev + next.price, 0)
-        , [cartState.cartIngredients]
-    )
+    const MemoTotalSumIngredient = useMemo(() => getTotalSumIngredients(cartIngredients), [cartIngredients]);
 
     useEffect(() => {
-        if (orderState.orderSuccess) {
-            navigate(`/order/${orderState.order.number}`, {state: {backgroundLocation: location}})
+        if (orderSuccess) {
+            navigate(`/order/${order.number}`, { state: { backgroundLocation: location } });
         }
         // eslint-disable-next-line
-    }, [orderState.orderSuccess])
+    }, [orderSuccess]);
 
     useEffect(() => {
-        if (cartState.cartIngredients.length !== 0 || cartState.cartIngredients.length === 0) {
-            dispatch(totalSumBunsInCart(cartState.cartBun.price));
-            dispatch(totalSumIngredientsInCart(totalSumIngredient))
+        if (cartIngredients.length !== 0 || cartIngredients.length === 0) {
+            dispatch(totalSumBunsInCart(cartBun.price));
+            dispatch(totalSumIngredientsInCart(MemoTotalSumIngredient));
         }
-    }, [cartState.cartBun, cartState.cartIngredients, dispatch, totalSumIngredient])
+    }, [cartBun, cartBun, dispatch, MemoTotalSumIngredient]);
 
-    useEffect(() => {
-
-    }, [orderState.orderSuccess])
-
-    const getAllIdIngredientsInCart = cartState.cartIngredients.map((item) => {
-        return item._id
-    })
-
-    const getAllIdBunInCart = cartState.cartBun._id
-
-    const checkOrderRequest = () => {
-        if (cartState.cartBun.hasOwnProperty('name') && cartState.cartIngredients.length !== 0) {
-            if (authState.isAuth) {
-                dispatch(getOrderNumber([getAllIdBunInCart, ...getAllIdIngredientsInCart]))
-            } else {
-                navigate('/order/error', {state: {backgroundLocation: location}})
-            }
+    const getOrderRequest = () => {
+        if (cartBun.hasOwnProperty('name') && cartIngredients.length !== 0 && isAuth) {
+            const getIdBunInCart = cartBun._id;
+            dispatch(getOrderNumber([getIdBunInCart, ...getAllIdIngredientsInCart(cartIngredients)]));
         } else {
-            navigate('/order/error', {state: {backgroundLocation: location}})
+            navigate('/order/error', { state: { backgroundLocation: location } });
         }
-
-    }
-
-    const {totalSumIngredients, totalSumBun} = cartState
+    };
 
     return (
         <div className={TotalBasketCountStyles.container}>
             <div className={TotalBasketCountStyles.priceBlock}>
                 <span className={TotalBasketCountStyles.priceValue}>{totalSumIngredients + totalSumBun}</span>
-                <CurrencyIcon type="primary"/>
+                <CurrencyIcon type="primary" />
             </div>
-            <Button type="primary" size="large" onClick={checkOrderRequest}>Оформить заказ</Button>
+            <Button type="primary" size="large" disabled={orderRequest} onClick={getOrderRequest}>
+                {orderRequest ? 'Заказ оформляется...' : 'Оформить заказ'}
+            </Button>
         </div>
     );
 };

@@ -1,7 +1,9 @@
-export function debounce(func: any, wait?:number, immediate?:string) {
-    let timeout:any;
+import moment from 'moment';
 
-    return function executedFunction(this:any) {
+export function debounce(func: any, wait?: number, immediate?: string) {
+    let timeout: any;
+
+    return function executedFunction(this: any) {
         const context = this;
         const args: any = arguments;
 
@@ -20,8 +22,7 @@ export function debounce(func: any, wait?:number, immediate?:string) {
     };
 }
 
-
-export function setCookie(name:string, value?:any, props?:any) {
+export function setCookie(name: string, value?: any, props?: any) {
     props = props || {};
     let exp = props.expires;
     if (typeof exp == 'number' && exp) {
@@ -44,13 +45,29 @@ export function setCookie(name:string, value?:any, props?:any) {
     document.cookie = updatedCookie;
 }
 
-export function getCookie(name:string) {
+export function getCookie(name: string) {
     const matches = document.cookie.match(
         new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')
     );
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-export function deleteCookie(name:string): void {
+export function deleteCookie(name: string): void {
     setCookie(name, null, { expires: -1 });
 }
+
+export const getTimeFromTimestamp = (orderTimeISO: string | undefined): string => {
+    const orderDay = moment(orderTimeISO).format('DD');
+    const orderTime = moment(orderTimeISO).format('HH:mm');
+    const todayDay = moment().format('DD');
+
+    const yesterdayMessageFromOrder = moment(orderTimeISO).fromNow();
+
+    if (orderDay === todayDay) {
+        return `сегодня, ${orderTime}`;
+    } else if (yesterdayMessageFromOrder === 'день назад') {
+        return `вчера, ${orderTime}`;
+    } else {
+        return `${yesterdayMessageFromOrder}, ${orderTime}`;
+    }
+};
