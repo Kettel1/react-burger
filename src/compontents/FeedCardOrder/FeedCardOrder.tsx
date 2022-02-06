@@ -85,39 +85,40 @@ const FeedCardOrder: FC<IFeedCardOrder> = ({ time, name, ingredients, orderNumbe
     }
 
     return (
-        <article className={FeedCardStyles.container}>
-            <div className={FeedCardStyles.firstFloor}>
-                <Link
-                    className={FeedCardStyles.link}
-                    to={`/${pageName}/${id}`}
-                    state={{ backgroundLocation: location.pathname }}
-                >
+        <Link
+            className={FeedCardStyles.link}
+            to={`/${pageName}/${id}`}
+            state={{ backgroundLocation: location.pathname }}
+        >
+            <article className={FeedCardStyles.container}>
+                <div className={FeedCardStyles.firstFloor}>
                     <span className={FeedCardStyles.id}>{'#' + orderNumber}</span>
-                </Link>
-                <time dateTime={time} className={FeedCardStyles.time}>
-                    {getTimeFromTimestamp(time)}
-                </time>
-            </div>
-            <h2 className={FeedCardStyles.name}>{name}</h2>
 
-            {status && (
-                <p className={FeedCardStyles.status} datatype={status}>
-                    {statusElem}
-                </p>
-            )}
+                    <time dateTime={time} className={FeedCardStyles.time}>
+                        {getTimeFromTimestamp(time)}
+                    </time>
+                </div>
+                <h2 className={FeedCardStyles.name}>{name}</h2>
 
-            <div className={FeedCardStyles.lastFloor}>
-                <ul className={FeedCardStyles.list}>
-                    <FeedCardImages images={getMobileImages} />
-                </ul>
-                <p className={FeedCardStyles.price}>
-                    <span>{getTotalSumIngredients(getArrayIngredients)}</span>
-                    <span>
-                        <CurrencyIcon type="primary" />
-                    </span>
-                </p>
-            </div>
-        </article>
+                {status && (
+                    <p className={FeedCardStyles.status} datatype={status}>
+                        {statusElem}
+                    </p>
+                )}
+
+                <div className={FeedCardStyles.lastFloor}>
+                    <ul className={FeedCardStyles.list}>
+                        <FeedCardImages images={getMobileImages} />
+                    </ul>
+                    <p className={FeedCardStyles.price}>
+                        <span>{getTotalSumIngredients(getArrayIngredients)}</span>
+                        <span>
+                            <CurrencyIcon type="primary" />
+                        </span>
+                    </p>
+                </div>
+            </article>
+        </Link>
     );
 };
 

@@ -6,7 +6,6 @@ import { WsConnectionFeedClosed, WsConnectionFeedStart } from '../services/actio
 import { IWebsocketOrders } from '../types/feedTypes';
 
 type TStatus = 'done' | 'pending' | 'created';
-
 const Feed: FC = () => {
     const dispatch = useDispatch();
 
@@ -17,7 +16,7 @@ const Feed: FC = () => {
         return () => {
             dispatch(WsConnectionFeedClosed());
         };
-    }, []);
+    }, [dispatch]);
 
     const getOrdersNumbersByStatus = (orders: IWebsocketOrders[], orderStatus: TStatus): number[] => {
         const sortedOrders = orders.filter((item) => item.status === orderStatus);

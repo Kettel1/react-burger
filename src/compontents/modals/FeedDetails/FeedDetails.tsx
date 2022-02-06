@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
-import { useParams } from 'react-router-dom';
-import { useSelector } from '../../../services/hooks';
+import React, { FC, useEffect } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from '../../../services/hooks';
 import {
     getAmountByIngredientsId,
     getOrdersById,
@@ -44,15 +44,26 @@ const FeedIngredientsItem: FC<{
 };
 
 const FeedDetails: FC<{ orders?: IWebsocketOrders[] }> = ({ orders }) => {
+    const { state } = useLocation();
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        // Проверка если пользователь по прямой ссылке
+        if (state === null) {
+            dispatch({ type: 'WS_CONNECTION_FEED_USER_START' });
+        }
+    }, [state, dispatch]);
+
     const { id } = useParams();
-
-    let allOrders: IWebsocketOrders[];
-
-    let currentOrder: IWebsocketOrders | undefined;
 
     const feedState = useSelector((state) => state.allFeed.orders);
 
     const ingredientsState = useSelector((state) => state);
+
+    let allOrders: IWebsocketOrders[];
+
+    let currentOrder: IWebsocketOrders | undefined;
 
     // Проверка откуда юзер пришел
     if (orders) {
@@ -96,7 +107,7 @@ const FeedDetails: FC<{ orders?: IWebsocketOrders[] }> = ({ orders }) => {
 
                 <div className={FeedDetailsStyles.footer}>
                     <time className={FeedDetailsStyles.time} dateTime={createdAt}>
-                        {getTimeFromTimestamp(createdAt ? createdAt : 'nothing')}
+                        {getTimeFromTimestamp(createdAt && createdAt)}
                     </time>
                     <div className={FeedDetailsStyles.priceContainer}>
                         <p>{priceAllIngredientsInOrders}</p>
