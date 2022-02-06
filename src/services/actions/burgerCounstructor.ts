@@ -1,54 +1,57 @@
-import {IIngredient} from "../../types/ingredientTypes";
+import { IIngredient } from '../../types/ingredientTypes';
 import {
     IAddBunToCart,
-    IAddIngredientsToCart, IDeleteAllIngredientsFromCart, IDeleteIngredientFromCart,
+    IAddIngredientsToCart,
+    IDeleteAllIngredientsFromCart,
+    IDeleteIngredientFromCart,
     ITotalSumBunsInCart,
-    ITotalSumIngredientsInCart, IUpdateIngredientsInCart
-} from "../../types/burgerConstructorTypes";
+    ITotalSumIngredientsInCart,
+    IUpdateIngredientsInCart,
+} from '../../types/burgerConstructorTypes';
 
-export const ADD_INGREDIENTS_TO_CART: 'ADD_INGREDIENTS_TO_CART' = 'ADD_INGREDIENTS_TO_CART'
-export const DELETE_INGREDIENTS_FROM_CART: 'DELETE_INGREDIENTS_FROM_CART' = 'DELETE_INGREDIENTS_FROM_CART'
-export const ADD_BUN_TO_CART: 'ADD_BUN_TO_CART' = 'ADD_BUN_TO_CART'
+export const ADD_INGREDIENTS_TO_CART: 'ADD_INGREDIENTS_TO_CART' = 'ADD_INGREDIENTS_TO_CART';
+export const DELETE_INGREDIENTS_FROM_CART: 'DELETE_INGREDIENTS_FROM_CART' = 'DELETE_INGREDIENTS_FROM_CART';
+export const ADD_BUN_TO_CART: 'ADD_BUN_TO_CART' = 'ADD_BUN_TO_CART';
 
-export const TOTAL_SUM_INGREDIENTS: 'TOTAL_SUM_INGREDIENTS' = 'TOTAL_SUM_INGREDIENTS'
-export const TOTAL_SUM_BUN: 'TOTAL_SUM_BUN' = 'TOTAL_SUM_BUN'
+export const TOTAL_SUM_INGREDIENTS: 'TOTAL_SUM_INGREDIENTS' = 'TOTAL_SUM_INGREDIENTS';
+export const TOTAL_SUM_BUN: 'TOTAL_SUM_BUN' = 'TOTAL_SUM_BUN';
 
-export const UPDATE_INGREDIENTS_IN_CART: 'UPDATE_INGREDIENTS_IN_CART' = 'UPDATE_INGREDIENTS_IN_CART'
-export const DELETE_ALL_INGREDIENTS_FROM_CART: 'DELETE_ALL_INGREDIENTS_FROM_CART' = 'DELETE_ALL_INGREDIENTS_FROM_CART'
+export const UPDATE_INGREDIENTS_IN_CART: 'UPDATE_INGREDIENTS_IN_CART' = 'UPDATE_INGREDIENTS_IN_CART';
+export const DELETE_ALL_INGREDIENTS_FROM_CART: 'DELETE_ALL_INGREDIENTS_FROM_CART' = 'DELETE_ALL_INGREDIENTS_FROM_CART';
 
 export const addBunToCart = (bun: IIngredient): IAddBunToCart => ({
     type: ADD_BUN_TO_CART,
-    bun
-})
+    bun,
+});
 
 export const addIngredientsToCart = (ingredient: IIngredient, id: string): IAddIngredientsToCart => ({
     type: ADD_INGREDIENTS_TO_CART,
     ingredients: {
         ...ingredient,
-        dragId: id
-    }
-})
+        dragId: id,
+    },
+});
 
 export const totalSumBunsInCart = (price: number): ITotalSumBunsInCart => ({
     type: TOTAL_SUM_BUN,
-    payload: price
-})
+    payload: price,
+});
 
 export const totalSumIngredientsInCart = (price: number): ITotalSumIngredientsInCart => ({
     type: TOTAL_SUM_INGREDIENTS,
-    payload: price
-})
+    payload: price,
+});
 
 export const deleteIngredientFromCart = (id: string): IDeleteIngredientFromCart => ({
     type: DELETE_INGREDIENTS_FROM_CART,
-    id
-})
+    id,
+});
 
 export const updateIngredientsInCart = (item: IIngredient[]): IUpdateIngredientsInCart => ({
     type: UPDATE_INGREDIENTS_IN_CART,
-    item: item
-})
+    item: item,
+});
 
 export const deleteAllIngredientsFromCart = (): IDeleteAllIngredientsFromCart => ({
-    type: DELETE_ALL_INGREDIENTS_FROM_CART
-})
+    type: DELETE_ALL_INGREDIENTS_FROM_CART,
+});

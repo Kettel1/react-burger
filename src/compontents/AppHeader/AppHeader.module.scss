@@ -1,56 +1,56 @@
 .header {
-  background-color: #1C1C21;
-  padding: 18px 0
+    background-color: #1c1c21;
+    padding: 18px 0;
 }
 
 .container {
-  max-width: 1240px;
-  padding: 0 40px;
-  display: flex;
-  margin: 0 auto;
-  justify-content: space-between;
-  position: relative;
+    max-width: 1240px;
+    padding: 0 40px;
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-between;
+    position: relative;
 }
 
 .composeText {
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  padding: 15px 0;
-  margin-right: 16px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    margin-right: 16px;
 }
 
 .text {
-  composes: composeText;
-  color: #8585AD;
+    composes: composeText;
+    color: #8585ad;
 
-  & > svg {
-    padding-right: 8px;
-  }
+    & > svg {
+        padding-right: 8px;
+    }
 }
 
 .ActiveText {
-  composes: composeText;
-  color: white;
+    composes: composeText;
+    color: white;
 
-  & > svg {
-    fill: white;
-    padding-right: 8px;
-  }
+    & > svg {
+        fill: white;
+        padding-right: 8px;
+    }
 }
 
 .firstBtnContainer {
-  display: flex;
+    display: flex;
 }
 
 .logo {
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  top: 50%
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 50%;
 }
 
 .loginContainer {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }

@@ -1,41 +1,37 @@
-import React, {FC, useState} from 'react';
-import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import ForgotPasswordStyles from './ForgotPassword.module.scss'
-import {Link, useNavigate} from "react-router-dom";
-import {forgotPassword} from "../services/actions/auth"
-import {useDispatch, useSelector} from "../services/hooks";
+import React, { FC, useState } from 'react';
+import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
+import ForgotPasswordStyles from './ForgotPassword.module.scss';
+import { Link, useNavigate } from 'react-router-dom';
+import { forgotPassword } from '../services/actions/auth';
+import { useDispatch, useSelector } from '../services/hooks';
 
+const ForgotPassword: FC = () => {
+    const [form, setForm] = useState({ email: '' });
 
-const ForgotPassword:FC = () => {
-    const [form, setForm] = useState({email: ''})
+    const authState = useSelector((state) => state.auth);
 
-    const authState = useSelector(state => state.auth)
+    const dispatch = useDispatch();
 
-    const dispatch = useDispatch()
+    const navigate = useNavigate();
 
-    const navigate = useNavigate()
-
-    const onChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        setForm({...form, [e.target.name]: e.target.value})
-    }
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+    };
 
     const handler = (e: React.ChangeEvent<HTMLFormElement>) => {
-        e.preventDefault()
+        e.preventDefault();
 
-        dispatch(forgotPassword(form))
-    }
+        dispatch(forgotPassword(form));
+    };
 
     React.useEffect(() => {
-        if(authState.success) {
-            navigate('/reset-password')
+        if (authState.success) {
+            navigate('/reset-password');
         }
-    }, [authState.success, navigate])
-
-
+    }, [authState.success, navigate]);
 
     return (
         <form className={ForgotPasswordStyles.container} onSubmit={handler}>
-
             <h2 className={ForgotPasswordStyles.title}>Восстановление пароля</h2>
 
             <Input
@@ -49,10 +45,17 @@ const ForgotPassword:FC = () => {
                 size={'default'}
             />
 
-            <Button type="primary" size="medium">Восстановить</Button>
+            <Button type="primary" size="medium">
+                Восстановить
+            </Button>
 
             <div className={ForgotPasswordStyles.recoveryContainer}>
-                <p className={ForgotPasswordStyles.recoveryDescription}>Вспомнили пароль? <Link className={ForgotPasswordStyles.recoveryLink} to='/login'>Войти</Link></p>
+                <p className={ForgotPasswordStyles.recoveryDescription}>
+                    Вспомнили пароль?{' '}
+                    <Link className={ForgotPasswordStyles.recoveryLink} to="/login">
+                        Войти
+                    </Link>
+                </p>
             </div>
         </form>
     );

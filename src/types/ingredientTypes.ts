@@ -16,38 +16,38 @@ export interface IIngredient {
 }
 
 export interface IResponse {
-    password: string,
-    email: string,
-    token?: string,
+    password: string;
+    email: string;
+    token?: string;
 }
 
 export interface IUserTypes {
-    name: string,
-    email: string
+    name: string;
+    email: string;
 }
 
 export interface ILoginUserTypes {
-    email: string,
-    password: string
+    email: string;
+    password: string;
 }
 
 export interface IRegisterUserTypes extends ILoginUserTypes {
-    name?: string
+    name?: string;
 }
 
 export interface IForgotPasswordUserTypes {
-    email: string
+    email: string;
 }
 
 export interface CustomResponse extends Body {
-    readonly message?: string
+    readonly message?: string;
 }
 
-export interface IUpdateUserTypes extends IUserTypes{
-    password?: string
+export interface IUpdateUserTypes extends IUserTypes {
+    password?: string;
 }
 
 export interface IResetPasswordTypes {
-    password: string,
-    token: string
+    password: string;
+    token: string;
 }

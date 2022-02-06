@@ -1,62 +1,61 @@
 .marginTop {
-  margin-top: 24px;
+    margin-top: 24px;
 }
 
 .container {
-  max-width: 1240px;
-  padding: 0 40px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  margin: 120px auto 0 auto;
+    max-width: 1240px;
+    padding: 0 40px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin: 120px auto 0 auto;
 }
 
 .innerContainer {
-  max-width: 320px;
-  width: 100%;
+    max-width: 320px;
+    width: 100%;
 
-  margin-right: auto;
+    margin-right: auto;
 }
 
-
 .list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .item {
-  padding: 17px 0;
+    padding: 17px 0;
 }
 
 .link {
-  font-weight: bold;
-  font-size: 24px;
-  line-height: 30px;
-  color: #8585AD;
-  text-decoration: none;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 30px;
+    color: #8585ad;
+    text-decoration: none;
 }
 
 .activeLink {
-  font-weight: bold;
-  font-size: 24px;
-  line-height: 30px;
-  color: white;
-  text-decoration: none;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 30px;
+    color: white;
+    text-decoration: none;
 }
 
 .logOutBtn {
-  font-size: 24px;
-  color: #8585AD;
-  background: transparent;
-  border: none;
-  font-family: "Jet Brains Mono", Arial, sans-serif;
-  font-weight: bold;
-  cursor: pointer;
+    font-size: 24px;
+    color: #8585ad;
+    background: transparent;
+    border: none;
+    font-family: 'Jet Brains Mono', Arial, sans-serif;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .description {
-  color: #8585AD;
-  opacity: 0.4;
-  margin-top: 100px;
+    color: #8585ad;
+    opacity: 0.4;
+    margin-top: 100px;
 }

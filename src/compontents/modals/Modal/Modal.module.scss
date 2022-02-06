@@ -7,13 +7,10 @@
     opacity: 0.1;
 }
 
-
-
-
 @keyframes fromTop {
     0% {
         transform: translate(-50%, -80%);
-        opacity: 0
+        opacity: 0;
     }
 
     50% {
@@ -65,14 +62,13 @@
     transform: translate(-50%, -200%);
 }
 
-
 @keyframes shadow {
     0% {
         background-color: transparent;
     }
 
     100% {
-        background-color: rgba(0,0,0,0.5);
+        background-color: rgba(0, 0, 0, 0.5);
     }
 }
 
@@ -92,7 +88,7 @@
 
 .modalInnerEnterDone {
     composes: modalInner;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modalInnerExitActive {
@@ -102,6 +98,5 @@
 
 .modalInnerExitDone {
     composes: modalInner;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
 }
-

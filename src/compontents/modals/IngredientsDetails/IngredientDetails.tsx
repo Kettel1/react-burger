@@ -1,50 +1,51 @@
-import React, {FC} from 'react';
-import IngredientDetailsStyles from "./IngredientsDetails.module.scss";
-import {useParams} from "react-router-dom";
-import {IIngredient} from "../../../types/ingredientTypes";
-import {useSelector} from "../../../services/hooks";
-
+import React, { FC } from 'react';
+import IngredientDetailsStyles from './IngredientsDetails.module.scss';
+import { useParams } from 'react-router-dom';
+import { IIngredient } from '../../../types/ingredientTypes';
+import { useSelector } from '../../../services/hooks';
 
 const IngredientDetails: FC = () => {
-    const {id} = useParams()
+    const { id } = useParams();
 
-    const {ingredients} = useSelector(state => state.ingredients)
+    const { ingredients } = useSelector((state) => state.ingredients);
 
-    const currentIngredient: IIngredient | undefined = ingredients.find((ingredient: IIngredient) => ingredient._id === id)
+    const currentIngredient: IIngredient | undefined = ingredients.find(
+        (ingredient: IIngredient) => ingredient._id === id
+    );
 
-    return (
-        currentIngredient
-            ?
-            <section className={IngredientDetailsStyles.container}>
-                <div className={IngredientDetailsStyles.innerContainer}>
-                    <h1 className={IngredientDetailsStyles.header}>Детали ингредиента</h1>
-                    <img className={IngredientDetailsStyles.image} src={currentIngredient.image_large}
-                         alt={currentIngredient.name}/>
-                    <p className={IngredientDetailsStyles.name}>{currentIngredient.name}</p>
-                    <ul className={IngredientDetailsStyles.list}>
-                        <li className={IngredientDetailsStyles.item}>
-                            <p>Калорий, ккал</p>
-                            <span>{currentIngredient.calories}</span>
-                        </li>
-                        <li className={IngredientDetailsStyles.item}>
-                            <p>Белки, г</p>
-                            <span>{currentIngredient.proteins}</span>
-                        </li>
-                        <li className={IngredientDetailsStyles.item}>
-                            <p>Жиры, г</p>
-                            <span>{currentIngredient.fat}</span>
-                        </li>
-                        <li className={IngredientDetailsStyles.item}>
-                            <p>Углеводы, г</p>
-                            <span>{currentIngredient.carbohydrates}</span>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-            :
-            <p>Произошла ошибка</p>
-    )
+    return currentIngredient ? (
+        <section className={IngredientDetailsStyles.container}>
+            <div className={IngredientDetailsStyles.innerContainer}>
+                <h1 className={IngredientDetailsStyles.header}>Детали ингредиента</h1>
+                <img
+                    className={IngredientDetailsStyles.image}
+                    src={currentIngredient.image_large}
+                    alt={currentIngredient.name}
+                />
+                <p className={IngredientDetailsStyles.name}>{currentIngredient.name}</p>
+                <ul className={IngredientDetailsStyles.list}>
+                    <li className={IngredientDetailsStyles.item}>
+                        <p>Калорий, ккал</p>
+                        <span>{currentIngredient.calories}</span>
+                    </li>
+                    <li className={IngredientDetailsStyles.item}>
+                        <p>Белки, г</p>
+                        <span>{currentIngredient.proteins}</span>
+                    </li>
+                    <li className={IngredientDetailsStyles.item}>
+                        <p>Жиры, г</p>
+                        <span>{currentIngredient.fat}</span>
+                    </li>
+                    <li className={IngredientDetailsStyles.item}>
+                        <p>Углеводы, г</p>
+                        <span>{currentIngredient.carbohydrates}</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    ) : (
+        <p>Произошла ошибка</p>
+    );
 };
-
 
 export default IngredientDetails;

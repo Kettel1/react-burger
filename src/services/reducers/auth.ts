@@ -1,54 +1,61 @@
 import {
-    DELETE_AUTH, LOADING_USER, LOADING_USER_COMPLETED,
-    LOGIN_FAILED, LOGIN_OR_PASSWORD_INCORRECT,
-    LOGIN_SUCCESS, REGISTER_USER_CLEAR_TEXT_ERROR,
-    REGISTER_USER_FAILED, REGISTER_USER_SET_TEXT_ERROR,
-    REGISTER_USER_SUCCESS, RESET_PASSWORD_COMPLETED,
-    RESET_PASSWORD_SUCCESS, SET_USER_INFO
-} from "../actions/auth";
+    DELETE_AUTH,
+    LOADING_USER,
+    LOADING_USER_COMPLETED,
+    LOGIN_FAILED,
+    LOGIN_OR_PASSWORD_INCORRECT,
+    LOGIN_SUCCESS,
+    REGISTER_USER_CLEAR_TEXT_ERROR,
+    REGISTER_USER_FAILED,
+    REGISTER_USER_SET_TEXT_ERROR,
+    REGISTER_USER_SUCCESS,
+    RESET_PASSWORD_COMPLETED,
+    RESET_PASSWORD_SUCCESS,
+    SET_USER_INFO,
+} from '../actions/auth';
 
-import {TAuthActions, IAuthState} from "../../types/authTypes";
+import { TAuthActions, IAuthState } from '../../types/authTypes';
 
 const initialState: IAuthState = {
     isLoading: true,
     errorMessage: '',
     isAuth: false,
     user: {
-        email: "",
-        name: ""
+        email: '',
+        name: '',
     },
-    success: false
-}
+    success: false,
+};
 
 export const authReducer = (state = initialState, action: TAuthActions): IAuthState => {
     switch (action.type) {
         case LOGIN_SUCCESS:
-            return {...state, isAuth: true, user: {...action.user}}
+            return { ...state, isAuth: true, user: { ...action.user } };
         case LOGIN_FAILED:
-            return {...initialState, success: false, isLoading: false}
+            return { ...initialState, success: false, isLoading: false };
         case LOGIN_OR_PASSWORD_INCORRECT:
-            return {...initialState, success: false, isLoading: false, errorMessage: action.message}
+            return { ...initialState, success: false, isLoading: false, errorMessage: action.message };
         case REGISTER_USER_FAILED:
-            return {...initialState, success: false, isLoading: false}
+            return { ...initialState, success: false, isLoading: false };
         case REGISTER_USER_SUCCESS:
-            return {...state, ...action.payload}
+            return { ...state, ...action.payload };
         case REGISTER_USER_SET_TEXT_ERROR:
-            return {...state, errorMessage: action.message}
+            return { ...state, errorMessage: action.message };
         case REGISTER_USER_CLEAR_TEXT_ERROR:
-            return {...state, errorMessage: ''}
+            return { ...state, errorMessage: '' };
         case RESET_PASSWORD_SUCCESS:
-            return {...state, success: true}
+            return { ...state, success: true };
         case RESET_PASSWORD_COMPLETED:
-            return {...state, success: false}
+            return { ...state, success: false };
         case SET_USER_INFO:
-            return {...state, user: {...action.payload}, isAuth: true, isLoading: false}
+            return { ...state, user: { ...action.payload }, isAuth: true, isLoading: false };
         case DELETE_AUTH:
-            return {...initialState, isLoading: false}
+            return { ...initialState, isLoading: false };
         case LOADING_USER:
-            return {...state, isLoading: true}
+            return { ...state, isLoading: true };
         case LOADING_USER_COMPLETED:
-            return {...state, isLoading: false}
+            return { ...state, isLoading: false };
         default:
-            return state
+            return state;
     }
-}
+};

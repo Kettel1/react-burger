@@ -1,21 +1,21 @@
 .inputsContainer {
-  margin-right: 400px;
-
-  & > div{
-    margin-bottom: 24px;
-    width: 100%;
+    margin-right: 400px;
 
     & > div {
-      width: 480px;
+        margin-bottom: 24px;
+        width: 100%;
+
+        & > div {
+            width: 480px;
+        }
     }
-  }
 }
 
 .buttonsContainer {
-  width: 100%;
-  display: flex;
+    width: 100%;
+    display: flex;
 
-  & + button {
-    margin-left: auto;
-  }
+    & + button {
+        margin-left: auto;
+    }
 }

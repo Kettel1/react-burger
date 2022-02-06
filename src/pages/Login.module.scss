@@ -10,11 +10,9 @@
     margin: 180px auto 0 auto;
     align-items: center;
 
-
-
     & > button {
         margin-top: 24px;
-        font-family: "Jet Brains Mono", Arial, sans-serif;
+        font-family: 'Jet Brains Mono', Arial, sans-serif;
     }
 }
 
@@ -42,15 +40,15 @@
 }
 
 .recoveryDescription {
-    color: #8585AD
+    color: #8585ad;
 }
 
 .recoveryLink {
     text-decoration: none;
-    color: #4C4CFF;
+    color: #4c4cff;
 }
 
 .errorMessage {
     margin: 8px 0;
-    color: #E52B1A;
+    color: #e52b1a;
 }
