@@ -2,7 +2,7 @@ import React, { useEffect, FC } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { getUserInfo } from '../../services/actions/auth';
-import { fetchIngredients } from '../../services/actions/burgerIngredients';
+import { getIngredients } from '../../services/actions/burgerIngredients';
 import { setInitialOrderState } from '../../services/actions/order';
 
 import AppHeader from '../../compontents/AppHeader/AppHeader';
@@ -38,7 +38,7 @@ const App: FC = () => {
 
     useEffect(() => {
         dispatch(getUserInfo());
-        dispatch(fetchIngredients());
+        dispatch(getIngredients());
     }, [dispatch]);
 
     if (isLoading) return <PreLoader />;

@@ -6,20 +6,11 @@ import { loginUserRequest } from '../services/actions/auth';
 import { useDispatch, useSelector } from '../services/hooks';
 import { useHistory } from 'react-router';
 
-type TLocation = {
-    state?: {
-        from: Location;
-        backgroundLocation: Location;
-    };
-};
-
 const Login: FC = () => {
     const [form, setForm] = useState({ email: '', password: '' });
     const [error, setError] = useState('');
 
     const navigate = useNavigate();
-    const location = useLocation() as TLocation;
-    const fromPage = location.state?.from?.pathname || '/';
 
     const dispatch = useDispatch();
 
@@ -37,7 +28,7 @@ const Login: FC = () => {
             setError('');
             dispatch(
                 loginUserRequest(form, () => {
-                    navigate(0);
+                    navigate('');
                 })
             );
         }

@@ -57,30 +57,21 @@ export const LOADING_USER: 'LOADING_USER' = 'LOADING_USER';
 export const LOADING_USER_COMPLETED: 'LOADING_USER_COMPLETED' = 'LOADING_USER_COMPLETED';
 
 export const loginUserRequest: AppThunk = (form: ILoginUserTypes, callback: () => void) => (dispatch: AppDispatch) => {
-    fetchLoginUserRequest(form)
-        .then((response) => {
-            if (!response.ok) {
-                dispatch(loginFailed());
-                return response.json();
-            } else {
-                return response.json();
-            }
-        })
+    return fetchLoginUserRequest(form)
         .then((userInfo) => {
-            if (userInfo.message === 'email or password are incorrect') {
-                dispatch(loginOrPasswordIncorrect('Почта или пароль введены неверно'));
-            } else {
-                setCookie('accessToken', userInfo.accessToken);
-                localStorage.setItem('refreshToken', userInfo.refreshToken);
-                dispatch(loginSuccess(userInfo));
-                callback();
-            }
+            setCookie('accessToken', userInfo.accessToken);
+            localStorage.setItem('refreshToken', userInfo.refreshToken);
+            dispatch(loginSuccess(userInfo.user));
+            callback();
+        })
+        .catch((e) => {
+            dispatch(loginFailed());
+            dispatch(loginOrPasswordIncorrect('Почта или пароль введены неверно'));
         });
 };
 
-export const registerRequest: AppThunk =
-    (form: IRegisterUserTypes, callback: () => void) => (dispatch: AppDispatch) => {
-        fetchRegisterRequest(form)
+export const registerRequest: AppThunk = (form: IRegisterUserTypes) => (dispatch: AppDispatch) => {
+        return fetchRegisterRequest(form)
             .then((response) => {
                 if (!response.ok) {
                     dispatch(registerUserFailed());
@@ -94,8 +85,7 @@ export const registerRequest: AppThunk =
                     dispatch(registerUserClearTextError());
                     setCookie('accessToken', userInfo.accessToken);
                     localStorage.setItem('refreshToken', userInfo.refreshToken);
-                    dispatch(registerUserSuccess(userInfo));
-                    callback();
+                    dispatch(registerUserSuccess(userInfo.user));
                 } else {
                     if (userInfo.message === 'User already exists') {
                         dispatch(registerUserSetTextError('Пользователь с такой почтой уже зарегистрирован'));
@@ -105,7 +95,7 @@ export const registerRequest: AppThunk =
     };
 
 export const forgotPassword: AppThunk = (form: IForgotPasswordUserTypes) => (dispatch: AppDispatch) => {
-    fetchForgotPasswordRequest(form)
+    return fetchForgotPasswordRequest(form)
         .then((response) => {
             if (!response.ok) {
                 console.log('ошибка при сбросе пароля' + response.ok);
@@ -115,6 +105,7 @@ export const forgotPassword: AppThunk = (form: IForgotPasswordUserTypes) => (dis
             }
         })
         .then((data) => {
+            console.log(data)
             if (!data.success) {
                 console.log('ошибка при сбросе пароля');
             } else {
@@ -122,7 +113,7 @@ export const forgotPassword: AppThunk = (form: IForgotPasswordUserTypes) => (dis
             }
         })
         .catch((e) => {
-            throw new Error(e);
+            console.log(e);
         });
 };
 
@@ -130,7 +121,7 @@ export const resetPassword: AppThunk = (form: IResetPasswordTypes) => (dispatch:
     fetchResetPasswordRequest(form)
         .then((response) => {
             if (response.message === 'Password successfully reset') {
-                dispatch(resetPasswordComplete());
+                dispatch(resetPasswordCompleted());
             }
         })
         .catch((e) => {
@@ -139,14 +130,12 @@ export const resetPassword: AppThunk = (form: IResetPasswordTypes) => (dispatch:
 };
 
 export const getUserInfo: AppThunk = () => (dispatch: AppDispatch) => {
-    checkAuthUser()
+    return checkAuthUser()
         .then((response) => {
-            console.log(response);
-            if (response === undefined) {
-                dispatch(loadingUserComplete());
-            }
-            if (response !== undefined) {
+            if (response) {
                 dispatch(setUserInfo(response));
+            } else {
+                dispatch(loadingUserComplete());
             }
         })
         .catch((e) => {
@@ -155,7 +144,7 @@ export const getUserInfo: AppThunk = () => (dispatch: AppDispatch) => {
 };
 
 export const logOutUser: AppThunk = (callback: () => void) => (dispatch: AppDispatch) => {
-    fetchLogOut()
+    return fetchLogOut()
         .then((response) => {
             if (response.ok) {
                 return response.json();
@@ -167,7 +156,6 @@ export const logOutUser: AppThunk = (callback: () => void) => (dispatch: AppDisp
             if (data.success) {
                 localStorage.removeItem('refreshToken');
                 deleteCookie('accessToken');
-                callback();
                 dispatch(deleteAuth());
             } else {
                 console.log('Произошла ошибка при получении json fetchLogOut');
@@ -224,7 +212,7 @@ export const resetPasswordSuccess = (): IResetPasswordSuccess => ({
     type: RESET_PASSWORD_SUCCESS,
 });
 
-export const resetPasswordComplete = (): IResetPasswordComplete => ({
+export const resetPasswordCompleted = (): IResetPasswordComplete => ({
     type: RESET_PASSWORD_COMPLETED,
 });
 

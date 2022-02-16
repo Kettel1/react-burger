@@ -4,6 +4,7 @@ import {
     GET_ORDER_NUMBER_SUCCESS,
     SET_INITIAL_ORDER_STATE,
 } from '../services/actions/order';
+import { IIngredient } from './ingredientTypes';
 
 export interface IOrderState {
     orderSuccess: boolean;
@@ -11,12 +12,31 @@ export interface IOrderState {
     orderFailed: boolean;
 
     orderName: string;
-    order: IOrderRequest;
+    orderResponse: IOrderSuccess;
+}
+
+export interface IOrderOwner {
+    createdAt: string,
+    email: string,
+    name: string,
+    updatedAt: string
+}
+
+export interface IOrderSuccess {
+    createdAt: string,
+    ingredients: IIngredient[],
+    name: string,
+    number: number,
+    owner: IOrderOwner,
+    price: number,
+    status: 'done' | 'pending' | 'created',
+    updatedAt: string,
+    _id: string
 }
 
 export interface IOrderRequest {
-    number?: number;
-    name?: string;
+    order: IOrderSuccess
+    name: string;
     success: boolean;
 }
 
@@ -26,7 +46,7 @@ export interface IGetOrderNumberRequest {
 
 export interface IGetOrderNumberSuccess {
     readonly type: typeof GET_ORDER_NUMBER_SUCCESS;
-    readonly order: IOrderRequest;
+    readonly order: IOrderSuccess;
     readonly success: boolean;
     readonly name: string;
 }

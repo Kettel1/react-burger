@@ -3,9 +3,8 @@ import { AppDispatch, AppThunk } from '../../types';
 import {
     IGetOrderNumberFailed,
     IGetOrderNumberRequest,
-    IGetOrderNumberSuccess,
-    IOrderRequest,
-    ISetInitialOrderState,
+    IGetOrderNumberSuccess, IOrderSuccess,
+    ISetInitialOrderState
 } from '../../types/ordersTypes';
 import { getCookie } from '../helpers';
 import { updateAccessToken } from '../api';
@@ -15,12 +14,12 @@ export const GET_ORDER_NUMBER_SUCCESS: 'GET_ORDER_NUMBER_SUCCESS' = 'GET_ORDER_N
 export const GET_ORDER_NUMBER_FAILED: 'GET_ORDER_NUMBER_FAILED' = 'GET_ORDER_NUMBER_FAILED';
 export const SET_INITIAL_ORDER_STATE: 'SET_INITIAL_ORDER_STATE' = 'SET_INITIAL_ORDER_STATE';
 
-export const getOrderNumber: AppThunk = (cart: Array<string>) => (dispatch: AppDispatch) => {
+export const getOrderNumber: AppThunk = (cart: Array<string>) => async (dispatch: AppDispatch) => {
     dispatch(getOrderNumberRequest());
     const accessToken: string | undefined = getCookie('accessToken');
 
     if (accessToken) {
-        fetch(API_REACT + '/orders', {
+        return fetch(API_REACT + '/orders', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -37,6 +36,7 @@ export const getOrderNumber: AppThunk = (cart: Array<string>) => (dispatch: AppD
                 }
             })
             .then((orderInfo) => {
+                console.log(orderInfo)
                 dispatch(getOrderNumberSuccess(orderInfo.order, orderInfo.success, orderInfo.name));
             })
             .catch((e) => {
@@ -44,7 +44,7 @@ export const getOrderNumber: AppThunk = (cart: Array<string>) => (dispatch: AppD
                 dispatch(getOrderNumberFailed());
             });
     } else {
-        updateAccessToken();
+        await updateAccessToken();
         return getOrderNumber(cart);
     }
 };
@@ -54,7 +54,7 @@ export const getOrderNumberRequest = (): IGetOrderNumberRequest => ({
 });
 
 export const getOrderNumberSuccess = (
-    order: IOrderRequest,
+    order: IOrderSuccess,
     success: boolean,
     name: string
 ): IGetOrderNumberSuccess => ({

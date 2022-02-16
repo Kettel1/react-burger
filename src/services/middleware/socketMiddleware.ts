@@ -1,5 +1,5 @@
 import { AnyAction, Middleware, MiddlewareAPI } from 'redux';
-import { WsConnectionFeedSuccess, WsGetFeedMessage } from '../actions/feed';
+import { WsConnectionFeedSuccess, WsGetFeedOrders } from '../actions/feed';
 import { getCookie } from '../helpers';
 import { checkAuthUser } from '../api';
 import { AppDispatch, RootState } from '../../types';
@@ -43,7 +43,8 @@ export const socketMiddleware = (wsUrl: string, wsActions: TWsFeedActions): Midd
                     console.log('onmessage');
                     const { data } = event;
                     const parsedData = JSON.parse(data);
-                    dispatch(WsGetFeedMessage(parsedData));
+                    console.log(parsedData)
+                    dispatch(WsGetFeedOrders(parsedData));
                 };
 
                 if (type === onFeedError) {

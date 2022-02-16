@@ -33,7 +33,7 @@ const RenderArticleIngredients = React.memo<IRenderArticleIngredientsProps>(({ i
                 ref={dragRef}
                 className={ArticleIngredients.ingredientLink}
             >
-                {counterIngredients !== 0 && <Counter count={counterIngredients} size="default" />}
+                {counterIngredients !==  0 && <Counter count={counterIngredients} size="default" />}
                 {counterBun(item) !== 0 && <Counter count={counterBun(item)} size="default" />}
 
                 <img src={item.image} alt={item.name} />

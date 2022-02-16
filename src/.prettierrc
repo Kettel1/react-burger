@@ -1,8 +1,8 @@
 {
-  "tabWidth": 4,
-  "singleQuote": true,
-  "bracketSameLine": false,
-  "rangeEnd": 180,
-  "arrowParens": "always",
-  "printWidth": 120
+    "tabWidth": 4,
+    "singleQuote": true,
+    "bracketSameLine": false,
+    "rangeEnd": 180,
+    "arrowParens": "always",
+    "printWidth": 120
 }

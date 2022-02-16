@@ -38,7 +38,7 @@ export const authReducer = (state = initialState, action: TAuthActions): IAuthSt
         case REGISTER_USER_FAILED:
             return { ...initialState, success: false, isLoading: false };
         case REGISTER_USER_SUCCESS:
-            return { ...state, ...action.payload };
+            return { ...state, user: {...action.payload}};
         case REGISTER_USER_SET_TEXT_ERROR:
             return { ...state, errorMessage: action.message };
         case REGISTER_USER_CLEAR_TEXT_ERROR:

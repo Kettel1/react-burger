@@ -70,6 +70,7 @@ const FeedCardOrder: FC<IFeedCardOrder> = ({ time, name, ingredients, orderNumbe
     const getArrayIngredients = useSelector((state) => getArrayIngredientsById(state, ingredients));
 
     let statusElem: string | undefined;
+
     switch (status) {
         case 'done':
             statusElem = 'Выполнен';

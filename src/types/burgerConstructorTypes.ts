@@ -2,11 +2,10 @@ import { IIngredient } from './ingredientTypes';
 import {
     ADD_BUN_TO_CART,
     ADD_INGREDIENTS_TO_CART,
-    DELETE_ALL_INGREDIENTS_FROM_CART,
-    DELETE_INGREDIENTS_FROM_CART,
+    DELETE_INGREDIENTS_FROM_CART, SET_INITIAL_CART_STATE,
     TOTAL_SUM_BUN,
     TOTAL_SUM_INGREDIENTS,
-    UPDATE_INGREDIENTS_IN_CART,
+    UPDATE_INGREDIENTS_IN_CART
 } from '../services/actions/burgerCounstructor';
 
 export interface IIngredientsState {
@@ -47,8 +46,8 @@ export interface IUpdateIngredientsInCart {
     readonly item: IIngredient[];
 }
 
-export interface IDeleteAllIngredientsFromCart {
-    readonly type: typeof DELETE_ALL_INGREDIENTS_FROM_CART;
+export interface ISetInitialCartState {
+    readonly type: typeof SET_INITIAL_CART_STATE;
 }
 
 export type TBurgerConstructorActions =
@@ -58,4 +57,4 @@ export type TBurgerConstructorActions =
     | ITotalSumIngredientsInCart
     | IDeleteIngredientFromCart
     | IUpdateIngredientsInCart
-    | IDeleteAllIngredientsFromCart;
+    | ISetInitialCartState;
