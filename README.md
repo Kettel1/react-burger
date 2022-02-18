@@ -1,6 +1,6 @@
 <img src="https://i.imgur.com/CMXqFFw.png" width="250" align='right' alt='stellar burger'/>
 
-###Stellar Burger
+<h3>Stellar Burger</h3>
 
 ---
 
