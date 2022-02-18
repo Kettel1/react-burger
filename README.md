@@ -1,8 +1,4 @@
-<p>
-<img src="https://i.imgur.com/CMXqFFw.png" width="250" align='right' alt='stellar burger'/>
-
-<h3>Stellar Burger</h3>
-</p>
+#Stellar Burger
 
 ---
 
