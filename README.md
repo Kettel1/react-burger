@@ -1,8 +1,6 @@
-<a href="https://yandex.ru">
-    <img src="https://i.imgur.com/CMXqFFw.png" width='236'>
-</a>
+![alt text](https://i.imgur.com/CMXqFFw.png#alignleft)
 
-# Stellar burger
+
 
 ---
 
