@@ -1,7 +1,5 @@
-<a href='https://react-burger-ya.herokuapp.com/'>
-<h1>Stellar Burger</h1>
-</a>
 
+#[Stellar Burger](https://i.imgur.com/FByzNw1.png)
 
 
 ## Описание
