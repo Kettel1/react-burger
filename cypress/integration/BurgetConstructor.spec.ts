@@ -69,7 +69,6 @@ describe('service is available', () => {
 
         cy.get('.BurgerConstructor_emptyCartTitle__2evLR').should('have.text', 'Корзина пуста')
     })
-
 });
 
 
