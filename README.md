@@ -1,6 +1,6 @@
-![alt text](https://i.imgur.com/CMXqFFw.png)
+<img src="https://i.imgur.com/CMXqFFw.png" width="250" align='right' alt='stellar burger'/>
 
-
+###Stellar Burger
 
 ---
 
