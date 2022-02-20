@@ -14,14 +14,14 @@ const TotalBasketCount = () => {
 
     const { isAuth } = useSelector((state) => state.auth);
     const { totalSumIngredients, totalSumBun, cartIngredients, cartBun } = useSelector((state) => state.cart);
-    const { order, orderSuccess, orderRequest } = useSelector((state) => state.order);
+    const { orderResponse, orderSuccess, orderRequest } = useSelector((state) => state.order);
     const dispatch = useDispatch();
 
-    const MemoTotalSumIngredient = useMemo(() => getTotalSumIngredients(cartIngredients), [cartIngredients]);
+    const memoTotalSumIngredient = useMemo(() => getTotalSumIngredients(cartIngredients), [cartIngredients]);
 
     useEffect(() => {
         if (orderSuccess) {
-            navigate(`/order/${order.number}`, { state: { backgroundLocation: location } });
+            navigate(`/order/${orderResponse.number}`, { state: { backgroundLocation: location } });
         }
         // eslint-disable-next-line
     }, [orderSuccess]);
@@ -29,9 +29,9 @@ const TotalBasketCount = () => {
     useEffect(() => {
         if (cartIngredients.length !== 0 || cartIngredients.length === 0) {
             dispatch(totalSumBunsInCart(cartBun.price));
-            dispatch(totalSumIngredientsInCart(MemoTotalSumIngredient));
+            dispatch(totalSumIngredientsInCart(memoTotalSumIngredient));
         }
-    }, [cartBun, cartBun, dispatch, MemoTotalSumIngredient]);
+    }, [cartBun, cartBun, dispatch, memoTotalSumIngredient]);
 
     const getOrderRequest = () => {
         if (cartBun.hasOwnProperty('name') && cartIngredients.length !== 0 && isAuth) {

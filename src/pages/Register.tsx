@@ -1,14 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import RegisterStyles from './Register.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { registerRequest } from '../services/actions/auth';
-import { useDispatch } from '../services/hooks';
+import { useDispatch, useSelector } from '../services/hooks';
 
 const Register = () => {
     const [form, setForm] = useState({ email: '', password: '', name: '' });
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const {user} = useSelector(state => state.auth)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if(user.email && user.name) {
+            navigate(0)
+        }
+    }, [user])
+
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -16,11 +24,9 @@ const Register = () => {
 
     const handler = (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
-        dispatch(
-            registerRequest(form, () => {
-                navigate('/', { replace: true });
-            })
-        );
+        if(form.email && form.password) {
+            dispatch(registerRequest(form));
+        }
     };
 
     return (

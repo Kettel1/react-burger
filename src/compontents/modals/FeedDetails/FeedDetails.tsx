@@ -44,13 +44,14 @@ const FeedIngredientsItem: FC<{
 };
 
 const FeedDetails: FC<{ orders?: IWebsocketOrders[] }> = ({ orders }) => {
-    const { state } = useLocation();
+    const { state, pathname } = useLocation();
 
     const dispatch = useDispatch();
 
     useEffect(() => {
         // Проверка если пользователь по прямой ссылке
-        if (state === null) {
+        const getPathFromUserCome = pathname.split('/')[1]
+        if (state === null && getPathFromUserCome === 'profile') {
             dispatch({ type: 'WS_CONNECTION_FEED_USER_START' });
         }
     }, [state, dispatch]);

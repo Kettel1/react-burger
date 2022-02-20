@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from '../../../services/hooks';
 
 const OrderDetails = () => {
-    const orderState = useSelector((state) => state.order);
+    const {orderSuccess, orderResponse, orderRequest} = useSelector((state) => state.order);
     const cartState = useSelector((state) => state.cart);
     const { isAuth } = useSelector((state) => state.auth);
 
@@ -24,11 +24,11 @@ const OrderDetails = () => {
 
     return (
         <>
-            {orderState.orderSuccess &&
+            {orderSuccess &&
             cartState.cartBun.hasOwnProperty('name') &&
             cartState.cartIngredients.length !== 0 ? (
                 <section className={OrderDetailsStyles.container}>
-                    <h1 className={OrderDetailsStyles.id}>{orderState.order.number}</h1>
+                    <h1 className={OrderDetailsStyles.id}>{orderResponse.number}</h1>
                     <p className={OrderDetailsStyles.text}>идентификатор заказа</p>
                     <img className={OrderDetailsStyles.image} src={done} alt={'Готово'} />
                     <p className={OrderDetailsStyles.orderMessagePrimary}>Ваш Заказ начали готовить</p>

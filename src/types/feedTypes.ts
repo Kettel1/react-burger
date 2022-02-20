@@ -1,11 +1,11 @@
 import {
-    GET_ORDER_BY_ID,
+    GET_ALL_ORDERS,
     WS_CONNECTION_FEED_CLOSED,
     WS_CONNECTION_FEED_ERROR,
     WS_CONNECTION_FEED_START,
     WS_CONNECTION_FEED_SUCCESS,
     WS_CONNECTION_FEED_USER_START,
-    WS_GET_FEED_ORDERS,
+    WS_GET_FEED_ORDERS
 } from '../services/actions/feed';
 
 export interface IWebsocketOrders {
@@ -43,7 +43,7 @@ export interface IWsConnectionFeedClosed {
 }
 
 export interface IGetOrderById {
-    readonly type: typeof GET_ORDER_BY_ID;
+    readonly type: typeof GET_ALL_ORDERS;
     readonly payload: IWebsocketOrders[];
 }
 

@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { Response } from 'node-fetch';
 
 export function debounce(func: any, wait?: number, immediate?: string) {
     let timeout: any;
@@ -7,7 +8,7 @@ export function debounce(func: any, wait?: number, immediate?: string) {
         const context = this;
         const args: any = arguments;
 
-        const later = function () {
+        const later = function() {
             timeout = null;
             if (!immediate) func.apply(context, args);
         };
@@ -70,4 +71,10 @@ export const getTimeFromTimestamp = (orderTimeISO: string | undefined): string =
     } else {
         return `${yesterdayMessageFromOrder}, ${orderTime}`;
     }
+};
+
+
+//TODO Типизация
+export const getResponse = (res: any) => {
+    return res.ok ? res.json() : Promise.reject(res);
 };

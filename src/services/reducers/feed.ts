@@ -1,5 +1,5 @@
 import {
-    GET_ORDER_BY_ID,
+    GET_ALL_ORDERS,
     WS_CONNECTION_FEED_CLOSED,
     WS_CONNECTION_FEED_SUCCESS,
     WS_GET_FEED_ORDERS,
@@ -20,14 +20,14 @@ export const feedReducer = (state = initialState, action: TFeedActions): IFeedSt
         case WS_CONNECTION_FEED_SUCCESS:
             return { ...state, wsConnected: true };
 
+        case WS_GET_FEED_ORDERS:
+            return { ...state, wsConnected: true, ...action.payload };
+
+        case GET_ALL_ORDERS:
+            return { ...state, orders: [...action.payload] };
+
         case WS_CONNECTION_FEED_CLOSED:
             return { ...initialState };
-
-        case WS_GET_FEED_ORDERS:
-            return { ...state, ...action.payload };
-
-        case GET_ORDER_BY_ID:
-            return { ...state, orders: [...action.payload] };
 
         default:
             return state;

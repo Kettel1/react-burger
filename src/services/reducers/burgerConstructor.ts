@@ -1,7 +1,7 @@
 import {
     ADD_BUN_TO_CART,
     ADD_INGREDIENTS_TO_CART,
-    DELETE_ALL_INGREDIENTS_FROM_CART,
+    SET_INITIAL_CART_STATE,
     DELETE_INGREDIENTS_FROM_CART,
     TOTAL_SUM_BUN,
     TOTAL_SUM_INGREDIENTS,
@@ -60,11 +60,9 @@ export const constructorReducer = (state = initialState, action: TBurgerConstruc
                 cartIngredients: [...action.item],
             };
 
-        case DELETE_ALL_INGREDIENTS_FROM_CART:
+        case SET_INITIAL_CART_STATE:
             return {
-                ...state,
-                cartIngredients: [],
-                cartBun: {} as IIngredient,
+                ...initialState,
             };
 
         default:

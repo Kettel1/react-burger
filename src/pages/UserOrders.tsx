@@ -10,6 +10,7 @@ const UserOrders = () => {
     const { orders } = useSelector((state) => state.allFeed);
 
     useEffect(() => {
+
         dispatch({ type: 'WS_CONNECTION_FEED_USER_START' });
 
         return () => {

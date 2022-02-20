@@ -7,21 +7,18 @@ import {
     IGetAllIngredientsSuccess,
 } from '../../types/burgerIngredientsTypes';
 import { IIngredient } from '../../types/ingredientTypes';
+import { fetchIngredients } from '../api';
 
 export const GET_ALL_INGREDIENTS_SUCCESS: 'GET_ALL_INGREDIENTS_SUCCESS' = 'GET_ALL_INGREDIENTS_SUCCESS';
 export const GET_ALL_INGREDIENTS_REQUEST: 'GET_ALL_INGREDIENTS_REQUEST' = 'GET_ALL_INGREDIENTS_REQUEST';
 export const GET_ALL_INGREDIENTS_FAILED: 'GET_ALL_INGREDIENTS_FAILED' = 'GET_ALL_INGREDIENTS_FAILED';
 
-export const fetchIngredients: AppThunk = () => (dispatch: AppDispatch) => {
+
+
+export const getIngredients: AppThunk = () => (dispatch: AppDispatch) => {
     dispatch(getAllIngredientsRequest());
 
-    fetch(API_REACT + '/ingredients')
-        .then((response) => {
-            if (!response.ok) {
-                dispatch(getAllIngredientsFailed());
-            }
-            return response.json();
-        })
+    return fetchIngredients()
         .then((ingredients) => {
             dispatch(getAllIngredientsSuccess(ingredients.data));
         })

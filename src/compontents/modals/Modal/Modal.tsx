@@ -5,7 +5,7 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
 import { CSSTransition } from 'react-transition-group';
 
-import { deleteAllIngredientsFromCart } from '../../../services/actions/burgerCounstructor';
+import { setInitialCartState } from '../../../services/actions/burgerCounstructor';
 import { useDispatch, useSelector } from '../../../services/hooks';
 
 interface IModal {
@@ -25,7 +25,7 @@ const Modal: FC<IModal> = ({ children, onCloseModal }) => {
         // Таймаут для корректной работы анимации
         setTimeout(() => {
             if (orderState.orderSuccess) {
-                dispatch(deleteAllIngredientsFromCart());
+                dispatch(setInitialCartState());
             }
             onCloseModal();
         }, 200);

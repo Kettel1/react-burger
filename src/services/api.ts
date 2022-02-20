@@ -1,15 +1,23 @@
-import { deleteCookie, getCookie, setCookie } from './helpers';
+import { deleteCookie, getCookie, getResponse, setCookie } from './helpers';
 import { API_REACT } from './url';
 import {
     CustomResponse,
-    IForgotPasswordUserTypes,
+    IForgotPasswordUserTypes, IIngredient,
     ILoginUserTypes,
     IRegisterUserTypes,
     IResetPasswordTypes,
-    IUpdateUserTypes,
+    IUpdateUserTypes
 } from '../types/ingredientTypes';
 
-export const checkAuthUser = async (): Promise<void> => {
+
+export const fetchIngredients = async (): Promise<{success:boolean, data: IIngredient[]}> => {
+    return fetch(API_REACT + '/ingredients', {
+        method: "GET"
+    })
+        .then(getResponse)
+}
+//TODO Типизация
+export const checkAuthUser = async (): Promise<any> => {
     const accessToken = getCookie('accessToken');
     if (accessToken) {
         const responseFromServer = await fetch(API_REACT + '/auth/user', {
@@ -19,14 +27,15 @@ export const checkAuthUser = async (): Promise<void> => {
             credentials: 'same-origin',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: accessToken,
+                Authorization: accessToken
             },
             redirect: 'follow',
-            referrerPolicy: 'no-referrer',
+            referrerPolicy: 'no-referrer'
         });
+
         const responseData = await responseFromServer.json();
 
-        console.log(responseData);
+
 
         if (responseFromServer.ok) {
             console.log('Токен ок');
@@ -50,11 +59,11 @@ export const updateAccessToken = async () => {
         const responseFromServer = await fetch(API_REACT + '/auth/token', {
             method: 'post',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                token: refreshToken,
-            }),
+                token: refreshToken
+            })
         });
         console.log('refreshToken Есть');
 
@@ -88,11 +97,11 @@ export const fetchForgotPasswordRequest = async (form: IForgotPasswordUserTypes)
     return await fetch(API_REACT + '/password-reset', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            email: form.email,
-        }),
+            email: form.email
+        })
     });
 };
 
@@ -103,12 +112,12 @@ export const fetchResetPasswordRequest = async (form: IResetPasswordTypes): Prom
         cache: 'no-cache',
         credentials: 'same-origin',
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify({
             password: form.password,
-            token: form.token,
-        }),
+            token: form.token
+        })
     });
 };
 
@@ -119,12 +128,13 @@ export const fetchLoginUserRequest = async (form: ILoginUserTypes) => {
         cache: 'no-cache',
         credentials: 'same-origin',
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
         },
         redirect: 'follow',
         referrerPolicy: 'no-referrer',
-        body: JSON.stringify(form),
-    });
+        body: JSON.stringify(form)
+    })
+        .then(getResponse)
 };
 
 export const fetchRegisterRequest = async (form: IRegisterUserTypes) => {
@@ -134,11 +144,11 @@ export const fetchRegisterRequest = async (form: IRegisterUserTypes) => {
         cache: 'no-cache',
         credentials: 'same-origin',
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
         },
         redirect: 'follow',
         referrerPolicy: 'no-referrer',
-        body: JSON.stringify(form),
+        body: JSON.stringify(form)
     });
 };
 
@@ -150,19 +160,18 @@ export const fetchLogOut = async () => {
         cache: 'no-cache',
         credentials: 'same-origin',
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
         },
         redirect: 'follow',
         referrerPolicy: 'no-referrer',
         body: JSON.stringify({
-            token: refreshToken,
-        }),
+            token: refreshToken
+        })
     });
 };
 
 export const fetchUpdateUser = async (form: IUpdateUserTypes, password?: string) => {
     const accessToken = getCookie('accessToken');
-
     if (accessToken) {
         const responseFromServer = await fetch(API_REACT + '/auth/user', {
             method: 'PATCH',
@@ -171,15 +180,15 @@ export const fetchUpdateUser = async (form: IUpdateUserTypes, password?: string)
             credentials: 'same-origin',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: accessToken,
+                Authorization: accessToken
             },
             redirect: 'follow',
             referrerPolicy: 'no-referrer',
             body: JSON.stringify({
                 email: form?.email,
                 password: password,
-                name: form?.name,
-            }),
+                name: form?.name
+            })
         });
         const responseData = await responseFromServer.json();
 

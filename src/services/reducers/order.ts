@@ -4,7 +4,7 @@ import {
     GET_ORDER_NUMBER_SUCCESS,
     SET_INITIAL_ORDER_STATE,
 } from '../actions/order';
-import { IOrderRequest, IOrderState, TOrderActions } from '../../types/ordersTypes';
+import { IOrderRequest, IOrderState, IOrderSuccess, TOrderActions } from '../../types/ordersTypes';
 
 const initialState: IOrderState = {
     orderSuccess: false,
@@ -12,7 +12,7 @@ const initialState: IOrderState = {
     orderFailed: false,
 
     orderName: '',
-    order: {} as IOrderRequest,
+    orderResponse: {} as IOrderSuccess,
 };
 
 export const orderReducer = (state = initialState, action: TOrderActions): IOrderState => {
@@ -27,7 +27,7 @@ export const orderReducer = (state = initialState, action: TOrderActions): IOrde
             return {
                 ...state,
                 orderRequest: false,
-                order: action.order,
+                orderResponse: action.order,
                 orderSuccess: action.success,
                 orderName: action.name,
             };

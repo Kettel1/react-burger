@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { constructorReducer } from './burgerCounstructor';
+import { constructorReducer } from './burgerConstructor';
 import { ingredientsReducer } from './burgerIngredients';
 import { orderReducer } from './order';
 import { authReducer } from './auth';
