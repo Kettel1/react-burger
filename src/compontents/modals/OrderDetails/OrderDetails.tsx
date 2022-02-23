@@ -38,10 +38,12 @@ const OrderDetails = () => {
                 <section className={OrderDetailsStyles.errorContainer}>
                     <h1 className={OrderDetailsStyles.errorTitle}>Ошибка</h1>
                     <p className={OrderDetailsStyles.errorText}>
+
                         {/*Проверка на отсутствие ингредиентов и булочки*/}
                         {cartState.cartIngredients.length === 0 &&
-                            !cartState.cartBun.hasOwnProperty('name') &&
-                            'Выберете булочку, а затем ингредиенты'}
+                        !cartState.cartBun.hasOwnProperty('name') &&
+                        'Выберете булочку, а затем ингредиенты'}
+
                         {/*Проверка на отсутсвтие ингредиентов и наличие булочки*/}
                         {cartState.cartIngredients.length === 0 &&
                         cartState.cartBun.hasOwnProperty('name') &&

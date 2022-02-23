@@ -30,7 +30,7 @@ const BurgerConstructor: FC = () => {
                 const uniqueId: string = uuid();
                 dispatch(addIngredientsToCart(item, uniqueId));
             } else {
-                navigate('/order/error', { state: { backgroundLocation: location } });
+                navigate('/ingredients/error', { state: { backgroundLocation: location } });
             }
         },
         collect: (monitor) => ({

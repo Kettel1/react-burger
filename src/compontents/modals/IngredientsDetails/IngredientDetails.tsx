@@ -8,7 +8,22 @@ const IngredientDetails: FC = () => {
 
     const { ingredients } = useSelector((state) => state.ingredients);
 
+    const { cartIngredients } = useSelector((state) => state.cart);
+
     const currentIngredient = ingredients.find((ingredient) => ingredient._id === id);
+
+    if(!cartIngredients.length) {
+        return (
+            <section className={IngredientDetailsStyles.errorContainer}>
+                <p className={IngredientDetailsStyles.errorTitle}>
+                    Ошибка
+                </p>
+                <p className={IngredientDetailsStyles.errorText}>
+                    Сначала необходимо выбрать булочку
+                </p>
+            </section>
+        )
+    }
 
     return currentIngredient ? (
         <section className={IngredientDetailsStyles.container}>

@@ -88,3 +88,38 @@
     font-size: 12px;
     margin-top: 20px;
 }
+
+.errorContainer {
+    composes: container;
+    padding: 75px 65px;
+}
+
+
+.errorTitle {
+    font-size: 34px;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    width: 600px;
+}
+
+.errorText {
+    font-size: 24px;
+    text-align: center;
+    color: white;
+    margin-top: 35px;
+    font-weight: normal;
+}
+
+.errorAuthTitle {
+    font-size: 24px;
+    color: #8585ad;
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.errorAuthLink {
+    font-size: 18px;
+    color: #4c4cff;
+    text-decoration: none;
+}
