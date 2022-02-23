@@ -26,6 +26,7 @@ export const constructorReducer = (state = initialState, action: TBurgerConstruc
             return {
                 ...state,
                 cartBun: action.bun,
+                totalSumBun: action.bun.price * 2
             };
 
         case ADD_INGREDIENTS_TO_CART:

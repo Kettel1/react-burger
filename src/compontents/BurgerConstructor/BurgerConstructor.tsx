@@ -10,19 +10,27 @@ import { debounce } from '../../services/helpers';
 import { IIngredient } from '../../types/ingredientTypes';
 import { addBunToCart, addIngredientsToCart, updateIngredientsInCart } from '../../services/actions/burgerCounstructor';
 import { useDispatch, useSelector } from '../../services/hooks';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const BurgerConstructor: FC = () => {
+    const navigate = useNavigate()
     const cartState = useSelector((state) => state.cart);
+
+    const location = useLocation();
 
     const dispatch = useDispatch();
     const [{ isHover }, dropTarget] = useDrop({
         accept: 'ingredient',
         drop: (item: IIngredient) => {
-            if (item.type === 'bun' && !cartState.cartBun.hasOwnProperty('name')) {
+            // Если тип ингредиента булочка то тогда добавляем в корзину
+            if (item.type === 'bun') {
                 dispatch(addBunToCart(item));
+                // Если тип игредиента не булочка, и булочка имеется в корзине
             } else if (item.type !== 'bun' && cartState.cartBun.hasOwnProperty('name')) {
                 const uniqueId: string = uuid();
                 dispatch(addIngredientsToCart(item, uniqueId));
+            } else {
+                navigate('/order/error', { state: { backgroundLocation: location } });
             }
         },
         collect: (monitor) => ({
@@ -61,13 +69,13 @@ const BurgerConstructor: FC = () => {
 
     const ingredientsIsDragging = isHover ? BurgerConstructorStyles.draggingContainer : BurgerConstructorStyles.test;
 
-    const highLightBorder =
+    const highlightBorder =
         !isHover &&
         cartState.cartIngredients.length === 0 &&
         !cartState.cartBun.hasOwnProperty('name') &&
         BurgerConstructorStyles.dashedContainer;
 
-    const assign = `${ingredientsIsDragging ? ingredientsIsDragging : ''} ${highLightBorder ? highLightBorder : ''}`;
+    const assign = `${ingredientsIsDragging ? ingredientsIsDragging : ''} ${highlightBorder ? highlightBorder : ''}`;
 
     return (
         <section ref={dropTarget} className={assign}>
@@ -99,6 +107,7 @@ const BurgerConstructor: FC = () => {
 
                 {cartState.cartBun.hasOwnProperty('name') && renderBun('bottom')}
             </div>
+
 
             {cartState.cartBun.hasOwnProperty('name') && <TotalBasketCount />}
         </section>

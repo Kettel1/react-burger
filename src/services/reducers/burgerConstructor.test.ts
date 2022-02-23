@@ -29,7 +29,8 @@ describe('constructor reducer', () => {
     it('should return add bun to cart', () => {
         expect(constructorReducer(undefined, addBunToCart(mockBun))).toEqual({
             ...initialState,
-            cartBun: {...mockBun}
+            cartBun: {...mockBun},
+            totalSumBun: mockBun.price * 2
         })
     })
 

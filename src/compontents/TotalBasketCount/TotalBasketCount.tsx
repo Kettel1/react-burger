@@ -3,9 +3,14 @@ import React, { useEffect, useMemo } from 'react';
 import TotalBasketCountStyles from './TotalBasketCount.module.scss';
 import { getOrderNumber } from '../../services/actions/order';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { totalSumBunsInCart, totalSumIngredientsInCart } from '../../services/actions/burgerCounstructor';
+import {
+    setInitialCartState,
+    totalSumIngredientsInCart
+} from '../../services/actions/burgerCounstructor';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { getTotalSumIngredients, getAllIdIngredientsInCart } from '../../services/selectors/ingredientsSelectors';
+import trashCanIcon from '../../images/trash.svg'
+
 
 const TotalBasketCount = () => {
     const navigate = useNavigate();
@@ -28,10 +33,9 @@ const TotalBasketCount = () => {
 
     useEffect(() => {
         if (cartIngredients.length !== 0 || cartIngredients.length === 0) {
-            dispatch(totalSumBunsInCart(cartBun.price));
             dispatch(totalSumIngredientsInCart(memoTotalSumIngredient));
         }
-    }, [cartBun, cartBun, dispatch, memoTotalSumIngredient]);
+    }, [cartBun, dispatch, memoTotalSumIngredient, ]);
 
     const getOrderRequest = () => {
         if (cartBun.hasOwnProperty('name') && cartIngredients.length !== 0 && isAuth) {
@@ -42,8 +46,17 @@ const TotalBasketCount = () => {
         }
     };
 
+    const setClearCart = () => {
+        dispatch(setInitialCartState())
+    }
+
     return (
         <div className={TotalBasketCountStyles.container}>
+             <button onClick={setClearCart} className={TotalBasketCountStyles.clearCart}>
+                 <span className={TotalBasketCountStyles.clearCartTooltip}>Очистить корзину</span>
+                 <img src={trashCanIcon} height='20' width='20'/>
+             </button>
+
             <div className={TotalBasketCountStyles.priceBlock}>
                 <span className={TotalBasketCountStyles.priceValue}>{totalSumIngredients + totalSumBun}</span>
                 <CurrencyIcon type="primary" />

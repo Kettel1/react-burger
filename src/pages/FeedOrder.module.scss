@@ -1,0 +1,7 @@
+.container {
+    & > section {
+        background: none;
+        box-shadow: none;
+        margin-top: 80px;
+    }
+}

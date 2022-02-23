@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import IngredientDetailsStyles from './IngredientsDetails.module.scss';
 import { useParams } from 'react-router-dom';
-import { IIngredient } from '../../../types/ingredientTypes';
 import { useSelector } from '../../../services/hooks';
 
 const IngredientDetails: FC = () => {
@@ -9,9 +8,7 @@ const IngredientDetails: FC = () => {
 
     const { ingredients } = useSelector((state) => state.ingredients);
 
-    const currentIngredient: IIngredient | undefined = ingredients.find(
-        (ingredient: IIngredient) => ingredient._id === id
-    );
+    const currentIngredient = ingredients.find((ingredient) => ingredient._id === id);
 
     return currentIngredient ? (
         <section className={IngredientDetailsStyles.container}>
@@ -42,6 +39,8 @@ const IngredientDetails: FC = () => {
                     </li>
                 </ul>
             </div>
+
+            <p className={IngredientDetailsStyles.description}>Для добавление ингредиента в коризну, перетащите его вправо</p>
         </section>
     ) : (
         <p>Произошла ошибка</p>

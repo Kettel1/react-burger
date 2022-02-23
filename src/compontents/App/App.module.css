@@ -6,31 +6,6 @@
     margin: 40px auto 0 auto;
 }
 
-.pageEnterActive {
-    opacity: 0;
-    transform: scale(1.1);
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.pageEnterDone {
-    opacity: 1;
-    transform: scale(1);
-    transition: opacity 100ms, transform 100ms;
-}
-
-.pageExitActive {
-    opacity: 0;
-    transform: scale(1);
-}
-
-.pageExitDone {
-    opacity: 0;
-    transform: scale(0.9);
-    transition: opacity 100ms, transform 100ms;
-}
-
 .loader {
     top: 0;
     left: 0;
@@ -38,4 +13,5 @@
     height: 100%;
     position: absolute;
     z-index: 1000;
+    cursor: progress;
 }
